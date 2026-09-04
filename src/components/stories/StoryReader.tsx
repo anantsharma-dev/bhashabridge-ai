@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Volume2, Sparkles, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Volume2, Sparkles, BookOpen, X } from 'lucide-react';
 import { StoryBook } from '../ui/DashboardIllustrations';
 import { JoharHornbill } from '../ui/JoharHornbill';
+import { speechSynthesisService } from '../../services/speechSynthesis';
+import { languageDetector } from '../../services/languageDetector';
+
+import type { BilingualStory } from '../../services/storiesService';
 
 export interface StoryWord {
   text: string;
@@ -19,6 +23,7 @@ export interface StoryPage {
 }
 
 export interface StoryReaderProps {
+  story?: BilingualStory;
   storyTitle?: string;
   activeWordIndex?: number;
   isPlaying?: boolean;
@@ -28,6 +33,7 @@ export interface StoryReaderProps {
 }
 
 export const StoryReader: React.FC<StoryReaderProps> = ({
+  story,
   storyTitle = 'The Clever Fox & the Sacred Hornbill • ᱛᱟᱹᱨᱩᱵ ᱟᱨ ᱢᱤᱨᱩ',
   activeWordIndex = 2,
   isPlaying = false,
@@ -40,39 +46,43 @@ export const StoryReader: React.FC<StoryReaderProps> = ({
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const pages: StoryPage[] = [
-    {
-      pageNumber: 1,
-      illustration: <StoryBook size={140} />,
-      hindiParagraph: [
-        'एक', 'बार', 'की', 'बात', 'है,', 'दुमका', 'के', 'हरे-भरे', 'जंगल', 'में',
-        'एक', 'सुंदर', 'हॉर्नबिल', 'पक्षी', 'रहता', 'था।'
-      ],
-      santhaliParagraph: [
-        'ᱢᱤᱫ', 'ᱫᱷᱟᱣ', 'ᱨᱮᱭᱟᱜ', 'ᱠᱟᱛᱷᱟ', 'ᱠᱟᱱᱟ,', 'ᱫᱩᱢᱠᱟᱹ', 'ᱵᱤᱨ', 'ᱨᱮ',
-        'ᱢᱤᱫ', 'ᱪᱮᱦᱨᱟ', 'ᱦᱟᱹᱛᱤ-ᱢᱤᱨᱩ', 'ᱛᱟᱦᱮᱸ', 'ᱠᱟᱱᱟᱭ ᱾'
-      ],
-      santhaliLatin: 'Mid dhaw reyag katha kana, Dumka bir re mid chehra hati-miru tahen kanay.',
-    },
-    {
-      pageNumber: 2,
-      illustration: <StoryBook size={140} />,
-      hindiParagraph: [
-        'वह', 'रोज', 'सुबह', 'साल', 'के', 'पेड़ों', 'पर', 'बैठकर',
-        'मधुर', 'गीत', 'गाता', 'था।'
-      ],
-      santhaliParagraph: [
-        'ᱩᱱᱤ', 'ᱫᱚ', 'ᱫᱤᱱᱟᱹᱢ', 'ᱥᱮᱛᱟᱜ', 'ᱥᱟᱨᱡᱚᱢ', 'ᱫᱟᱨᱮ', 'ᱨᱮ', 'ᱫᱩᱲᱩᱵ',
-        'ᱠᱟᱛᱮ', 'ᱥᱮᱨᱮᱧ', 'ᱮ', 'ᱥᱮᱨᱮᱧ-ᱮᱫ', 'ᱛᱟᱦᱮᱸᱫ ᱾'
-      ],
-      santhaliLatin: 'Uni do dinam setag sarjom dare re durub kate serenj-ed tahend.',
-    },
-  ];
+  React.useEffect(() => {
+    setCurrentPage(0);
+    setIsCompleted(false);
+    setSelectedWord(null);
+  }, [story?.id]);
 
-  const currentPageData = pages[currentPage];
+  const storyPages = story?.pages || [];
+  const activeTitle = story
+    ? `${story.titleHindi} • ${story.titleSanthali}`
+    : storyTitle;
+
+  const currentPageData = storyPages[currentPage]
+    ? {
+        pageNumber: storyPages[currentPage].pageNumber,
+        illustration: <StoryBook size={140} />,
+        hindiParagraph: storyPages[currentPage].paragraphHindi.split(/\s+/),
+        santhaliParagraph: storyPages[currentPage].paragraphSanthali.split(/\s+/),
+        santhaliLatin: storyPages[currentPage].paragraphRoman,
+      }
+    : {
+        pageNumber: 1,
+        illustration: <StoryBook size={140} />,
+        hindiParagraph: [
+          'एक', 'बार', 'की', 'बात', 'है,', 'दुमका', 'के', 'हरे-भरे', 'जंगल', 'में',
+          'एक', 'सुंदर', 'हॉर्नबिल', 'पक्षी', 'रहता', 'था।'
+        ],
+        santhaliParagraph: [
+          'ᱢᱤᱫ', 'ᱫᱷᱟᱣ', 'ᱨᱮᱭᱟᱜ', 'ᱠᱟᱛᱷᱟ', 'ᱠᱟᱱᱟ,', 'ᱫᱩᱢᱠᱟᱹ', 'ᱵᱤᱨ', 'ᱨᱮ',
+          'ᱢᱤᱫ', 'ᱪᱮᱦᱨᱟ', 'ᱦᱟᱹᱛᱤ-ᱢᱤᱨᱩ', 'ᱛᱟᱦᱮᱸ', 'ᱠᱟᱱᱟᱭ ᱾'
+        ],
+        santhaliLatin: 'Mid dhaw reyag katha kana, Dumka bir re mid chehra hati-miru tahen kanay.',
+      };
+
+  const totalPages = Math.max(1, storyPages.length);
 
   const handleNextPage = () => {
-    if (currentPage < pages.length - 1) {
+    if (currentPage < totalPages - 1) {
       setCurrentPage((prev) => prev + 1);
       setSelectedWord(null);
     } else {
@@ -105,11 +115,11 @@ export const StoryReader: React.FC<StoryReaderProps> = ({
               Interactive Reader
             </span>
             <span className="text-xs font-medium text-slate-500">
-              Page {currentPage + 1} of {pages.length}
+              Page {currentPage + 1} of {totalPages}
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-baloo">
-            {storyTitle}
+            {activeTitle}
           </h2>
         </div>
 
@@ -245,27 +255,52 @@ export const StoryReader: React.FC<StoryReaderProps> = ({
               )}
             </div>
 
-            {/* Word Dictionary Popup when word is tapped */}
+            {/* Word Helper Popup when word is tapped */}
             {selectedWord && (
               <motion.div
-                initial={{ opacity: 0, y: 6 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-3.5 rounded-2xl bg-[#EFF6FF] border border-blue-200 flex items-center justify-between gap-3 text-xs"
+                className="p-4 rounded-2xl bg-[#EFF6FF] border-2 border-blue-200 flex flex-wrap items-center justify-between gap-3 text-xs shadow-xs"
               >
-                <div className="flex items-center gap-2">
-                  <Sparkles size={16} className="text-blue-600 shrink-0" />
-                  <span className="font-bold text-slate-800">
-                    Pronunciation helper for: <strong className="text-blue-900 text-sm">{selectedWord}</strong>
-                  </span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 shrink-0">
+                    <Sparkles size={16} />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-blue-700 block">
+                      Tapped Word • शब्द उच्चारण
+                    </span>
+                    <strong className="text-blue-950 text-base font-bold">
+                      {selectedWord.replace(/[,.!?।॥]/g, '')}
+                    </strong>
+                  </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => alert(`Pronouncing word: ${selectedWord}`)}
-                  className="px-3 py-1.5 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center gap-1 cursor-pointer hover:bg-blue-700"
-                >
-                  <Volume2 size={13} />
-                  <span>Hear Word</span>
-                </button>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cleanWord = selectedWord.replace(/[,.!?।॥]/g, '').trim();
+                      const detected = languageDetector.detectLanguage(cleanWord);
+                      const langCode = detected.language === 'santhali' ? 'santhali' : 'hindi';
+                      speechSynthesisService.speak(cleanWord, langCode);
+                    }}
+                    className="min-h-[40px] px-4 py-1.5 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer hover:bg-blue-700 shadow-xs"
+                    aria-label="Pronounce word"
+                  >
+                    <Volume2 size={15} />
+                    <span>Pronounce</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedWord(null)}
+                    className="w-8 h-8 rounded-full bg-blue-100/70 hover:bg-blue-200 text-blue-800 flex items-center justify-center cursor-pointer transition-colors"
+                    aria-label="Close word popup"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
               </motion.div>
             )}
 
@@ -282,7 +317,7 @@ export const StoryReader: React.FC<StoryReaderProps> = ({
               </button>
 
               <span className="text-xs font-bold text-slate-500">
-                Page {currentPage + 1} of {pages.length}
+                Page {currentPage + 1} of {totalPages}
               </span>
 
               <button
@@ -290,7 +325,7 @@ export const StoryReader: React.FC<StoryReaderProps> = ({
                 onClick={handleNextPage}
                 className="min-h-[48px] px-6 py-2.5 rounded-2xl bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
-                <span>{currentPage < pages.length - 1 ? 'Next Page' : 'Finish Story 🏆'}</span>
+                <span>{currentPage < totalPages - 1 ? 'Next Page' : 'Finish Story 🏆'}</span>
                 <ChevronRight size={16} />
               </button>
             </div>

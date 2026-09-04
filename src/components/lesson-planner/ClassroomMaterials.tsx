@@ -1,7 +1,10 @@
 import React from 'react';
 import { Download, Save, Copy, Users, BookOpen, FileText, Music, Box, BookMarked } from 'lucide-react';
 
+import type { GeneratedLessonPlan } from '../../services/lessonPlannerService';
+
 export interface ClassroomMaterialsProps {
+  plan?: GeneratedLessonPlan;
   onSaveOffline?: () => void;
   onDownloadPdf?: () => void;
   onAssignToClass?: () => void;
@@ -10,12 +13,22 @@ export interface ClassroomMaterialsProps {
 }
 
 export const ClassroomMaterials: React.FC<ClassroomMaterialsProps> = ({
+  plan,
   onSaveOffline,
   onDownloadPdf,
   onAssignToClass,
   onDuplicate,
   className = '',
 }) => {
+  const customMaterials = plan
+    ? Array.from(new Set(plan.phases.flatMap((p) => p.materialsNeeded || []))).map((mat, idx) => ({
+        name: mat,
+        count: 'Required for Class',
+        icon: idx % 2 === 0 ? <Box size={16} className="text-emerald-600" /> : <BookOpen size={16} className="text-amber-600" />,
+        tag: 'Phase Item',
+        color: idx % 2 === 0 ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-amber-50 border-amber-200 text-amber-900',
+      }))
+    : [];
   const materials = [
     {
       name: 'Animals Bilingual Flashcard Pack',
@@ -110,7 +123,7 @@ export const ClassroomMaterials: React.FC<ClassroomMaterialsProps> = ({
 
       {/* Materials List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {materials.map((m, idx) => (
+        {(customMaterials.length > 0 ? customMaterials : materials).map((m, idx) => (
           <div
             key={idx}
             className="p-3.5 rounded-2xl bg-[#FFFDF7] border border-slate-200/80 flex items-center justify-between gap-3 shadow-2xs"

@@ -70,7 +70,7 @@ export const Dashboard: React.FC = () => {
       bgColor: 'bg-[#FAF5FF]',
       borderColor: 'border-purple-200/80',
       buttonBg: '#8B5CF6',
-      route: '/offline-library',
+      route: '/stories',
     },
   ];
 

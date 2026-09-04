@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mic, Square, Loader2, Volume2, Activity } from 'lucide-react';
+import { Mic, Square, Loader2, Volume2, Activity, AlertCircle } from 'lucide-react';
 
-export type VoiceState = 'idle' | 'listening' | 'processing' | 'speaking';
+export type VoiceState = 'idle' | 'listening' | 'processing' | 'speaking' | 'error';
 
 export interface VoiceRecorderProps {
   state: VoiceState;
@@ -66,6 +66,13 @@ export const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
       label: 'Speaking in Santali...',
       hindiLabel: 'संथाली में बोल रहे हैं...',
     },
+    error: {
+      bg: 'bg-[#FFFBEB]',
+      border: 'border-amber-300',
+      button: 'bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/25',
+      label: 'Could not hear clearly',
+      hindiLabel: 'कृपया दोबारा बोलें (Tap to retry)',
+    },
   };
 
   const currentConf = stateColors[state];
@@ -99,6 +106,7 @@ export const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
           {state === 'listening' && <Square size={34} className="fill-white" />}
           {state === 'processing' && <Loader2 size={38} className="animate-spin" />}
           {state === 'speaking' && <Volume2 size={38} className="animate-bounce" />}
+          {state === 'error' && <AlertCircle size={38} className="text-white" />}
         </motion.button>
 
         <div className="space-y-1">

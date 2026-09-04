@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   VoiceHero,
   LanguageSelector,
@@ -10,65 +10,151 @@ import {
   ConversationMode,
   type ChatEntry,
   OfflineStatusCard,
+  PronunciationCoachCard,
+  VoiceSettingsModal,
 } from '../components/voice';
 import { useThemeStore } from '../components/ui';
+import { speechRecognitionService } from '../services/speechRecognition';
+import { speechSynthesisService } from '../services/speechSynthesis';
+import { languageDetector } from '../services/languageDetector';
+import { useConversationStore } from '../services/conversationHistory';
+import { Toast, type ToastType } from '../components/ui/Toast';
+import { geminiTranslationService } from '../services/ai/geminiTranslationService';
+import type { LanguageCode } from '../types/translation';
 
 export const VoiceTranslation: React.FC = () => {
   const { isOffline, currentLanguage, setCurrentLanguage } = useThemeStore();
-  const [sourceLang, setSourceLang] = useState('hindi');
+  const [sourceLang, setSourceLang] = useState<string>('hindi');
   const [voiceState, setVoiceState] = useState<VoiceState>('idle');
   const [isSpeakingMascot, setIsSpeakingMascot] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   // Active translation state
   const [activeHindi, setActiveHindi] = useState('बच्चों, अपनी किताब का पन्ना नंबर पाँच खोलो।');
   const [activeSanthali, setActiveSanthali] = useState('ᱜᱤᱫᱽᱨᱟᱹ, ᱟᱯᱱᱟᱨ ᱯᱩᱛᱷᱤ ᱨᱮᱭᱟᱜ ᱥᱟᱠᱟᱢ ᱮᱞ ᱢᱚᱬᱮ ᱡᱷᱤᱡᱽ ᱢᱮ ᱾');
   const [activeLatin, setActiveLatin] = useState('Gidra, apnar puthi reyag sakam el mone jhij me.');
 
-  // Conversation history
-  const [history, setHistory] = useState<ChatEntry[]>([
-    {
-      id: '1',
-      speaker: 'teacher',
-      hindi: 'जोहार बच्चों! आज हम नए पशुओं के नाम सीखेंगे।',
-      santhali: 'ᱡᱚᱦᱟᱨ ᱜᱤᱫᱽᱨᱟᱹ! ᱛᱮᱦᱮᱧ ᱫᱚ ᱵᱚᱱ ᱱᱟᱣᱟ ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ ᱧᱩᱛᱩᱢ ᱪᱮᱫᱚᱜ-ᱟ ᱾',
-      santhaliLatin: 'Johar gidra! Tehenj do bon nawa jib jiyali nutum chedoga.',
-    },
-    {
-      id: '2',
-      speaker: 'child',
-      hindi: 'हाँ मैडम, हम तैयार हैं!',
-      santhali: 'ᱦᱮᱸ ᱢᱟᱪᱮᱛ, ᱟᱞᱮ ᱫᱚᱞᱮ ᱥᱟᱯᱲᱟᱣ ᱟᱠᱟᱱᱟ!',
-      santhaliLatin: 'Hen machet, ale dole saphraw akana!',
-    },
-  ]);
+  // IndexedDB + Zustand conversation history
+  const { history, addEntry, initStore } = useConversationStore();
 
-  // Voice recording triggers
-  const handleStartRecord = () => {
-    setVoiceState('listening');
-    // Simulate recording duration then processing
-    setTimeout(() => {
-      setVoiceState('processing');
-      setTimeout(() => {
-        setVoiceState('speaking');
-        setIsSpeakingMascot(true);
-        setTimeout(() => {
+  useEffect(() => {
+    initStore();
+  }, [initStore]);
+
+  // Clean up audio on unmount
+  useEffect(() => {
+    return () => {
+      speechRecognitionService.stop();
+      speechSynthesisService.cancel();
+    };
+  }, []);
+
+  const handleProcessSpeech = async (spokenText: string) => {
+    const text = spokenText.trim();
+    if (!text) return;
+
+    setVoiceState('processing');
+
+    try {
+      let resolvedSource = sourceLang;
+      if (sourceLang === 'auto') {
+        const detected = languageDetector.detectLanguage(text);
+        resolvedSource =
+          detected.language === 'santhali' || detected.language === 'roman_santhali'
+            ? 'santali'
+            : detected.language === 'english'
+            ? 'english'
+            : 'hindi';
+      }
+
+      let targetCode: LanguageCode = (currentLanguage as LanguageCode) || 'santhali';
+      if (resolvedSource === targetCode) {
+        targetCode = resolvedSource === 'hindi' ? 'santhali' : 'hindi';
+      }
+      const sourceCode: LanguageCode = (resolvedSource as LanguageCode) || 'hindi';
+
+      const res = await geminiTranslationService.translate(text, sourceCode, targetCode);
+
+      setActiveHindi(res.sourceText);
+      setActiveSanthali(res.translatedText);
+      setActiveLatin(res.romanPronunciation);
+
+      // Save to IndexedDB conversation history
+      const newEntry: ChatEntry = {
+        id: Date.now().toString(),
+        speaker: 'teacher',
+        hindi: res.sourceText,
+        santhali: res.translatedText,
+        santhaliLatin: res.romanPronunciation,
+      };
+      addEntry(newEntry);
+
+      // Speak translation with Google Neural / Piper voice
+      setVoiceState('speaking');
+      setIsSpeakingMascot(true);
+
+      speechSynthesisService.speak(res.translatedText, targetCode, {
+        onEnd: () => {
           setVoiceState('idle');
           setIsSpeakingMascot(false);
-        }, 2500);
-      }, 1500);
-    }, 3000);
+        },
+        onError: () => {
+          setVoiceState('idle');
+          setIsSpeakingMascot(false);
+        },
+      });
+    } catch {
+      setVoiceState('idle');
+      setToast({
+        message: 'Could not process voice input. Please try again or tap a phrase below.',
+        type: 'error',
+      });
+    }
+  };
+
+  // Voice recording with continuous recognition & silence detection (3.5s)
+  const handleStartRecord = () => {
+    setVoiceState('listening');
+
+    const recogLang =
+      sourceLang === 'english'
+        ? 'en-IN'
+        : sourceLang === 'hindi'
+        ? 'hi-IN'
+        : 'hi-IN';
+
+    speechRecognitionService.start(
+      {
+        onTranscript: (transcript, isFinal) => {
+          if (isFinal && transcript.trim()) {
+            handleProcessSpeech(transcript);
+          }
+        },
+        onSilenceDetected: () => {
+          if (voiceState === 'listening') {
+            setVoiceState('processing');
+          }
+        },
+        onError: () => {
+          setVoiceState('error');
+          setToast({
+            message: 'Microphone permission needed or voice input unavailable. You can tap phrases below or type in Text Translation.',
+            type: 'info',
+          });
+        },
+        onEnd: () => {
+          if (voiceState === 'listening') {
+            setVoiceState('idle');
+          }
+        },
+      },
+      recogLang
+    );
   };
 
   const handleStopRecord = () => {
-    setVoiceState('processing');
-    setTimeout(() => {
-      setVoiceState('speaking');
-      setIsSpeakingMascot(true);
-      setTimeout(() => {
-        setVoiceState('idle');
-        setIsSpeakingMascot(false);
-      }, 2500);
-    }, 1200);
+    speechRecognitionService.stop();
   };
 
   const handleSwap = () => {
@@ -82,7 +168,6 @@ export const VoiceTranslation: React.FC = () => {
     setActiveSanthali(phrase.santhali);
     setActiveLatin(phrase.santhaliLatin);
 
-    // Append to conversation
     const newEntry: ChatEntry = {
       id: Date.now().toString(),
       speaker: 'teacher',
@@ -90,20 +175,30 @@ export const VoiceTranslation: React.FC = () => {
       santhali: phrase.santhali,
       santhaliLatin: phrase.santhaliLatin,
     };
-    setHistory((prev) => [newEntry, ...prev]);
+    addEntry(newEntry);
 
-    // Simulate audio speaking
+    // Speak phrase
     setVoiceState('speaking');
     setIsSpeakingMascot(true);
-    setTimeout(() => {
-      setVoiceState('idle');
-      setIsSpeakingMascot(false);
-    }, 2200);
+    speechSynthesisService.speak(phrase.santhali, currentLanguage, {
+      onEnd: () => {
+        setVoiceState('idle');
+        setIsSpeakingMascot(false);
+      },
+      onError: () => {
+        setVoiceState('idle');
+        setIsSpeakingMascot(false);
+      },
+    });
   };
 
-  const handleReplayAudio = (_slow = false) => {
+  const handleReplayAudio = (slow = false) => {
     setIsSpeakingMascot(true);
-    setTimeout(() => setIsSpeakingMascot(false), 2500);
+    speechSynthesisService.speak(activeSanthali, currentLanguage, {
+      slow,
+      onEnd: () => setIsSpeakingMascot(false),
+      onError: () => setIsSpeakingMascot(false),
+    });
   };
 
   return (
@@ -114,16 +209,28 @@ export const VoiceTranslation: React.FC = () => {
         onStartSpeaking={handleStartRecord}
       />
 
-      {/* 2. LANGUAGE SELECTOR */}
-      <LanguageSelector
-        sourceLang={sourceLang}
-        targetLang={currentLanguage}
-        onSelectTarget={(code) => setCurrentLanguage(code as any)}
-        onSwap={handleSwap}
-        isOffline={isOffline}
-      />
+      {/* 2. LANGUAGE SELECTOR WITH VOICE SETTINGS TRIGGER */}
+      <div className="space-y-2">
+        <LanguageSelector
+          sourceLang={sourceLang}
+          targetLang={currentLanguage}
+          onSelectSource={(code) => setSourceLang(code)}
+          onSelectTarget={(code) => setCurrentLanguage(code as any)}
+          onSwap={handleSwap}
+          isOffline={isOffline}
+        />
+        <div className="flex justify-end pr-2">
+          <button
+            type="button"
+            onClick={() => setIsSettingsOpen(true)}
+            className="text-xs font-bold text-slate-500 hover:text-blue-600 flex items-center gap-1.5 cursor-pointer py-1 px-2.5 rounded-xl hover:bg-slate-100 transition-colors"
+          >
+            <span>⚙️ Configure Neural Voice & Speed</span>
+          </button>
+        </div>
+      </div>
 
-      {/* 3. VOICE RECORDER CARD */}
+      {/* 3. VOICE RECORDER CARD (Silence Detection & Waveform) */}
       <VoiceRecorder
         state={voiceState}
         onStartRecord={handleStartRecord}
@@ -141,7 +248,14 @@ export const VoiceTranslation: React.FC = () => {
         onReplayAudio={handleReplayAudio}
       />
 
-      {/* 6. CONVERSATION MODE */}
+      {/* 6. PRONUNCIATION COACH CARD ("Repeat after Johar") */}
+      <PronunciationCoachCard
+        targetPhrase={activeSanthali}
+        romanPhrase={activeLatin}
+        lang={currentLanguage}
+      />
+
+      {/* 7. CONVERSATION MODE (IndexedDB Persistent Dialogue) */}
       <ConversationMode
         history={history}
         isSpeaking={isSpeakingMascot}
@@ -155,8 +269,21 @@ export const VoiceTranslation: React.FC = () => {
         })}
       />
 
-      {/* 7. OFFLINE STATUS CARD */}
+      {/* 8. OFFLINE STATUS CARD */}
       <OfflineStatusCard />
+
+      {/* 9. VOICE SETTINGS MODAL */}
+      <VoiceSettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
+
+      {/* TOAST FEEDBACK */}
+      <Toast
+        message={toast?.message ?? null}
+        type={toast?.type ?? 'info'}
+        onClose={() => setToast(null)}
+      />
     </div>
   );
 };

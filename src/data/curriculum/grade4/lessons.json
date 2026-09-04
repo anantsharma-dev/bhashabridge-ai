@@ -1,0 +1,29 @@
+{
+  "grade": 4,
+  "state": "Jharkhand",
+  "board": "JCERT / SCERT",
+  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
+  "academicYear": "2026-27",
+  "subjects": [
+    {
+      "id": "g4-evs",
+      "name": "पर्यावरण और हमारा समाज (EVS Grade 4)",
+      "languagePair": "Hindi ↔ Santali",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "झारखंड के जलप्रपात और पहाड़",
+          "titleSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮᱱᱟᱜ ᱡᱷᱟᱨᱱᱟ ᱟᱨ ᱵᱩᱨᱩ",
+          "titleRoman": "Jharkhand renag Jharna ar Buru",
+          "theme": "Geography & Natural Beauty",
+          "nipunCompetency": "E4.2 Mapping local landmarks & indigenous forest conservation",
+          "keyVocabulary": [
+            { "hindi": "झरना", "santhali": "ᱡᱷᱟᱨᱱᱟ", "roman": "Jharna" },
+            { "hindi": "पहाड़", "santhali": "ᱵᱩᱨᱩ", "roman": "Buru" },
+            { "hindi": "मिट्टी", "santhali": "ᱦᱟᱥᱟ", "roman": "Hasa" }
+          ]
+        }
+      ]
+    }
+  ]
+}

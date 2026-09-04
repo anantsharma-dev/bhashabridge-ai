@@ -7,6 +7,9 @@ import {
   ActivitySuggestions,
   ClassroomMaterials,
 } from '../components/lesson-planner';
+import { Toast, type ToastType } from '../components/ui/Toast';
+import { lessonPlannerService, type GeneratedLessonPlan } from '../services/lessonPlannerService';
+import { geminiLessonPlannerService } from '../services/ai/geminiLessonPlannerService';
 
 export const LessonPlanner: React.FC = () => {
   const [config, setConfig] = useState<LessonPlanConfig>({
@@ -21,13 +24,43 @@ export const LessonPlanner: React.FC = () => {
     isOffline: true,
   });
 
+  const [currentPlan, setCurrentPlan] = useState<GeneratedLessonPlan>(() =>
+    lessonPlannerService.generateLessonPlan({
+      grade: 'Grade 2',
+      subject: 'Language MTB-MLE',
+      language: 'Hindi ↔ Santali (Ol Chiki)',
+      topic: 'Wild and Domestic Animals',
+      duration: '45 Minutes',
+      learningObjective: 'Master 6 local animal words in Ol Chiki and participate in bilingual storytelling.',
+      nipunCompetency: 'L2.4 Bilingual Story Comprehension & Oral Vocabulary',
+      classStrength: 25,
+      isOffline: true,
+    })
+  );
   const [isGenerating, setIsGenerating] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
-  const handleGeneratePlan = () => {
+  const showToast = (message: string, type: ToastType = 'success') => {
+    setToast({ message, type });
+  };
+
+  const handleGeneratePlan = async () => {
     setIsGenerating(true);
-    setTimeout(() => {
+    try {
+      const response = await geminiLessonPlannerService.generateLessonPlan(config);
+      setCurrentPlan(response.plan);
+      if (response.isAiGenerated) {
+        showToast(`AI Lesson Plan generated with ${response.modelUsed}!`, 'success');
+      } else {
+        showToast('NEP-aligned MTB-MLE lesson plan generated offline!', 'success');
+      }
+    } catch {
+      const offline = lessonPlannerService.generateLessonPlan(config);
+      setCurrentPlan(offline);
+      showToast('Generated using offline NEP curriculum engine.', 'info');
+    } finally {
       setIsGenerating(false);
-    }, 1200);
+    }
   };
 
   return (
@@ -44,17 +77,38 @@ export const LessonPlanner: React.FC = () => {
       />
 
       {/* 3. STEP-BY-STEP CLASSROOM TIMELINE (9 PHASES) */}
-      <LessonTimeline />
+      <LessonTimeline plan={currentPlan} />
 
       {/* 4. MULTI-SENSORY ACTIVITY SUGGESTIONS */}
       <ActivitySuggestions />
 
       {/* 5. CLASSROOM TEACHING MATERIALS & EXPORT */}
       <ClassroomMaterials
-        onSaveOffline={() => alert('Lesson plan saved to offline library!')}
+        plan={currentPlan}
+        onSaveOffline={() => {
+          lessonPlannerService.saveLessonPlan(currentPlan);
+          showToast(`Saved "${currentPlan.title}" to offline library!`, 'success');
+        }}
         onDownloadPdf={() => window.print()}
-        onAssignToClass={() => alert('Assigned to GPS Dumka Grade 2 classroom!')}
-        onDuplicate={() => alert('Plan duplicated for modification!')}
+        onAssignToClass={() => showToast(`Assigned "${currentPlan.title}" to Dumka GPS Grade 2 classroom!`, 'success')}
+        onDuplicate={() => {
+          const dup: GeneratedLessonPlan = {
+            ...currentPlan,
+            id: `plan-dup-${Date.now()}`,
+            title: `${currentPlan.title} (Copy)`,
+            createdAt: Date.now(),
+          };
+          lessonPlannerService.saveLessonPlan(dup);
+          setCurrentPlan(dup);
+          showToast('Lesson plan duplicated and ready for editing!', 'info');
+        }}
+      />
+
+      {/* TOAST FEEDBACK */}
+      <Toast
+        message={toast?.message ?? null}
+        type={toast?.type ?? 'success'}
+        onClose={() => setToast(null)}
       />
     </div>
   );

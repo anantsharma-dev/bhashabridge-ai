@@ -13,6 +13,7 @@ export interface FlashcardData {
   sampleSentenceHindi: string;
   sampleSentenceSanthali: string;
   isMastered?: boolean;
+  didYouKnow?: string;
 }
 
 export interface FlashcardCardProps {
@@ -158,17 +159,32 @@ export const FlashcardCard: React.FC<FlashcardCardProps> = ({
           </div>
 
           {/* Bilingual Context Sentence */}
-          <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-1 text-left">
+          <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-0.5 text-left">
             <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">
               Classroom Sentence:
             </span>
-            <p className="text-sm font-bold text-slate-900 font-olchiki">
+            <p className="text-xs sm:text-sm font-bold text-slate-900 font-olchiki">
               {card.sampleSentenceSanthali}
             </p>
-            <p className="text-xs text-slate-600 font-devanagari">
+            <p className="text-[11px] sm:text-xs text-slate-600 font-devanagari">
               {card.sampleSentenceHindi}
             </p>
           </div>
+
+          {/* Did You Know? Tribal/Jharkhand Fact */}
+          {card.didYouKnow && (
+            <div className="p-2.5 rounded-2xl bg-amber-50 border border-amber-200/90 flex items-start gap-2 text-left">
+              <span className="text-base leading-none shrink-0 mt-0.5">💡</span>
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 block font-heading">
+                  Did You Know? • क्या आप जानते हैं?
+                </span>
+                <p className="text-[11px] sm:text-xs text-amber-950 font-medium leading-relaxed font-devanagari">
+                  {card.didYouKnow}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Back Footer */}
           <div className="pt-3 flex items-center justify-between border-t border-slate-100">

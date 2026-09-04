@@ -1,0 +1,48 @@
+{
+  "grade": 3,
+  "state": "Jharkhand",
+  "board": "JCERT / SCERT",
+  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
+  "academicYear": "2026-27",
+  "subjects": [
+    {
+      "id": "g3-lang",
+      "name": "भाषा एवं साहित्य (Language MTB-MLE Grade 3)",
+      "languagePair": "Hindi ↔ Santali (Ol Chiki)",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "सोहराय और करम परब",
+          "titleSanthali": "ᱥᱚᱦᱨᱟᱭ ᱟᱨ ᱠᱟᱨᱟᱢ ᱯᱟᱨᱟᱵᱽ",
+          "titleRoman": "Sohray ar Karam Parab",
+          "theme": "Festivals & Heritage",
+          "nipunCompetency": "L3.1 Reading with comprehension & cultural fluency",
+          "keyVocabulary": [
+            { "hindi": "त्योहार / परब", "santhali": "ᱯᱟᱨᱟᱵᱽ", "roman": "Parab" },
+            { "hindi": "गीत", "santhali": "ᱥᱮᱨᱮᱧ", "roman": "Serenj" },
+            { "hindi": "नृत्य / नाच", "santhali": "ᱮᱱᱮᱡ", "roman": "Enej" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g3-math",
+      "name": "संख्या एवं ज्यामिति (Math 1–100)",
+      "languagePair": "Hindi ↔ Santali",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "गिनती और जोड़-घटाव",
+          "titleSanthali": "ᱮᱞ ᱟᱨ ᱥᱮᱞᱮᱫ-ᱵᱷᱮᱜᱟᱨ",
+          "titleRoman": "El ar Seled-Bhegar",
+          "theme": "Addition & Subtraction",
+          "nipunCompetency": "N3.2 Two-digit mental arithmetic with local currency contexts",
+          "keyVocabulary": [
+            { "hindi": "जोड़", "santhali": "ᱥᱮᱞᱮᱫ", "roman": "Seled" },
+            { "hindi": "घटाव", "santhali": "ᱵᱷᱮᱜᱟᱨ", "roman": "Bhegar" }
+          ]
+        }
+      ]
+    }
+  ]
+}

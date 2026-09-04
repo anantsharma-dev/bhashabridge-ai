@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Clock, Edit3, ChevronDown, ChevronUp } from 'lucide-react';
 
+import type { GeneratedLessonPlan } from '../../services/lessonPlannerService';
+
 export interface TimelineStep {
   id: string;
   phase: string;
@@ -9,17 +11,45 @@ export interface TimelineStep {
   titleEnglish: string;
   activityDescription: string;
   teacherPrompt: string;
+  studentAction?: string;
+  materialsNeeded?: string[];
   color: string;
 }
 
 export interface LessonTimelineProps {
+  plan?: GeneratedLessonPlan;
   className?: string;
 }
 
-export const LessonTimeline: React.FC<LessonTimelineProps> = ({ className = '' }) => {
+const COLOR_CYCLE = [
+  'border-amber-400 bg-amber-50/60',
+  'border-blue-400 bg-blue-50/60',
+  'border-purple-400 bg-purple-50/60',
+  'border-emerald-400 bg-emerald-50/60',
+  'border-orange-400 bg-orange-50/60',
+  'border-blue-400 bg-blue-50/60',
+  'border-rose-400 bg-rose-50/60',
+  'border-amber-400 bg-amber-50/60',
+  'border-slate-400 bg-slate-50/60',
+];
+
+export const LessonTimeline: React.FC<LessonTimelineProps> = ({ plan, className = '' }) => {
   const [expandedId, setExpandedId] = useState<string | null>('1');
 
-  const timelineSteps: TimelineStep[] = [
+  const timelineSteps: TimelineStep[] = plan && plan.phases.length > 0
+    ? plan.phases.map((p, idx) => ({
+        id: String(p.phase || idx + 1),
+        phase: `Phase ${p.phase || idx + 1}`,
+        duration: p.duration || '5 Mins',
+        titleEnglish: p.titleSanthali ? `${p.titleSanthali}` : `Phase ${p.phase}`,
+        titleHindi: p.titleHindi,
+        activityDescription: p.description,
+        teacherPrompt: p.teacherPrompt,
+        studentAction: p.studentAction,
+        materialsNeeded: p.materialsNeeded,
+        color: COLOR_CYCLE[idx % COLOR_CYCLE.length],
+      }))
+    : [
     {
       id: '1',
       phase: '1. Introduction',
@@ -184,6 +214,21 @@ export const LessonTimeline: React.FC<LessonTimelineProps> = ({ className = '' }
                   <div className="p-2.5 rounded-xl bg-white/90 border border-slate-200 text-slate-800">
                     <strong>Suggested Teacher Dialogue:</strong> {step.teacherPrompt}
                   </div>
+                  {step.studentAction && (
+                    <p className="text-slate-700 font-medium">
+                      <strong>Student Action:</strong> {step.studentAction}
+                    </p>
+                  )}
+                  {step.materialsNeeded && step.materialsNeeded.length > 0 && (
+                    <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                      <span className="font-bold text-slate-600">Materials:</span>
+                      {step.materialsNeeded.map((mat, mIdx) => (
+                        <span key={mIdx} className="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-semibold text-slate-700">
+                          {mat}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Mic, Languages, FileText, Sparkles, Settings } from 'lucide-react';
+import { Home, Mic, BookMarked, BookOpen, FileText, Sparkles, Settings } from 'lucide-react';
 import { cn } from '../../utils/utils';
 import { bottomNavTokens, motionPresets } from './theme';
 
@@ -16,8 +16,9 @@ export interface NavItem {
 const defaultNavItems: NavItem[] = [
   { icon: Home, label: 'Home', path: '/dashboard' },
   { icon: Mic, label: 'Voice', path: '/translation/voice', highlight: true },
-  { icon: Languages, label: 'Translate', path: '/translation/text' },
-  { icon: FileText, label: 'Worksheets', path: '/worksheets' },
+  { icon: BookMarked, label: 'Cards', path: '/flashcards' },
+  { icon: BookOpen, label: 'Stories', path: '/stories' },
+  { icon: FileText, label: 'Sheets', path: '/worksheets' },
   { icon: Sparkles, label: 'Planner', path: '/lesson-planner' },
   { icon: Settings, label: 'Settings', path: '/settings' },
 ];

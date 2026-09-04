@@ -1,9 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Wifi, WifiOff, Moon, Sun, Globe, Bell, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Wifi, WifiOff, Globe, Bell, Sparkles } from 'lucide-react';
 import { useThemeStore } from './themeStore';
+import { useAuthStore } from '../../services/authStore';
+import type { TeacherProfile, StudentProfile } from '../../types/auth';
 import { cn } from '../../utils/utils';
-import { topAppBarTokens, motionPresets } from './theme';
+import { topAppBarTokens } from './theme';
 
 export interface TopAppBarProps {
   teacherName?: string;
@@ -14,11 +16,29 @@ export interface TopAppBarProps {
 
 export const TopAppBar: React.FC<TopAppBarProps> = ({
   teacherName = 'Sangeeta Soren',
-  schoolName = 'GPS Dumka, Jharkhand',
+  schoolName = 'GPS Dumka Tribal School',
   avatarLetter = 'S',
   className,
 }) => {
-  const { isDark, toggleDark, isOffline, currentLanguage, setCurrentLanguage } = useThemeStore();
+  const navigate = useNavigate();
+  const { isOffline, currentLanguage, setCurrentLanguage } = useThemeStore();
+  const { user, role } = useAuthStore();
+
+  const isStudent = role === 'student';
+  const studentUser = isStudent ? (user as StudentProfile | null) : null;
+  const teacherUser = !isStudent ? (user as TeacherProfile | null) : null;
+
+  const displayName = isStudent
+    ? studentUser?.name || 'Ravi Marandi'
+    : teacherUser?.displayName || teacherName;
+
+  const displaySchool = isStudent
+    ? studentUser?.schoolName || schoolName
+    : teacherUser?.schoolName || schoolName;
+
+  const displayAvatar = isStudent
+    ? studentUser?.avatarEmoji || '👦'
+    : (teacherUser?.displayName?.[0] || avatarLetter).toUpperCase();
 
   const languages = [
     { code: 'santhali', label: 'ᱥᱟᱱᱛᱟᱲᱤ', sub: 'Santhali' },
@@ -30,14 +50,18 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
     <header className={cn(topAppBarTokens.header, className)}>
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
         {/* Left: Brand / Teacher Profile Badge */}
-        <div className="flex items-center gap-3">
+        <div
+          onClick={() => navigate('/profile')}
+          className="flex items-center gap-3 cursor-pointer group select-none"
+          title="View Profile & Classroom"
+        >
           <div className="relative">
-            <div className={topAppBarTokens.avatar}>
-              {avatarLetter}
+            <div className={cn(topAppBarTokens.avatar, 'group-hover:scale-105 transition-transform')}>
+              {displayAvatar}
             </div>
             <span
               className={cn(
-                'absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white dark:border-slate-900',
+                'absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white',
                 isOffline ? 'bg-amber-500' : 'bg-emerald-500'
               )}
             />
@@ -45,15 +69,19 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
 
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm md:text-base font-bold text-slate-900 dark:text-white font-heading leading-tight">
-                {teacherName}
+              <h2 className="text-sm md:text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors font-heading leading-tight">
+                {displayName}
               </h2>
-              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                <Sparkles size={10} /> FLN Mentor
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                {isStudent ? (
+                  <>⭐ {studentUser?.stars || 48} Stars</>
+                ) : (
+                  <><Sparkles size={10} /> FLN Mentor</>
+                )}
               </span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-tight">
-              {schoolName}
+            <p className="text-xs text-slate-500 leading-tight">
+              {displaySchool}
             </p>
           </div>
         </div>
@@ -101,28 +129,15 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
             </span>
           </div>
 
-          {/* Dark Mode Toggle */}
-          <motion.button
-            type="button"
-            whileTap={motionPresets.tap}
-            onClick={toggleDark}
-            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className={topAppBarTokens.iconButton}
-          >
-            {isDark ? (
-              <Sun size={18} className="text-amber-400" />
-            ) : (
-              <Moon size={18} className="text-slate-600" />
-            )}
-          </motion.button>
-
-          {/* Notification Button */}
+          {/* Settings / Profile link */}
           <button
             type="button"
-            className={cn(topAppBarTokens.iconButton, 'relative')}
+            onClick={() => navigate('/settings')}
+            className={cn(topAppBarTokens.iconButton)}
+            title="Classroom Settings"
           >
-            <Bell size={18} />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500" />
+            <Bell size={18} className="text-slate-600" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500" />
           </button>
         </div>
       </div>

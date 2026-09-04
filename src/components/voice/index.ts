@@ -5,3 +5,5 @@ export * from './TranslationResult';
 export * from './PhraseLibrary';
 export * from './ConversationMode';
 export * from './OfflineStatusCard';
+export * from './PronunciationCoachCard';
+export * from './VoiceSettingsModal';

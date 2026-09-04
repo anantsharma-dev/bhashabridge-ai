@@ -1,0 +1,29 @@
+{
+  "grade": 5,
+  "state": "Jharkhand",
+  "board": "JCERT / SCERT",
+  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
+  "academicYear": "2026-27",
+  "subjects": [
+    {
+      "id": "g5-heritage",
+      "name": "जनजातीय गौरव एवं स्वाधीनता सेनानी (Tribal Heritage Grade 5)",
+      "languagePair": "Hindi ↔ Santali",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "भगवान बिरसा मुंडा और सिदो-कान्हू",
+          "titleSanthali": "ᱵᱤᱨᱥᱟᱹ ᱢᱩᱱᱰᱟ ᱟᱨ ᱥᱤᱫᱚ-ᱠᱟᱹᱱᱦᱩ ᱡᱚᱦᱟᱨ",
+          "titleRoman": "Birsa Munda ar Sido-Kanhu Johar",
+          "theme": "Jharkhand Heroes & Ulgulan",
+          "nipunCompetency": "L5.3 Critical reading & historical essay writing",
+          "keyVocabulary": [
+            { "hindi": "क्रांति / उलगुलान", "santhali": "ᱩᱞᱜᱩᱞᱟᱱ", "roman": "Ulgulan" },
+            { "hindi": "वीर सेनानी", "santhali": "ᱵᱤᱨ ᱵᱟᱱᱴᱟ", "roman": "Bir Banta" },
+            { "hindi": "स्वतंत्रता", "santhali": "ᱯᱷᱩᱨᱜᱟᱹᱞ", "roman": "Phurgal" }
+          ]
+        }
+      ]
+    }
+  ]
+}

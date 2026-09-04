@@ -9,6 +9,8 @@ export interface ChatEntry {
   hindi: string;
   santhali: string;
   santhaliLatin: string;
+  isFavorite?: boolean;
+  timestamp?: number;
 }
 
 export interface ConversationModeProps {

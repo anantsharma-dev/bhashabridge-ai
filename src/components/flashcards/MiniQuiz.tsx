@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, Star, CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
 import { JoharHornbill } from '../ui/JoharHornbill';
-import { CuteElephant, CuteMango, CountingBlocks, StoryBook } from '../ui/DashboardIllustrations';
+import { flashcardService } from '../../services/flashcardService';
+import { speechSynthesisService } from '../../services/speechSynthesis';
 
 export interface MiniQuizProps {
+  category?: string;
   onCompleteQuiz?: (score: number) => void;
   className?: string;
 }
 
 export const MiniQuiz: React.FC<MiniQuizProps> = ({
+  category = 'animals',
   onCompleteQuiz,
   className = '',
 }) => {
@@ -20,34 +23,8 @@ export const MiniQuiz: React.FC<MiniQuizProps> = ({
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
 
-  const quizQuestions = [
-    {
-      id: 'q1',
-      promptAudio: 'ᱦᱟᱹᱛᱤ (Hati)',
-      promptHindi: 'हाथी (Elephant)',
-      instruction: 'Listen to the Santali word and tap the matching animal:',
-      correctId: 'elephant',
-      options: [
-        { id: 'elephant', label: 'ᱦᱟᱹᱛᱤ (Elephant)', illustration: <CuteElephant size={80} /> },
-        { id: 'mango', label: 'ᱩᱞ (Mango)', illustration: <CuteMango size={80} /> },
-        { id: 'blocks', label: 'ᱮᱞ (Blocks)', illustration: <CountingBlocks size={80} /> },
-      ],
-    },
-    {
-      id: 'q2',
-      promptAudio: 'ᱩᱞ (Ul)',
-      promptHindi: 'आम (Mango)',
-      instruction: 'Match the delicious sweet fruit in Santali:',
-      correctId: 'mango',
-      options: [
-        { id: 'book', label: 'ᱯᱩᱛᱷᱤ (Book)', illustration: <StoryBook size={80} /> },
-        { id: 'mango', label: 'ᱩᱞ (Mango)', illustration: <CuteMango size={80} /> },
-        { id: 'elephant', label: 'ᱦᱟᱹᱛᱤ (Elephant)', illustration: <CuteElephant size={80} /> },
-      ],
-    },
-  ];
-
-  const currentQ = quizQuestions[currentStep];
+  const [quizQuestions] = useState(() => flashcardService.generateQuizQuestions(category));
+  const currentQ = quizQuestions[currentStep] || quizQuestions[0];
 
   const handleSelectOption = (optionId: string) => {
     if (isAnswered) return;
@@ -155,8 +132,10 @@ export const MiniQuiz: React.FC<MiniQuizProps> = ({
                 </h3>
                 <button
                   type="button"
-                  className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs cursor-pointer hover:bg-blue-700"
+                  onClick={() => speechSynthesisService.speak(currentQ.santhaliText || currentQ.promptAudio, 'santhali')}
+                  className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs cursor-pointer hover:bg-blue-700 transition-transform active:scale-95"
                   aria-label="Play quiz audio"
+                  title="Hear pronunciation"
                 >
                   <Volume2 size={18} />
                 </button>
@@ -166,7 +145,7 @@ export const MiniQuiz: React.FC<MiniQuizProps> = ({
               </p>
             </div>
 
-            {/* Options Grid (3 choices with illustrations) */}
+            {/* Options Grid (3 choices) */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {currentQ.options.map((opt) => {
                 const isSelected = selectedOption === opt.id;
@@ -187,10 +166,9 @@ export const MiniQuiz: React.FC<MiniQuizProps> = ({
                     type="button"
                     disabled={isAnswered}
                     onClick={() => handleSelectOption(opt.id)}
-                    className={`rounded-2xl p-5 border-2 text-center flex flex-col items-center justify-between min-h-[170px] cursor-pointer shadow-xs transition-all ${optionStyle}`}
+                    className={`rounded-2xl p-5 border-2 text-center flex flex-col items-center justify-center min-h-[110px] cursor-pointer shadow-xs transition-all ${optionStyle}`}
                   >
-                    <div className="py-2">{opt.illustration}</div>
-                    <span className="text-xs font-bold text-slate-800 mt-2">
+                    <span className="text-base sm:text-lg font-black font-olchiki text-slate-900">
                       {opt.label}
                     </span>
                   </motion.button>

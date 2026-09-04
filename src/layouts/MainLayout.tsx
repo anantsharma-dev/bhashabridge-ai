@@ -1,25 +1,40 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import { TopAppBar } from '../components/ui/TopAppBar';
 import { BottomNavigation } from '../components/ui/BottomNavigation';
-import { Home, Mic, Languages, FileText, Sparkles, BookOpen, Settings, Layers } from 'lucide-react';
+import {
+  Home,
+  Mic,
+  Languages,
+  BookMarked,
+  FileText,
+  BookOpen,
+  Sparkles,
+  Library,
+  UserCheck,
+  Settings,
+  Layers,
+} from 'lucide-react';
 import { cn } from '../utils/utils';
 
 const sidebarItems = [
   { icon: Home, label: 'Dashboard', path: '/dashboard' },
   { icon: Mic, label: 'Voice Translation', path: '/translation/voice' },
   { icon: Languages, label: 'Text Translation', path: '/translation/text' },
+  { icon: BookMarked, label: 'Flashcards', path: '/flashcards' },
   { icon: FileText, label: 'Worksheets', path: '/worksheets' },
+  { icon: BookOpen, label: 'Stories', path: '/stories' },
   { icon: Sparkles, label: 'Lesson Planner', path: '/lesson-planner' },
-  { icon: BookOpen, label: 'Offline Library', path: '/offline-library' },
-  { icon: Layers, label: 'Design System', path: '/design-system' },
+  { icon: Library, label: 'Offline Library', path: '/offline-library' },
+  { icon: UserCheck, label: 'Teacher Profile', path: '/profile' },
   { icon: Settings, label: 'Settings', path: '/settings' },
+  { icon: Layers, label: 'Design System', path: '/design-system' },
 ];
 
 export const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col md:flex-row transition-colors">
+    <div className="min-h-screen bg-[#FFFDF7] text-slate-900 flex flex-col md:flex-row transition-colors">
       {/* Tablet Landscape & Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 lg:w-72 bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800 p-5 shrink-0 fixed top-0 bottom-0 left-0 z-30 justify-between">
+      <aside className="hidden md:flex flex-col w-64 lg:w-72 bg-white border-r border-[#F1EFE8] p-5 shrink-0 fixed top-0 bottom-0 left-0 z-30 justify-between shadow-xs overflow-y-auto">
         <div className="space-y-6">
           {/* Logo & Brand */}
           <div className="flex items-center gap-3 px-2 py-1">

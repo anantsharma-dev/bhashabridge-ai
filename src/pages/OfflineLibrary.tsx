@@ -6,14 +6,30 @@ import {
   StorageManagement,
   OfflineReadinessCard,
 } from '../components/library';
+import { Toast, type ToastType } from '../components/ui/Toast';
+import { useCurriculumStore } from '../services/curriculum/curriculumStore';
 
 export const OfflineLibrary: React.FC = () => {
   const [activeSection, setActiveSection] = useState('stories');
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const { storageUsedMb, maxStorageMb, triggerSync, version } = useCurriculumStore();
+
+  const showToast = (message: string, type: ToastType = 'success') => {
+    setToast({ message, type });
+  };
+
+  const usedGbStr = `${(storageUsedMb / 1024).toFixed(1)} GB`;
+  const totalGbStr = `${(maxStorageMb / 1024).toFixed(1)} GB`;
+
+  const handleUpdateAll = async () => {
+    await triggerSync();
+    showToast(`Curriculum synced successfully! Active Version: ${version}`, 'success');
+  };
 
   return (
     <div className="min-h-full bg-[#FFFDF7] -m-4 sm:-m-6 lg:-m-8 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 font-sans antialiased text-slate-800">
       {/* 1. HERO WITH MASCOT CARRYING BOOKS & STORAGE GAUGE */}
-      <LibraryHero usedStorage="1.2 GB" totalStorage="16.0 GB" />
+      <LibraryHero usedStorage={usedGbStr} totalStorage={totalGbStr} />
 
       {/* 2. 8 LIBRARY MEDIA SECTIONS CAROUSEL */}
       <LibrarySections
@@ -22,18 +38,25 @@ export const OfflineLibrary: React.FC = () => {
       />
 
       {/* 3. DOWNLOAD MANAGER & SEARCH FILTER */}
-      <DownloadManager />
+      <DownloadManager activeSection={activeSection} onToast={showToast} />
 
       {/* 4. STORAGE & LOCAL CACHE MANAGEMENT */}
       <StorageManagement
-        usedMB={1240}
-        totalMB={16384}
-        onClearCache={() => alert('Temporary cache cleared! 85 MB freed.')}
-        onUpdateAll={() => alert('All regional packs up to date with latest 2026 syllabus.')}
+        usedMB={storageUsedMb}
+        totalMB={maxStorageMb}
+        onClearCache={() => showToast('Temporary cache cleared! 85 MB freed.', 'info')}
+        onUpdateAll={handleUpdateAll}
       />
 
       {/* 5. 100% OFFLINE READINESS STATUS CARD */}
       <OfflineReadinessCard />
+
+      {/* TOAST FEEDBACK */}
+      <Toast
+        message={toast?.message ?? null}
+        type={toast?.type ?? 'success'}
+        onClose={() => setToast(null)}
+      />
     </div>
   );
 };

@@ -1,0 +1,66 @@
+{
+  "grade": 1,
+  "state": "Jharkhand",
+  "board": "JCERT / SCERT",
+  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
+  "academicYear": "2026-27",
+  "subjects": [
+    {
+      "id": "g1-lang",
+      "name": "हिन्दी एवं संथाली भाषा सेतु (Language MTB-MLE)",
+      "languagePair": "Hindi ↔ Santali (Ol Chiki)",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "हमारा प्यारा स्कूल",
+          "titleSanthali": "ᱟᱵᱚᱣᱟᱜ ᱫᱩᱞᱟᱹᱲ ᱟᱥᱲᱟ",
+          "titleRoman": "Abowag Dular Asra",
+          "theme": "Classroom & Greetings",
+          "nipunCompetency": "L1.1 Oral Greetings & Mother Tongue Expression",
+          "keyVocabulary": [
+            { "hindi": "स्कूल", "santhali": "ᱟᱥᱲᱟ", "roman": "Asra" },
+            { "hindi": "शिक्षक", "santhali": "ᱢᱟᱪᱮᱛ", "roman": "Machet" },
+            { "hindi": "किताब", "santhali": "ᱯᱩᱛᱷᱤ", "roman": "Puthi" },
+            { "hindi": "नमस्ते", "santhali": "ᱡᱚᱦᱟᱨ", "roman": "Johar" }
+          ]
+        },
+        {
+          "chapterNumber": 2,
+          "titleHindi": "झारखंड के पशु-पक्षी",
+          "titleSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮᱱ ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ ᱟᱨ ᱪᱮᱬᱮ",
+          "titleRoman": "Jharkhand ren Jib Jiyali ar Chene",
+          "theme": "Forest Animals & Birds",
+          "nipunCompetency": "L1.3 Picture-Sound Association",
+          "keyVocabulary": [
+            { "hindi": "हाथी", "santhali": "ᱦᱟᱹᱛᱤ", "roman": "Hati" },
+            { "hindi": "मोर", "santhali": "ᱢᱟᱨᱟᱜ", "roman": "Marag" },
+            { "hindi": "बाघ", "santhali": "ᱛᱟᱹᱨᱩᱵ", "roman": "Tarub" },
+            { "hindi": "हिरण", "santhali": "ᱡᱤᱞ", "roman": "Jil" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g1-math",
+      "name": "गणित मेला (Math 1–20)",
+      "languagePair": "Hindi ↔ Santali",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "आओ 1 से 10 तक गिनें",
+          "titleSanthali": "ᱢᱤᱫ ᱠᱷᱚᱱ ᱜᱮᱞ ᱦᱟᱹᱵᱤᱡ ᱞᱮᱠᱷᱟ",
+          "titleRoman": "Mid khon Gel habij Lekha",
+          "theme": "Counting Numbers",
+          "nipunCompetency": "N1.1 Counting concrete objects up to 10",
+          "keyVocabulary": [
+            { "hindi": "एक", "santhali": "ᱢᱤᱫ", "roman": "Mid" },
+            { "hindi": "दो", "santhali": "ᱵᱟᱨ", "roman": "Bar" },
+            { "hindi": "तीन", "santhali": "ᱯᱮ", "roman": "Pe" },
+            { "hindi": "चार", "santhali": "ᱯᱩᱱ", "roman": "Pun" },
+            { "hindi": "पाँच", "santhali": "ᱢᱚᱬᱮ", "roman": "Mone" }
+          ]
+        }
+      ]
+    }
+  ]
+}

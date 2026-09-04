@@ -1,0 +1,64 @@
+{
+  "grade": 2,
+  "state": "Jharkhand",
+  "board": "JCERT / SCERT",
+  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
+  "academicYear": "2026-27",
+  "subjects": [
+    {
+      "id": "g2-lang",
+      "name": "भाषा सेतु (Language MTB-MLE Grade 2)",
+      "languagePair": "Hindi ↔ Santali (Ol Chiki)",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "हमारा गाँव और परिवार",
+          "titleSanthali": "ᱟᱞᱮᱭᱟᱜ ᱟᱹᱛᱩ ᱟᱨ ᱜᱷᱟᱨᱚᱸᱡᱽ",
+          "titleRoman": "Aleyag Atu ar Gharonj",
+          "theme": "Family & Village Life",
+          "nipunCompetency": "L2.2 Two-way dialogue in mother tongue & Hindi",
+          "keyVocabulary": [
+            { "hindi": "माँ", "santhali": "ᱟᱭᱳ", "roman": "Ayo" },
+            { "hindi": "पिताजी", "santhali": "ᱵᱟᱵᱟ", "roman": "Baba" },
+            { "hindi": "गाँव", "santhali": "ᱟᱹᱛᱩ", "roman": "Atu" },
+            { "hindi": "घर", "santhali": "ᱚᱲᱟᱜ", "roman": "Orag" }
+          ]
+        },
+        {
+          "chapterNumber": 2,
+          "titleHindi": "महुआ और साल के पेड़",
+          "titleSanthali": "ᱢᱟᱹᱛᱠᱚᱢ ᱟᱨ ᱥᱟᱨᱡᱚᱢ ᱫᱟᱨᱮ",
+          "titleRoman": "Matkom ar Sarjom Dare",
+          "theme": "Local Trees & Seasons",
+          "nipunCompetency": "L2.4 Short passage reading & Ol Chiki recognition",
+          "keyVocabulary": [
+            { "hindi": "पेड़", "santhali": "ᱫᱟᱨᱮ", "roman": "Dare" },
+            { "hindi": "पत्ता", "santhali": "ᱥᱟᱠᱟᱢ", "roman": "Sakam" },
+            { "hindi": "फूल", "santhali": "ᱵᱟᱦᱟ", "roman": "Baha" },
+            { "hindi": "फल", "santhali": "ᱡᱚ", "roman": "Jo" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g2-evs",
+      "name": "हमारा पर्यावरण (EVS Nature & Water)",
+      "languagePair": "Hindi ↔ Santali",
+      "chapters": [
+        {
+          "chapterNumber": 1,
+          "titleHindi": "जल ही जीवन है",
+          "titleSanthali": "ᱫᱟᱜ ᱜᱮ ᱡᱤᱣᱤ",
+          "titleRoman": "Dag ge Jiwi",
+          "theme": "Water Sources & Conservation",
+          "nipunCompetency": "E2.1 Identifying local water bodies",
+          "keyVocabulary": [
+            { "hindi": "पानी / जल", "santhali": "ᱫᱟᱜ", "roman": "Dag" },
+            { "hindi": "नदी", "santhali": "ᱜᱟᱰᱟ", "roman": "Gada" },
+            { "hindi": "तालाब", "santhali": "ᱯᱩᱠᱷᱨᱤ", "roman": "Pukhri" }
+          ]
+        }
+      ]
+    }
+  ]
+}

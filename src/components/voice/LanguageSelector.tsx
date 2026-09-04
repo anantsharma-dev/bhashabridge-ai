@@ -13,6 +13,7 @@ export interface LanguageSelectorProps {
   sourceLang: string;
   targetLang: string;
   onSelectTarget: (code: string) => void;
+  onSelectSource?: (code: string) => void;
   onSwap: () => void;
   isOffline?: boolean;
   className?: string;
@@ -29,10 +30,19 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   const languages: LanguageOption[] = [
     { code: 'hindi', name: 'Hindi', nativeName: 'हिन्दी', script: 'Devanagari' },
     { code: 'santali', name: 'Santali', nativeName: 'ᱥᱟᱱᱛᱟᱲᱤ', script: 'Ol Chiki' },
+    { code: 'english', name: 'English', nativeName: 'English', script: 'Latin' },
     { code: 'ho', name: 'Ho', nativeName: 'ᱦᱳ', script: 'Warang Citi' },
     { code: 'mundari', name: 'Mundari', nativeName: 'ᱢᱩᱱᱰᱟᱨᱤ', script: 'Ol Chiki' },
     { code: 'kurukh', name: 'Kurukh', nativeName: 'कुड़ुख़', script: 'Devanagari' },
+    { code: 'auto', name: 'Auto Detect', nativeName: 'Auto Detect', script: 'AI Multi-Script' },
   ];
+
+  const sourceObj = languages.find((l) => l.code === sourceLang) || {
+    code: 'hindi',
+    name: 'Hindi',
+    nativeName: 'हिन्दी',
+    script: 'Devanagari',
+  };
 
   return (
     <div
@@ -61,8 +71,18 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
             From:
           </span>
           <div className="px-4 py-2 rounded-2xl bg-amber-50 text-amber-900 border border-amber-200 font-bold text-sm flex items-center gap-2">
-            <span className="font-devanagari text-base">हिन्दी</span>
-            <span className="text-xs opacity-75 font-normal">(Hindi)</span>
+            <span
+              className={`${
+                sourceObj.code === 'santali' || sourceObj.code === 'mundari'
+                  ? 'font-olchiki'
+                  : sourceObj.code === 'hindi' || sourceObj.code === 'kurukh'
+                  ? 'font-devanagari'
+                  : ''
+              } text-base`}
+            >
+              {sourceObj.nativeName}
+            </span>
+            <span className="text-xs opacity-75 font-normal">({sourceObj.name})</span>
           </div>
         </div>
 

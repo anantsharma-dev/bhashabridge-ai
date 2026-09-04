@@ -38,4 +38,5 @@ export * from './ActivityCard';
 export * from './ProgressCard';
 export * from './RewardBadge';
 export * from './QuickActionButton';
+export * from './Toast';
 

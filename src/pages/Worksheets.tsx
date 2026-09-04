@@ -6,6 +6,9 @@ import {
   WorksheetPreview,
   RecentWorksheets,
 } from '../components/worksheets';
+import { Toast, type ToastType } from '../components/ui/Toast';
+import { worksheetService, type GeneratedWorksheet } from '../services/worksheetService';
+import { geminiWorksheetService } from '../services/ai/geminiWorksheetService';
 
 export const Worksheets: React.FC = () => {
   const [config, setConfig] = useState<WorksheetConfig>({
@@ -21,15 +24,37 @@ export const Worksheets: React.FC = () => {
     type: 'Vocabulary Matching',
   });
 
+  const [currentWorksheet, setCurrentWorksheet] = useState<GeneratedWorksheet>(() =>
+    worksheetService.generateWorksheet(config)
+  );
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedCount, setGeneratedCount] = useState(1);
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
-  const handleGenerate = () => {
+  const showToast = (message: string, type: ToastType = 'success') => {
+    setToast({ message, type });
+  };
+
+  const handleGenerate = async () => {
     setIsGenerating(true);
-    setTimeout(() => {
-      setIsGenerating(false);
+    try {
+      const res = await geminiWorksheetService.generateWorksheet(config);
+      setCurrentWorksheet(res.worksheet);
       setGeneratedCount((prev) => prev + 1);
-    }, 1200);
+      showToast(
+        res.isAiGenerated
+          ? 'AI generated new multilingual worksheet with Gemini!'
+          : 'New bilingual worksheet generated from curriculum pack!',
+        'success'
+      );
+    } catch {
+      const fallback = worksheetService.generateWorksheet(config);
+      setCurrentWorksheet(fallback);
+      setGeneratedCount((prev) => prev + 1);
+      showToast('Worksheet generated offline!', 'info');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleDownloadPdf = () => {
@@ -52,18 +77,26 @@ export const Worksheets: React.FC = () => {
       {/* 3. PRINTABLE A4 PREVIEW */}
       <WorksheetPreview
         key={generatedCount}
+        worksheet={currentWorksheet}
         title={`${config.topic} • ᱵᱤᱨ ᱟᱨ ᱚᱲᱟᱜ ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ`}
         grade={config.grade}
         subject={config.subject}
         competency={config.nipunCompetency}
         onDownloadPdf={handleDownloadPdf}
-        onSaveOffline={() => alert('Worksheet saved to tablet offline storage!')}
-        onDuplicate={() => alert('Worksheet duplicated for editing!')}
-        onAssign={() => alert('Worksheet assigned to Grade 2 MTB-MLE classroom!')}
+        onSaveOffline={() => showToast('Worksheet saved to tablet offline storage!', 'success')}
+        onDuplicate={() => showToast('Worksheet duplicated for editing!', 'info')}
+        onAssign={() => showToast('Worksheet assigned to Grade 2 MTB-MLE classroom!', 'success')}
       />
 
       {/* 4. RECENT WORKSHEETS CARDS */}
       <RecentWorksheets />
+
+      {/* TOAST FEEDBACK */}
+      <Toast
+        message={toast?.message ?? null}
+        type={toast?.type ?? 'success'}
+        onClose={() => setToast(null)}
+      />
     </div>
   );
 };
