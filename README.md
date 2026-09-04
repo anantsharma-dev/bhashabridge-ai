@@ -184,3 +184,4 @@ This incremental workflow ensures that the application remains deployable throug
 ## Long-Term Goal
 
 BhashaBridge AI is intended to become an AI-assisted multilingual learning platform for foundational education in India. The long-term roadmap includes offline AI models, curriculum synchronization, speech-based classroom assistants, local language storytelling, teacher analytics, and deployable Android tablet applications for rural classrooms.
+# bhashabridge-ai
