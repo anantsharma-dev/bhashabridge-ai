@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Nunito', 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+  --font-olchiki: 'Noto Sans Ol Chiki', sans-serif;
+
+  --color-primary-blue: #2563EB;
+  --color-primary-green: #10B981;
+  --color-primary-orange: #F59E0B;
+  --color-primary-purple: #8B5CF6;
+  --color-primary-coral: #F43F5E;
+  --color-primary-yellow: #FACC15;
+
+  --color-pastel-blue: #EFF6FF;
+  --color-pastel-green: #ECFDF5;
+  --color-pastel-orange: #FFFBEB;
+  --color-pastel-purple: #FAF5FF;
+  --color-pastel-coral: #FFF1F2;
+  --color-pastel-yellow: #FEFCE8;
+
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-28: 28px;
+  --radius-32: 32px;
+}
+
+/* Glassmorphism & MD3 utilities */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-pill {
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Card 24px standard rounded */
+.card-rounded {
+  border-radius: 24px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .card-rounded {
+  background-color: #1e293b;
+  border: 1px solid rgba(51, 65, 85, 0.7);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Duolingo 3D Button Push Effect */
+.btn-3d {
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-3d:active {
+  transform: translateY(2px);
+}
+
+/* Custom Scrollbar for Tablets */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}
+
