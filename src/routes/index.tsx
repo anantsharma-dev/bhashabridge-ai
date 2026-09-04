@@ -11,6 +11,8 @@ import OfflineLibrary from '../pages/OfflineLibrary';
 import Settings from '../pages/Settings';
 import Profile from '../pages/Profile';
 import DesignSystemShowcase from '../pages/DesignSystemShowcase';
+import TeacherClassroom from '../pages/TeacherClassroom';
+import QuizScreen from '../pages/QuizScreen';
 import SplashScreen from '../pages/SplashScreen';
 import LanguageSelectionScreen from '../pages/LanguageSelectionScreen';
 import LoginScreen from '../pages/LoginScreen';
@@ -30,6 +32,8 @@ export const router = createBrowserRouter([
       { path: 'stories', element: <Stories /> },
       { path: 'lesson-planner', element: <LessonPlanner /> },
       { path: 'offline-library', element: <OfflineLibrary /> },
+      { path: 'classroom', element: <TeacherClassroom /> },
+      { path: 'quiz', element: <QuizScreen /> },
       { path: 'settings', element: <Settings /> },
       { path: 'profile', element: <Profile /> },
     ],

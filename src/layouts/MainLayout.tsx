@@ -13,6 +13,8 @@ import {
   UserCheck,
   Settings,
   Layers,
+  GraduationCap,
+  HelpCircle,
 } from 'lucide-react';
 import { cn } from '../utils/utils';
 
@@ -25,6 +27,8 @@ const sidebarItems = [
   { icon: BookOpen, label: 'Stories', path: '/stories' },
   { icon: Sparkles, label: 'Lesson Planner', path: '/lesson-planner' },
   { icon: Library, label: 'Offline Library', path: '/offline-library' },
+  { icon: GraduationCap, label: 'Classroom', path: '/classroom' },
+  { icon: HelpCircle, label: 'Quizzes', path: '/quiz' },
   { icon: UserCheck, label: 'Teacher Profile', path: '/profile' },
   { icon: Settings, label: 'Settings', path: '/settings' },
   { icon: Layers, label: 'Design System', path: '/design-system' },

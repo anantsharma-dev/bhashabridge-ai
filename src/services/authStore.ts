@@ -361,7 +361,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   // Initialize Firebase Auth State listener
   initAuthListener: () => {
-    if (!isFirebaseConfigured || !auth) {
+    if (!isFirebaseConfigured() || !auth) {
       return () => {};
     }
 

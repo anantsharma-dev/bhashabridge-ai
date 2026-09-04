@@ -1,0 +1,114 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isTeacher() {
+      return isAuthenticated() && 
+        (request.auth.token.role == 'teacher' || 
+         exists(/databases/$(database)/documents/teachers/$(request.auth.uid)));
+    }
+    
+    // 1. Teachers collection
+    match /teachers/{teacherId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(teacherId);
+    }
+    
+    // 2. Students collection
+    match /students/{studentId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isTeacher() || isOwner(studentId);
+      allow delete: if isTeacher();
+    }
+    
+    // 3. Classrooms
+    match /classrooms/{classroomId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    // 4. Schools & Districts (Curriculum / Administrative reference data)
+    match /schools/{schoolId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Read-only managed data
+    }
+    
+    match /districts/{districtId} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+    }
+    
+    // 5. Attendance records
+    match /attendance/{attendanceId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    // 6. Assignments & Homework
+    match /assignments/{assignmentId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    // 7. Worksheets
+    match /worksheets/{worksheetId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    // 8. Stories & Flashcards
+    match /stories/{storyId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    match /flashcards/{flashcardId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    // 9. Translations & Voice History
+    match /translations/{translationId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    match /voiceHistory/{historyId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 10. Quizzes & Progress
+    match /quizzes/{quizId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher();
+    }
+    
+    match /progress/{progressId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 11. Badges & Streaks
+    match /badges/{badgeId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+    
+    match /streaks/{streakId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 12. Offline Sync Queue
+    match /offlineSyncQueue/{queueId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}

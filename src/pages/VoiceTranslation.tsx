@@ -12,6 +12,9 @@ import {
   OfflineStatusCard,
   PronunciationCoachCard,
   VoiceSettingsModal,
+  WaveformVisualizer,
+  NoiseDetector,
+  MicPermissionPrompt,
 } from '../components/voice';
 import { useThemeStore } from '../components/ui';
 import { speechRecognitionService } from '../services/speechRecognition';
@@ -28,6 +31,7 @@ export const VoiceTranslation: React.FC = () => {
   const [voiceState, setVoiceState] = useState<VoiceState>('idle');
   const [isSpeakingMascot, setIsSpeakingMascot] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isMicPromptOpen, setIsMicPromptOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   // Active translation state
@@ -138,9 +142,10 @@ export const VoiceTranslation: React.FC = () => {
         },
         onError: () => {
           setVoiceState('error');
+          setIsMicPromptOpen(true);
           setToast({
-            message: 'Microphone permission needed or voice input unavailable. You can tap phrases below or type in Text Translation.',
-            type: 'info',
+            message: 'Microphone permission needed or voice input unavailable. Please grant microphone access.',
+            type: 'warning',
           });
         },
         onEnd: () => {
@@ -231,11 +236,22 @@ export const VoiceTranslation: React.FC = () => {
       </div>
 
       {/* 3. VOICE RECORDER CARD (Silence Detection & Waveform) */}
-      <VoiceRecorder
-        state={voiceState}
-        onStartRecord={handleStartRecord}
-        onStopRecord={handleStopRecord}
-      />
+      <div className="space-y-3">
+        <VoiceRecorder
+          state={voiceState}
+          onStartRecord={handleStartRecord}
+          onStopRecord={handleStopRecord}
+        />
+        {voiceState === 'listening' && (
+          <div className="p-3 rounded-2xl bg-white border border-rose-200 shadow-xs space-y-2">
+            <div className="text-[11px] font-bold text-rose-800 text-center">
+              🎙️ Live Classroom Speech Waveform
+            </div>
+            <WaveformVisualizer isActive={true} />
+          </div>
+        )}
+        <NoiseDetector isListening={voiceState === 'listening'} />
+      </div>
 
       {/* 4. CLASSROOM PHRASE LIBRARY */}
       <PhraseLibrary onSelectPhrase={handleSelectPhrase} />
@@ -276,6 +292,13 @@ export const VoiceTranslation: React.FC = () => {
       <VoiceSettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+      />
+
+      {/* 10. MIC PERMISSION PROMPT MODAL */}
+      <MicPermissionPrompt
+        isOpen={isMicPromptOpen}
+        onClose={() => setIsMicPromptOpen(false)}
+        onRequestPermission={handleStartRecord}
       />
 
       {/* TOAST FEEDBACK */}

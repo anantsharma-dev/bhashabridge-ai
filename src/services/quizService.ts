@@ -1,0 +1,206 @@
+export type QuestionType =
+  | 'multiple_choice'
+  | 'picture_match'
+  | 'voice_answer'
+  | 'reading_aloud'
+  | 'drawing_trace'
+  | 'fill_blanks'
+  | 'sequence';
+
+export interface QuizQuestion {
+  id: string;
+  type: QuestionType;
+  promptHindi: string;
+  promptSanthali: string;
+  options?: string[];
+  correctAnswer: string;
+  imageUrl?: string;
+  audioPrompt?: string;
+  targetScript?: string;
+  points: number;
+}
+
+export interface QuizAttemptResult {
+  quizId: string;
+  score: number;
+  totalPoints: number;
+  accuracyPercent: number;
+  xpEarned: number;
+  badgesEarned: string[];
+  completedAt: number;
+}
+
+export interface QuizPack {
+  id: string;
+  title: string;
+  hindiTitle: string;
+  grade: string;
+  subject: string;
+  questions: QuizQuestion[];
+  timeLimitSeconds: number;
+}
+
+export const SAMPLE_QUIZZES: QuizPack[] = [
+  {
+    id: 'quiz-animals-g1',
+    title: 'Forest Animals MTB-MLE Quiz',
+    hindiTitle: 'वन्य जीव मूल्यांकन प्रश्नोत्तरी',
+    grade: 'Grade 1–2',
+    subject: 'Language MTB-MLE',
+    timeLimitSeconds: 180,
+    questions: [
+      {
+        id: 'q1',
+        type: 'multiple_choice',
+        promptHindi: 'हाथी को संताली (ओल चिकी) में क्या कहते हैं?',
+        promptSanthali: 'ᱦᱟᱹᱛᱤ ᱧᱩᱛᱩᱢ ᱪᱮᱫ ᱠᱟᱱᱟ?',
+        options: ['ᱦᱟᱹᱛᱤ (Hati)', 'ᱛᱟᱹᱨᱩᱵ (Tarub)', 'ᱡᱤᱞ (Jil)', 'ᱥᱮᱛᱟ (Seta)'],
+        correctAnswer: 'ᱦᱟᱹᱛᱤ (Hati)',
+        points: 20,
+      },
+      {
+        id: 'q2',
+        type: 'picture_match',
+        promptHindi: 'चित्र में दिख रहे पक्षी का सही नाम चुनें (मयूर / मोर):',
+        promptSanthali: 'ᱪᱤᱛᱟᱹᱨ ᱨᱮ ᱢᱮᱱᱟᱭ ᱢᱟᱨᱟᱜ ᱪᱤᱱᱦᱟᱹᱣ ᱢᱮ ᱾',
+        imageUrl: 'peacock',
+        options: ['ᱢᱟᱨᱟᱜ (Marag / Peacock)', 'ᱠᱩᱞ (Kul / Tiger)', 'ᱦᱟᱺᱥ (Hans / Swan)'],
+        correctAnswer: 'ᱢᱟᱨᱟᱜ (Marag / Peacock)',
+        points: 20,
+      },
+      {
+        id: 'q3',
+        type: 'voice_answer',
+        promptHindi: 'माइक दबाकर संताली में बोलें: "हाथी" (ᱦᱟᱹᱛᱤ)',
+        promptSanthali: 'ᱢᱟᱭᱤᱠ ᱛᱮ "ᱦᱟᱹᱛᱤ" ᱨᱚᱲ ᱢᱮ ᱾',
+        correctAnswer: 'ᱦᱟᱹᱛᱤ',
+        targetScript: 'Hati',
+        points: 25,
+      },
+      {
+        id: 'q4',
+        type: 'drawing_trace',
+        promptHindi: 'ओल चिकी अक्षर "ᱚ" (LA) को उंगली से अनुरेखित करें:',
+        promptSanthali: 'ᱚᱞ ᱪᱤᱠᱤ "ᱚ" ᱟᱠᱷᱚᱨ ᱚᱞ ᱢᱮ ᱾',
+        correctAnswer: 'ᱚ',
+        points: 20,
+      },
+      {
+        id: 'q5',
+        type: 'fill_blanks',
+        promptHindi: 'रिक्त स्थान भरें: ᱛᱟᱹ___ (बाघ / Tarub)',
+        promptSanthali: 'ᱠᱷᱟᱹᱞᱤ ᱴᱷᱟᱶ ᱯᱮᱨᱮᱡ ᱢᱮ: ᱛᱟᱹ___ ᱾',
+        options: ['ᱨᱩᱵ', 'ᱛᱤ', 'ᱨᱟᱜ', 'ᱞᱮ'],
+        correctAnswer: 'ᱨᱩᱵ',
+        points: 15,
+      },
+    ],
+  },
+  {
+    id: 'quiz-math-g1',
+    title: 'FLN Counting 1–10 Quiz',
+    hindiTitle: 'एफएलएन संख्या ज्ञान मूल्यांकन (१-१०)',
+    grade: 'Grade 1',
+    subject: 'Foundational Numeracy',
+    timeLimitSeconds: 120,
+    questions: [
+      {
+        id: 'mq1',
+        type: 'multiple_choice',
+        promptHindi: 'संताली में "३" (तीन) को क्या कहते हैं?',
+        promptSanthali: '᱓ ᱫᱚ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?',
+        options: ['ᱯᱮ (Pe)', 'ᱢᱤᱫ (Mid)', 'ᱵᱟᱨ (Bar)', 'ᱯᱩᱱ (Pun)'],
+        correctAnswer: 'ᱯᱮ (Pe)',
+        points: 25,
+      },
+      {
+        id: 'mq2',
+        type: 'sequence',
+        promptHindi: 'संख्याओं को सही क्रम में व्यवस्थित करें (१, २, ३, ४):',
+        promptSanthali: 'ᱮᱞ ᱠᱚ ᱞᱮᱠᱷᱟ ᱞᱮᱠᱟᱛᱮ ᱥᱟᱡᱟᱣ ᱢᱮ ᱾',
+        options: ['ᱢᱤᱫ (1)', 'ᱵᱟᱨ (2)', 'ᱯᱮ (3)', 'ᱯᱩᱱ (4)'],
+        correctAnswer: 'ᱢᱤᱫ (1), ᱵᱟᱨ (2), ᱯᱮ (3), ᱯᱩᱱ (4)',
+        points: 25,
+      },
+    ],
+  },
+];
+
+class QuizService {
+  public getQuizzes(): QuizPack[] {
+    return SAMPLE_QUIZZES;
+  }
+
+  public getQuizById(id: string): QuizPack | null {
+    return SAMPLE_QUIZZES.find((q) => q.id === id) || SAMPLE_QUIZZES[0];
+  }
+
+  public submitQuizAttempt(
+    quizId: string,
+    userAnswers: Record<string, string>
+  ): QuizAttemptResult {
+    const quiz = this.getQuizById(quizId);
+    if (!quiz) {
+      return {
+        quizId,
+        score: 0,
+        totalPoints: 100,
+        accuracyPercent: 0,
+        xpEarned: 10,
+        badgesEarned: [],
+        completedAt: Date.now(),
+      };
+    }
+
+    let earned = 0;
+    let total = 0;
+
+    quiz.questions.forEach((q) => {
+      total += q.points;
+      const ans = userAnswers[q.id]?.trim().toLowerCase();
+      const expected = q.correctAnswer.trim().toLowerCase();
+      if (ans && (ans === expected || expected.includes(ans) || ans.includes(expected))) {
+        earned += q.points;
+      }
+    });
+
+    const accuracyPercent = Math.round((earned / total) * 100);
+    const xpEarned = Math.round(earned * 1.5) + (accuracyPercent === 100 ? 30 : 10);
+    const badgesEarned: string[] = [];
+
+    if (accuracyPercent === 100) {
+      badgesEarned.push('NIPUN Mastery Star 🌟');
+    }
+    if (accuracyPercent >= 80) {
+      badgesEarned.push('Ol Chiki Champion 🏆');
+    }
+
+    const result: QuizAttemptResult = {
+      quizId,
+      score: earned,
+      totalPoints: total,
+      accuracyPercent,
+      xpEarned,
+      badgesEarned,
+      completedAt: Date.now(),
+    };
+
+    // Save to local storage history
+    this.saveResult(result);
+    return result;
+  }
+
+  private saveResult(res: QuizAttemptResult) {
+    if (typeof window === 'undefined') return;
+    try {
+      const raw = localStorage.getItem('bhashabridge_quiz_history');
+      const list = raw ? JSON.parse(raw) : [];
+      localStorage.setItem('bhashabridge_quiz_history', JSON.stringify([res, ...list].slice(0, 20)));
+    } catch {
+      // ignore
+    }
+  }
+}
+
+export const quizService = new QuizService();
+export default quizService;

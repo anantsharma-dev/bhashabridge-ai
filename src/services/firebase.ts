@@ -6,6 +6,8 @@ import {
   setPersistence,
   type Auth,
 } from 'firebase/auth';
+import { getFirestore, type Firestore } from 'firebase/firestore';
+import { getStorage, type FirebaseStorage } from 'firebase/storage';
 
 /**
  * Firebase Configuration for BhashaBridge AI
@@ -20,20 +22,25 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
 };
 
-export const isFirebaseConfigured = Boolean(
-  firebaseConfig.apiKey &&
-  firebaseConfig.apiKey !== 'your-api-key' &&
-  firebaseConfig.projectId
-);
+export const isFirebaseConfigured = (): boolean =>
+  Boolean(
+    firebaseConfig.apiKey &&
+    firebaseConfig.apiKey !== 'your-api-key' &&
+    firebaseConfig.projectId
+  );
 
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
+let db: Firestore | null = null;
+let storage: FirebaseStorage | null = null;
 let googleProvider: GoogleAuthProvider | null = null;
 
 try {
-  if (isFirebaseConfigured) {
+  if (isFirebaseConfigured()) {
     app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
     auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
     googleProvider = new GoogleAuthProvider();
     googleProvider.setCustomParameters({ prompt: 'select_account' });
 
@@ -42,8 +49,6 @@ try {
       console.warn('Firebase persistence warning:', err);
     });
   } else {
-    // If not configured, initialize with dummy config so firebase doesn't throw immediate module errors
-    // but auth functions will know to run in offline/demo mode.
     console.info(
       'BhashaBridge: Firebase credentials not detected in .env. Running with offline-first demo auth provider.'
     );
@@ -52,4 +57,4 @@ try {
   console.warn('Firebase initialization notice:', error);
 }
 
-export { app, auth, googleProvider };
+export { app, auth, db, storage, googleProvider };

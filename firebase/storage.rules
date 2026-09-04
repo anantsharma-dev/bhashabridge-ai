@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Classroom worksheets & learning PDFs
+    match /worksheets/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    
+    // Story illustrations & flashcard pictures
+    match /illustrations/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    
+    // Audio pronunciation clips & Piper audio models
+    match /audio/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    
+    // Student worksheet drawing submissions & audio readings
+    match /studentSubmissions/{studentId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && request.auth.uid == studentId;
+    }
+    
+    // Teacher classroom uploads
+    match /teacherUploads/{teacherId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && request.auth.uid == teacherId;
+    }
+  }
+}

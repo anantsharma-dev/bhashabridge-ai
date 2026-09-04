@@ -50,7 +50,7 @@ export function buildDefaultTeacherProfile(params: {
  * Google Sign-in for Teachers
  */
 export async function signInWithGoogleService(): Promise<TeacherProfile> {
-  if (isFirebaseConfigured && auth && googleProvider) {
+  if (isFirebaseConfigured() && auth && googleProvider) {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
@@ -82,7 +82,7 @@ export async function signInWithGoogleService(): Promise<TeacherProfile> {
  * Setup RecaptchaVerifier for Phone OTP
  */
 export function setupRecaptchaVerifier(containerId: string): RecaptchaVerifier | null {
-  if (!isFirebaseConfigured || !auth) return null;
+  if (!isFirebaseConfigured() || !auth) return null;
 
   try {
     if (currentRecaptchaVerifier) {
@@ -124,7 +124,7 @@ export async function sendPhoneOtpService(
     }
   }
 
-  if (isFirebaseConfigured && auth) {
+  if (isFirebaseConfigured() && auth) {
     try {
       let verifier = currentRecaptchaVerifier;
       if (!verifier) {
@@ -162,7 +162,7 @@ export async function verifyPhoneOtpService(
 ): Promise<TeacherProfile> {
   const cleanOtp = otp.trim();
 
-  if (isFirebaseConfigured && auth && currentConfirmationResult) {
+  if (isFirebaseConfigured() && auth && currentConfirmationResult) {
     try {
       const result = await currentConfirmationResult.confirm(cleanOtp);
       const user = result.user;
@@ -199,7 +199,7 @@ export async function signInWithEmailService(
   email: string,
   pass: string
 ): Promise<TeacherProfile> {
-  if (isFirebaseConfigured && auth) {
+  if (isFirebaseConfigured() && auth) {
     try {
       const cred = await signInWithEmailAndPassword(auth, email.trim(), pass);
       const user = cred.user;
@@ -250,7 +250,7 @@ export async function registerWithEmailService(
   displayName: string,
   schoolName?: string
 ): Promise<TeacherProfile> {
-  if (isFirebaseConfigured && auth) {
+  if (isFirebaseConfigured() && auth) {
     try {
       const cred = await createUserWithEmailAndPassword(auth, email.trim(), pass);
       const user = cred.user;
@@ -295,7 +295,7 @@ export async function registerWithEmailService(
  * Reset Password Email
  */
 export async function sendPasswordResetService(email: string): Promise<void> {
-  if (isFirebaseConfigured && auth) {
+  if (isFirebaseConfigured() && auth) {
     await sendPasswordResetEmail(auth, email.trim());
     return;
   }
@@ -341,7 +341,7 @@ export async function loginStudentService(
  * Global Sign Out
  */
 export async function signOutService(): Promise<void> {
-  if (isFirebaseConfigured && auth) {
+  if (isFirebaseConfigured() && auth) {
     try {
       await firebaseSignOut(auth);
     } catch (err) {

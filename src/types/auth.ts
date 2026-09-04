@@ -49,6 +49,7 @@ export interface ClassroomStudentRecord {
 }
 
 export interface Classroom {
+  id?: string;
   code: string;
   schoolName: string;
   teacherName: string;

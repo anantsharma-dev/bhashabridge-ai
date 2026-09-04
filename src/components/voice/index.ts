@@ -7,3 +7,6 @@ export * from './ConversationMode';
 export * from './OfflineStatusCard';
 export * from './PronunciationCoachCard';
 export * from './VoiceSettingsModal';
+export * from './WaveformVisualizer';
+export * from './NoiseDetector';
+export * from './MicPermissionPrompt';
