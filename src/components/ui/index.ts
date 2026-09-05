@@ -40,4 +40,5 @@ export * from './RewardBadge';
 export * from './QuickActionButton';
 export * from './Toast';
 export * from './LeaderboardCard';
+export * from '../quiz/QuizDashboardCard';
 

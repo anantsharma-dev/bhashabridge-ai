@@ -146,13 +146,39 @@ service cloud.firestore {
       allow read, write: if isAuthenticated();
     }
     
-    // 17. Quizzes & Quiz Attempts
+    // 17. Production Quiz Engine (Quizzes, Questions, Attempts, Results, Question Bank, Adaptive Profiles)
     match /quizzes/{quizId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isTeacher() || isDistrictAdmin();
+    }
+
+    match /quizQuestions/{questionId} {
       allow read: if isAuthenticated();
       allow write: if isTeacher() || isDistrictAdmin();
     }
 
     match /quizAttempts/{attemptId} {
+      allow read: if isTeacher() || isDistrictAdmin() ||
+        (isAuthenticated() && (resource == null || resource.data.studentId == request.auth.uid));
+      allow create, update: if isAuthenticated();
+      allow delete: if isDistrictAdmin();
+    }
+
+    match /quizResults/{resultId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    match /questionBank/{questionId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isDistrictAdmin();
+    }
+
+    match /adaptiveProfiles/{profileId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /inProgressAttempts/{attemptId} {
       allow read, write: if isAuthenticated();
     }
     

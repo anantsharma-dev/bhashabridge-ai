@@ -8,6 +8,7 @@ import {
   LeaderboardCard,
   DailyRewardsSection,
   TeacherQuickActions,
+  QuizDashboardCard,
   CuteElephant,
   CountingBlocks,
   CuteMango,
@@ -511,6 +512,25 @@ export const Dashboard: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* SECTION 3C: CLASSROOM QUIZ & ASSESSMENT PLATFORM */}
+      <QuizDashboardCard
+        teacherId={effectiveTeacherId}
+        classroomId={activeClassroomId}
+        assignedCount={assignments.length || 3}
+        completedTodayCount={24}
+        averageScore={realProgress?.accuracyScore || 84}
+        pendingCount={4}
+        weeklyAccuracy={82}
+        weakCompetencies={[
+          { name: 'Ol Chiki Consonant Conjuncts (L1.4)', score: 58 },
+          { name: 'Number Regrouping within 50 (M2.1)', score: 64 },
+        ]}
+        onNotification={(msg, type) => {
+          showToast(msg, type);
+          if (type === 'success') setShowConfetti(true);
+        }}
+      />
 
       {/* SECTION 4: NIPUN BHARAT PROGRESS CARD */}
       <ProgressCard

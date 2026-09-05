@@ -31,6 +31,16 @@ export { completeSpeechPractice } from './speech';
 export { generateLeaderboard, dailyStreakJob } from './leaderboard';
 
 // ----------------------------------------------------------------------
+// SPRINT 3 EXPORTS: Production Quiz Engine, Question Bank, Results, Assignments, Report Cards, Offline Sync
+// ----------------------------------------------------------------------
+export { createQuiz, publishQuiz, deleteQuiz, duplicateQuiz, archiveQuiz } from './quizzes';
+export { queryQuestionBank, addQuestionToBank, importQuestionsToBank } from './questionBank';
+export { submitQuiz, evaluateQuiz } from './results';
+export { assignQuiz, updateAssignmentStatus } from './assignments';
+export { generateQuizReport } from './reportCards';
+export { syncOfflineAttempt, resumeAttempt } from './offlineSync';
+
+// ----------------------------------------------------------------------
 // BACKGROUND TRIGGERS & ANALYTICS
 // ----------------------------------------------------------------------
 
