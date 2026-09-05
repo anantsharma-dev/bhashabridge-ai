@@ -13,6 +13,10 @@ import {
   StoryBook,
 } from '../components/ui';
 import { useAuthStore } from '../services/authStore';
+import { useAuth } from '../context/AuthContext';
+import { useTeacher } from '../hooks/useTeacher';
+import { useClassrooms } from '../hooks/useClassrooms';
+import { useStudents } from '../hooks/useStudents';
 import { contentEngineService } from '../services/contentEngineService';
 import { useCurriculumStore } from '../services/curriculum/curriculumStore';
 import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
@@ -26,6 +30,10 @@ import {
   Volume2,
   Bell,
   ShieldCheck,
+  Users,
+  GraduationCap,
+  CalendarCheck,
+  BookOpen,
 } from 'lucide-react';
 import { speechSynthesisService } from '../services/speechSynthesis';
 import {
@@ -37,7 +45,33 @@ import { getAssignmentsByClassroom } from '../services/firebase/classroomService
 import type { AssignmentRecord, StudentProgressRecord } from '../firebase/types';
 
 export const Dashboard: React.FC = () => {
-  const { user } = useAuthStore();
+  const { user: firebaseUser } = useAuth();
+  const { user: storeUser } = useAuthStore();
+  const effectiveTeacherId = firebaseUser?.uid || (storeUser?.role === 'teacher' ? storeUser.id : undefined);
+
+  // Live Firebase Custom Hooks
+  const { teacher } = useTeacher(effectiveTeacherId);
+  const { classrooms } = useClassrooms(effectiveTeacherId);
+  const { students, getTodayAttendanceSummary } = useStudents({ teacherId: effectiveTeacherId });
+
+  const teacherName =
+    teacher?.name ||
+    firebaseUser?.displayName ||
+    (storeUser?.role === 'teacher' ? storeUser.displayName : 'Sangeeta Soren');
+  const schoolName =
+    teacher?.school ||
+    (storeUser && 'schoolName' in storeUser ? storeUser.schoolName : 'GPS Dumka Tribal Primary School');
+  const districtName =
+    teacher?.district ||
+    (storeUser && 'district' in storeUser ? storeUser.district : 'Dumka');
+
+  const totalClassroomsCount = classrooms.length > 0 ? classrooms.length : 1;
+  const totalStudentsCount =
+    students.length > 0
+      ? students.length
+      : classrooms.reduce((acc, c) => acc + (c.studentCount || 0), 0) || 28;
+  const attendanceSummary = getTodayAttendanceSummary();
+
   const { syncState, triggerSync, version } = useCurriculumStore();
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -53,13 +87,13 @@ export const Dashboard: React.FC = () => {
   const dailyWord = contentEngineService.getDailyWord();
   const dailyFact = contentEngineService.getDailyFact();
 
-  const studentUser = user && user.role === 'student' ? user : null;
-  const currentXp = liveProgress?.totalXp || studentUser?.xp || (user && user.role === 'teacher' ? user.xp : 1240);
+  const studentUser = storeUser && storeUser.role === 'student' ? storeUser : null;
+  const currentXp = liveProgress?.totalXp || studentUser?.xp || (storeUser && storeUser.role === 'teacher' ? storeUser.xp : 1240);
   const currentStars = liveProgress?.starsCount || studentUser?.stars || 18;
 
   useEffect(() => {
-    const userId = user?.id || 's1';
-    const classroomCode = (user && 'classroomCode' in user && user.classroomCode) ? user.classroomCode : 'JH-DUMKA-01';
+    const userId = firebaseUser?.uid || storeUser?.id || 's1';
+    const classroomCode = (storeUser && 'classroomCode' in storeUser && storeUser.classroomCode) ? storeUser.classroomCode : 'JH-DUMKA-01';
 
     // 1. Fetch live student progress from Firestore
     getStudentProgress(userId).then((prog) => {
@@ -85,7 +119,7 @@ export const Dashboard: React.FC = () => {
         setContinueProgressPercent(Math.min(100, Math.round((recent.pagesRead / recent.totalPages) * 100)));
       }
     }).catch(console.warn);
-  }, [user]);
+  }, [firebaseUser, storeUser]);
 
   const showToast = (message: string, type: ToastType = 'success') => {
     setToast({ message, type });
@@ -201,7 +235,98 @@ export const Dashboard: React.FC = () => {
       </div>
 
       {/* SECTION 1: TOP GREETING HERO CARD */}
-      <HeroCard />
+      <HeroCard
+        teacherName={teacherName}
+        schoolName={schoolName}
+        districtName={districtName}
+      />
+
+      {/* SECTION 1A: LIVE CLASSROOM & TEACHER FIRESTORE METRICS */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {/* Metric 1: Teacher Profile */}
+        <div className="p-4 rounded-[24px] bg-white border border-[#F1EFE8] shadow-2xs space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="p-2 rounded-xl bg-blue-100 text-blue-700">
+              <GraduationCap size={16} />
+            </span>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              Teacher
+            </span>
+          </div>
+          <div>
+            <div className="text-base font-extrabold text-slate-900 truncate">
+              {teacherName}
+            </div>
+            <div className="text-[11px] text-slate-500 truncate font-medium">
+              {schoolName}
+            </div>
+          </div>
+        </div>
+
+        {/* Metric 2: Active Classrooms */}
+        <div className="p-4 rounded-[24px] bg-white border border-[#F1EFE8] shadow-2xs space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="p-2 rounded-xl bg-purple-100 text-purple-700">
+              <BookOpen size={16} />
+            </span>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              Classrooms
+            </span>
+          </div>
+          <div>
+            <div className="text-base font-extrabold text-slate-900">
+              {totalClassroomsCount} Active
+            </div>
+            <div className="text-[11px] text-slate-500 font-medium">
+              {districtName} District
+            </div>
+          </div>
+        </div>
+
+        {/* Metric 3: Enrolled Students */}
+        <div className="p-4 rounded-[24px] bg-white border border-[#F1EFE8] shadow-2xs space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="p-2 rounded-xl bg-emerald-100 text-emerald-700">
+              <Users size={16} />
+            </span>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              Enrolled Students
+            </span>
+          </div>
+          <div>
+            <div className="text-base font-extrabold text-slate-900">
+              {totalStudentsCount} Students
+            </div>
+            <div className="text-[11px] text-slate-500 font-medium">
+              Santali & Hindi Medium
+            </div>
+          </div>
+        </div>
+
+        {/* Metric 4: Today's Attendance */}
+        <div className="p-4 rounded-[24px] bg-white border border-[#F1EFE8] shadow-2xs space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="p-2 rounded-xl bg-amber-100 text-amber-700">
+              <CalendarCheck size={16} />
+            </span>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              Today's Attendance
+            </span>
+          </div>
+          <div>
+            <div className="text-base font-extrabold text-slate-900">
+              {attendanceSummary.totalStudents > 0
+                ? `${attendanceSummary.attendanceRate}%`
+                : '96%'}
+            </div>
+            <div className="text-[11px] text-slate-500 font-medium truncate">
+              {attendanceSummary.totalStudents > 0
+                ? `${attendanceSummary.presentCount} of ${attendanceSummary.totalStudents} Present`
+                : '27 of 28 Present'}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* SECTION 1B: DAILY TRILINGUAL WORD & CULTURAL FACT */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -278,7 +403,7 @@ export const Dashboard: React.FC = () => {
       </div>
 
       {/* DISTRICT ADMIN OVERSIGHT BANNER (WHEN LOGGED IN AS DISTRICT ADMIN) */}
-      {user?.role === 'district_admin' && (
+      {storeUser?.role === 'district_admin' && (
         <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-3">
             <span className="p-2 rounded-xl bg-purple-100 text-purple-800">
@@ -286,7 +411,7 @@ export const Dashboard: React.FC = () => {
             </span>
             <div>
               <span className="font-extrabold text-purple-950 block text-sm">
-                District Administrator Oversight • {user.district || 'Dumka'}
+                District Administrator Oversight • {(storeUser as any).district || 'Dumka'}
               </span>
               <p className="text-purple-800 font-medium text-[11px]">
                 Active monitoring for 248 MTB-MLE Primary Schools • FLN Target Rate: 85%

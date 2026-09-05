@@ -8,11 +8,21 @@ import { useThemeStore } from './themeStore';
 export interface HeroCardProps {
   onStartLesson?: () => void;
   className?: string;
+  teacherName?: string;
+  schoolName?: string;
+  districtName?: string;
+  grade?: string;
+  languagePair?: string;
 }
 
 export const HeroCard: React.FC<HeroCardProps> = ({
   onStartLesson,
   className = '',
+  teacherName,
+  schoolName = 'GPS Dumka Tribal Primary School',
+  districtName = 'Dumka',
+  grade = 'Grade 2 MTB-MLE',
+  languagePair = 'Hindi + Santali',
 }) => {
   const { currentLanguage, setCurrentLanguage } = useThemeStore();
 
@@ -40,22 +50,22 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-[#FEF3C7] text-amber-900 border border-amber-300/80 shadow-xs">
               <School size={13} className="text-amber-700" />
-              Grade 2 MTB-MLE
+              {grade}
             </span>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-[#EFF6FF] text-blue-900 border border-blue-200 shadow-xs">
               <Sparkles size={13} className="text-blue-600" />
-              Hindi + Santhali
+              {languagePair}
             </span>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-[#F0FDF4] text-emerald-800 border border-emerald-200 shadow-xs">
               <MapPin size={13} className="text-emerald-600" />
-              GPS Dumka
+              {schoolName} • {districtName}
             </span>
           </div>
 
           {/* Main Playful Title & Subtitle */}
           <div className="space-y-1.5">
             <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-baloo leading-snug">
-              Johar! Ready for today's learning?
+              Johar{teacherName ? `, ${teacherName}` : ''}! Ready for today's learning?
             </h1>
             <p className="text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
               Continue today's Hindi ↔ Santhali multilingual classroom journey.

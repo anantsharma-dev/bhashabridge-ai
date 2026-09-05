@@ -16,6 +16,7 @@ import QuizScreen from '../pages/QuizScreen';
 import SplashScreen from '../pages/SplashScreen';
 import LanguageSelectionScreen from '../pages/LanguageSelectionScreen';
 import LoginScreen from '../pages/LoginScreen';
+import SignupScreen from '../pages/SignupScreen';
 import AiContentGenerator from '../pages/AiContentGenerator';
 
 export const router = createBrowserRouter([
@@ -51,5 +52,9 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginScreen />,
+  },
+  {
+    path: '/signup',
+    element: <SignupScreen />,
   },
 ]);

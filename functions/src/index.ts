@@ -2,8 +2,15 @@ import * as admin from 'firebase-admin';
 import { onDocumentWritten, onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 
-admin.initializeApp();
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
 const db = admin.firestore();
+
+// Export Sprint 1 Production Backend Cloud Functions
+export { createTeacherProfile, syncTeacherProfile } from './auth';
+export { createStudent, deleteStudent, updateAttendance } from './students';
+export { generateClassCode, joinClassroom } from './classrooms';
 
 /**
  * 1. Automatically update classroom leaderboard whenever a student's progress updates
@@ -58,9 +65,9 @@ export const onClassroomCreated = onDocumentCreated(
     try {
       await db.collection('classroomStats').doc(classroomId).set({
         classroomId,
-        code: data.code || classroomId,
+        code: data.classCode || data.code || classroomId,
         teacherId: data.teacherId,
-        enrolledStudentsCount: (data.students || []).length,
+        enrolledStudentsCount: (data.students || []).length || data.studentCount || 0,
         averageAttendanceRate: 100,
         averageFLNScore: 75,
         lastActiveDate: new Date().toISOString().slice(0, 10),
