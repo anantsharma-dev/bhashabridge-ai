@@ -1,3 +1,23 @@
+/**
+ * BhashaBridge AI - Production Quiz Service
+ * Handles quiz definitions, submissions, automatic grading, +40 XP awards, and Firestore sync.
+ */
+
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  query,
+  where,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
+import { db } from '../firebase/config';
+import { indexedDbEngine } from '../offline/indexedDbEngine';
+import { awardStudentXP, enqueueOfflineOperation } from './progress.service';
+import type { QuizAttemptRecord } from '../firebase/types';
+
 export type QuestionType =
   | 'multiple_choice'
   | 'picture_match'
@@ -38,6 +58,26 @@ export interface QuizPack {
   subject: string;
   questions: QuizQuestion[];
   timeLimitSeconds: number;
+}
+
+export interface QuizSubmissionInput {
+  studentId: string;
+  classroomId: string;
+  quizId: string;
+  score: number;
+  totalPoints: number;
+  percentage: number;
+  timeSpentSeconds: number;
+  answersJson?: string;
+}
+
+export interface QuizSubmissionResult {
+  attemptId: string;
+  score: number;
+  passed: boolean;
+  xpEarned: number;
+  starsEarned: number;
+  accuracy: number;
 }
 
 export const SAMPLE_QUIZZES: QuizPack[] = [
@@ -135,9 +175,15 @@ class QuizService {
     return SAMPLE_QUIZZES.find((q) => q.id === id) || SAMPLE_QUIZZES[0];
   }
 
+  /**
+   * Submit quiz attempt from interactive UI (QuizPlayer), evaluates score,
+   * awards +40 XP, writes to Firestore + IndexedDB, and returns QuizAttemptResult
+   */
   public submitQuizAttempt(
     quizId: string,
-    userAnswers: Record<string, string>
+    userAnswers: Record<string, string>,
+    studentId: string = 'stu_dumka_1',
+    classroomId: string = 'class_dumka_g2'
   ): QuizAttemptResult {
     const quiz = this.getQuizById(quizId);
     if (!quiz) {
@@ -165,7 +211,9 @@ class QuizService {
     });
 
     const accuracyPercent = Math.round((earned / total) * 100);
-    const xpEarned = Math.round(earned * 1.5) + (accuracyPercent === 100 ? 30 : 10);
+    const passed = accuracyPercent >= 60;
+    // Standard rule: +40 quizXP on pass, +15 XP on attempt
+    const xpEarned = passed ? 40 : 15;
     const badgesEarned: string[] = [];
 
     if (accuracyPercent === 100) {
@@ -175,6 +223,36 @@ class QuizService {
       badgesEarned.push('Ol Chiki Champion 🏆');
     }
 
+    const now = Date.now();
+    const attemptId = `att_${studentId}_${quizId}_${now}`;
+
+    const record: QuizAttemptRecord = {
+      id: attemptId,
+      studentId,
+      classroomId,
+      quizId,
+      quizTitle: quiz.title,
+      score: earned,
+      totalPoints: total,
+      percentage: accuracyPercent,
+      passed,
+      timeSpentSeconds: quiz.timeLimitSeconds,
+      xpEarned,
+      starsEarned: accuracyPercent >= 90 ? 3 : passed ? 2 : 1,
+      answersJson: JSON.stringify(userAnswers),
+      timestamp: now,
+    };
+
+    // 1. Enqueue offline operation
+    enqueueOfflineOperation('quizAttempts', attemptId, record);
+
+    // 2. Write to Firestore & IndexedDB asynchronously
+    setDoc(doc(db, 'quizAttempts', attemptId), record).catch(() => {});
+    indexedDbEngine.setItem('quizzes' as any, record).catch(() => {});
+
+    // 3. Award real student quizXP
+    awardStudentXP(studentId, xpEarned, 'quiz', quizId, accuracyPercent).catch(() => {});
+
     const result: QuizAttemptResult = {
       quizId,
       score: earned,
@@ -182,12 +260,57 @@ class QuizService {
       accuracyPercent,
       xpEarned,
       badgesEarned,
-      completedAt: Date.now(),
+      completedAt: now,
     };
 
-    // Save to local storage history
     this.saveResult(result);
     return result;
+  }
+
+  /**
+   * Structured API submission
+   */
+  public async submitStructuredAttempt(input: QuizSubmissionInput): Promise<QuizSubmissionResult> {
+    const now = Date.now();
+    const passed = input.percentage >= 60;
+    const xpEarned = passed ? 40 : 15;
+    const starsEarned = input.percentage >= 90 ? 3 : passed ? 2 : 1;
+    const attemptId = `att_${input.studentId}_${input.quizId}_${now}`;
+
+    const record: QuizAttemptRecord = {
+      id: attemptId,
+      studentId: input.studentId,
+      classroomId: input.classroomId,
+      quizId: input.quizId,
+      quizTitle: input.quizId,
+      score: input.score,
+      totalPoints: input.totalPoints,
+      percentage: input.percentage,
+      passed,
+      timeSpentSeconds: input.timeSpentSeconds,
+      xpEarned,
+      starsEarned,
+      answersJson: input.answersJson || '',
+      timestamp: now,
+    };
+
+    enqueueOfflineOperation('quizAttempts', attemptId, record);
+
+    try {
+      await setDoc(doc(db, 'quizAttempts', attemptId), record);
+    } catch {}
+    await indexedDbEngine.setItem('quizzes' as any, record).catch(() => {});
+
+    await awardStudentXP(input.studentId, xpEarned, 'quiz', input.quizId, input.percentage);
+
+    return {
+      attemptId,
+      score: input.score,
+      passed,
+      xpEarned,
+      starsEarned,
+      accuracy: input.percentage,
+    };
   }
 
   private saveResult(res: QuizAttemptResult) {
@@ -198,6 +321,24 @@ class QuizService {
       localStorage.setItem('bhashabridge_quiz_history', JSON.stringify([res, ...list].slice(0, 20)));
     } catch {
       // ignore
+    }
+  }
+
+  /**
+   * Fetch recent quiz attempts for a student
+   */
+  public async getStudentAttempts(studentId: string, limitCount: number = 10): Promise<QuizAttemptRecord[]> {
+    try {
+      const q = query(
+        collection(db, 'quizAttempts'),
+        where('studentId', '==', studentId),
+        orderBy('timestamp', 'desc'),
+        limit(limitCount)
+      );
+      const snap = await getDocs(q);
+      return snap.docs.map((d) => d.data() as QuizAttemptRecord);
+    } catch {
+      return [];
     }
   }
 }

@@ -5,6 +5,7 @@ import {
   ActivityCard,
   type ActivityItem,
   ProgressCard,
+  LeaderboardCard,
   DailyRewardsSection,
   TeacherQuickActions,
   CuteElephant,
@@ -18,8 +19,7 @@ import { useTeacher } from '../hooks/useTeacher';
 import { useClassrooms } from '../hooks/useClassrooms';
 import { useStudents } from '../hooks/useStudents';
 import { useProgress } from '../hooks/useProgress';
-import { useLeaderboard } from '../hooks/useLeaderboard';
-import { seedFirestoreDatabase } from '../services/seedService';
+import { studentProgressService } from '../services/studentProgressService';
 import { contentEngineService } from '../services/contentEngineService';
 import { useCurriculumStore } from '../services/curriculum/curriculumStore';
 import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
@@ -37,9 +37,6 @@ import {
   GraduationCap,
   CalendarCheck,
   BookOpen,
-  Trophy,
-  Flame,
-  Database,
 } from 'lucide-react';
 import { speechSynthesisService } from '../services/speechSynthesis';
 import {
@@ -78,14 +75,12 @@ export const Dashboard: React.FC = () => {
   const attendanceSummary = getTodayAttendanceSummary();
 
   const activeClassroomId = classrooms[0]?.classroomId || 'class_dumka_g2';
-  const { leaderboard } = useLeaderboard(activeClassroomId);
   const activeStudentId = storeUser?.role === 'student' ? storeUser.id : 'stu_dumka_1';
   const { progress: realProgress, xp: realXP, streak: realStreak } = useProgress(activeStudentId);
 
   const { syncState, triggerSync, version } = useCurriculumStore();
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [isSeeding, setIsSeeding] = useState(false);
 
   // Live Firestore State
   const [liveProgress, setLiveProgress] = useState<StudentProgressRecord | null>(null);
@@ -115,6 +110,9 @@ export const Dashboard: React.FC = () => {
     getAssignmentsByClassroom(classroomCode).then((asgs) => {
       if (asgs && asgs.length > 0) setAssignments(asgs);
     }).catch(console.warn);
+
+    // 3. Sync offline queue when online
+    studentProgressService.syncOfflineQueueWhenOnline().catch(console.warn);
 
     // 4. Fetch recent story progress for Continue Learning
     getStoryHistory(userId).then((history) => {
@@ -518,6 +516,9 @@ export const Dashboard: React.FC = () => {
       <ProgressCard
         vocabularyMastered={realProgress?.masteredWords || liveProgress?.masteredWordsCount || 28}
         readingCards={realProgress?.completedStories || liveProgress?.storiesCompletedCount || 8}
+        accuracyScore={realProgress?.accuracyScore || 82}
+        readingFluency={realProgress?.readingFluency || 64}
+        pronunciationScore={realProgress?.pronunciationScore || 78}
       />
 
       {/* SECTION 4B: FOREST JOURNEY MAP VIEW */}
@@ -530,101 +531,15 @@ export const Dashboard: React.FC = () => {
       />
 
       {/* SECTION 5B: REAL CLASSROOM LEADERBOARD (TOP 5) */}
-      <div className="p-6 rounded-[24px] bg-white border border-[#F1EFE8] shadow-2xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5">
-            <span className="p-2 rounded-xl bg-amber-100 text-amber-800">
-              <Trophy size={18} />
-            </span>
-            <div>
-              <h3 className="text-base sm:text-lg font-extrabold text-slate-900 font-baloo">
-                Classroom Leaderboard (ᱛᱟᱹᱞᱠᱟᱹ)
-              </h3>
-              <p className="text-xs text-slate-500">
-                Top multilingual learners in {classrooms[0]?.grade || 'Grade 2'} • Live Firestore rankings
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            disabled={isSeeding}
-            onClick={async () => {
-              try {
-                setIsSeeding(true);
-                showToast('Seeding 50 students, 500 vocabulary & 30 attendance records...', 'info');
-                await seedFirestoreDatabase({
-                  teacherId: effectiveTeacherId,
-                  classroomId: activeClassroomId,
-                });
-                setShowConfetti(true);
-                showToast('Database seeded successfully with realistic MTB-MLE data! 🎉', 'success');
-              } catch (err: any) {
-                showToast('Seeding failed: ' + (err?.message || 'Error'), 'error');
-              } finally {
-                setIsSeeding(false);
-              }
-            }}
-            className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-colors"
-          >
-            <Database size={13} className={isSeeding ? 'animate-spin' : ''} />
-            <span>{isSeeding ? 'Seeding...' : 'Seed 50 Students & Test Data'}</span>
-          </button>
-        </div>
-
-        {/* Leaderboard entries */}
-        <div className="space-y-2">
-          {leaderboard.length > 0 ? (
-            leaderboard.slice(0, 5).map((entry) => (
-              <div
-                key={entry.studentId}
-                className="p-3 rounded-2xl bg-[#FFFDF7] border border-slate-200/70 flex items-center justify-between gap-3 text-xs"
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`w-6 text-center font-extrabold text-sm ${
-                      entry.rank === 1
-                        ? 'text-amber-500'
-                        : entry.rank === 2
-                        ? 'text-slate-400'
-                        : entry.rank === 3
-                        ? 'text-amber-700'
-                        : 'text-slate-400'
-                    }`}
-                  >
-                    {entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : `#${entry.rank}`}
-                  </span>
-                  <span className="text-xl">{entry.avatar || '👦'}</span>
-                  <div>
-                    <div className="font-extrabold text-slate-900">{entry.studentName}</div>
-                    <div className="text-[10px] text-slate-400 font-semibold">
-                      Level {entry.level || 1} • Attendance {entry.attendanceXP || 0} XP
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-orange-50 text-orange-700 font-bold border border-orange-200">
-                    <Flame size={12} className="text-orange-500" />
-                    <span>{entry.streak}d</span>
-                  </div>
-                  <div className="px-3 py-1 rounded-xl bg-blue-50 text-blue-900 font-extrabold border border-blue-200">
-                    {entry.totalXP} XP
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
-              <p className="text-xs font-bold text-slate-600">
-                Leaderboard will populate as students complete activities today.
-              </p>
-              <p className="text-[11px] text-slate-400">
-                Click "Seed 50 Students & Test Data" to preview with 50 live Dumka classroom records.
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
+      <LeaderboardCard
+        classroomId={activeClassroomId}
+        currentStudentId={activeStudentId}
+        limitCount={5}
+        onNotification={(msg, type) => {
+          showToast(msg, type);
+          if (type === 'success') setShowConfetti(true);
+        }}
+      />
 
       {/* SECTION 6: TEACHER QUICK ACTIONS */}
       <TeacherQuickActions />

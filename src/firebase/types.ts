@@ -262,6 +262,7 @@ export interface QuizAttemptRecord {
   passed: boolean;
   xpEarned: number;
   starsEarned: number;
+  timeSpentSeconds?: number;
   timestamp: number;
 }
 

@@ -10,7 +10,7 @@ export interface ProgressItemData {
   total: number;
   unit: string;
   percent: number;
-  color: string; // Tailwind or Hex
+  color: string;
   barColor: string;
   icon: React.ReactNode;
   hint: string;
@@ -22,66 +22,85 @@ export interface ProgressCardProps {
   speakingPhrases?: number;
   readingCards?: number;
   nipunScore?: number;
+  accuracyScore?: number;
+  readingFluency?: number;
+  pronunciationScore?: number;
+  goalPercent?: number;
 }
 
-export const ProgressCard: React.FC<ProgressCardProps> = ({ 
+export const ProgressCard: React.FC<ProgressCardProps> = ({
   className = '',
   vocabularyMastered = 28,
   speakingPhrases = 15,
   readingCards = 8,
+  accuracyScore = 82,
+  readingFluency = 64,
+  pronunciationScore = 78,
+  goalPercent,
 }) => {
+  const vocabTarget = 35;
+  const speakingTarget = 20;
+  const readingTarget = 10;
+
+  const vocabPercent = Math.min(100, Math.round((vocabularyMastered / vocabTarget) * 100));
+  const speakingPercent = Math.min(100, pronunciationScore || Math.round((speakingPhrases / speakingTarget) * 100));
+  const readingPercent = Math.min(100, Math.round((readingCards / readingTarget) * 100));
+  const countingPercent = Math.min(100, accuracyScore || 90);
+
+  const overallGoal = goalPercent ?? Math.round((vocabPercent + speakingPercent + readingPercent + countingPercent) / 4);
+
   const items: ProgressItemData[] = [
     {
       id: 'vocab',
-      label: 'Vocabulary Completed',
-      hindiLabel: 'शब्द ज्ञान',
+      label: 'Vocabulary Mastered',
+      hindiLabel: 'शब्द ज्ञान (Spaced Repetition)',
       current: vocabularyMastered,
-      total: 35,
+      total: vocabTarget,
       unit: 'words',
-      percent: Math.min(100, Math.round((vocabularyMastered / 35) * 100)),
+      percent: vocabPercent,
       color: 'text-emerald-700 bg-emerald-50 border-emerald-200',
       barColor: '#22C55E',
       icon: <BookOpen size={18} className="text-emerald-600" />,
-      hint: 'Animals, family & classroom objects',
+      hint: `${vocabularyMastered} words in memory with SM-2`,
     },
     {
       id: 'speaking',
-      label: 'Speaking Practice',
-      hindiLabel: 'मौखिक अभ्यास',
-      current: speakingPhrases,
-      total: 20,
-      unit: 'phrases',
-      percent: Math.min(100, Math.round((speakingPhrases / 20) * 100)),
+      label: 'Speaking & Pronunciation',
+      hindiLabel: 'मौखिक उच्चारण अभ्यास',
+      current: pronunciationScore || speakingPhrases,
+      total: 100,
+      unit: '% score',
+      percent: speakingPercent,
       color: 'text-blue-700 bg-blue-50 border-blue-200',
       barColor: '#2563EB',
       icon: <Mic size={18} className="text-blue-600" />,
-      hint: 'Hindi ↔ Santhali sentence practice',
+      hint: 'Indigenous phoneme clarity in Santali & Hindi',
     },
     {
       id: 'reading',
       label: 'Reading Practice',
-      hindiLabel: 'पठन अभ्यास',
+      hindiLabel: 'पठन अभ्यास (Fluency)',
       current: readingCards,
-      total: 10,
-      unit: 'cards',
-      percent: Math.min(100, Math.round((readingCards / 10) * 100)),
+      total: readingTarget,
+      unit: 'stories',
+      percent: readingPercent,
       color: 'text-amber-700 bg-amber-50 border-amber-200',
       barColor: '#F59E0B',
       icon: <BookMarked size={18} className="text-amber-600" />,
-      hint: 'Traditional stories & folk tales',
+      hint: `Speed: ~${readingFluency} words per minute`,
     },
     {
       id: 'counting',
-      label: 'Counting Practice',
-      hindiLabel: 'संख्या ज्ञान',
-      current: 18,
-      total: 20,
-      unit: 'numbers',
-      percent: 90,
+      label: 'Quiz & Cognitive Accuracy',
+      hindiLabel: 'मूल्यांकन एवं शुद्धता',
+      current: accuracyScore,
+      total: 100,
+      unit: '% accuracy',
+      percent: countingPercent,
       color: 'text-purple-700 bg-purple-50 border-purple-200',
       barColor: '#8B5CF6',
       icon: <Hash size={18} className="text-purple-600" />,
-      hint: 'Numbers 1 to 20 with counting blocks',
+      hint: 'Foundational literacy & numeracy answers',
     },
   ];
 
@@ -97,7 +116,7 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
               NIPUN Bharat FLN
             </span>
             <span className="text-xs font-medium text-slate-500">
-              Grade 1–2 Multilingual Learning
+              Grade 1–2 Multilingual Learning • Live Firestore
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-baloo">
@@ -107,11 +126,11 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
 
         <div className="inline-flex items-center gap-2 self-start sm:self-auto px-3.5 py-1.5 rounded-full bg-[#EFF6FF] border border-blue-200 text-blue-900 text-xs font-bold shadow-2xs">
           <CheckCircle2 size={16} className="text-blue-600" />
-          <span>Classroom Goal: 82% Completed</span>
+          <span>Classroom Goal: {overallGoal}% Completed</span>
         </div>
       </div>
 
-      {/* Progress Items Grid (2 cols on tablet landscape, 1 on mobile) */}
+      {/* Progress Items Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((item) => (
           <div
@@ -162,13 +181,15 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
         ))}
       </div>
 
-      {/* Cheerful classroom milestone encouragement banner */}
+      {/* Classroom milestone encouragement banner */}
       <div className="p-3.5 rounded-2xl bg-[#FFFBEB] border border-amber-200/80 flex items-center gap-3">
         <span className="text-xl">🌟</span>
         <p className="text-xs sm:text-sm font-medium text-amber-950 leading-relaxed">
-          <strong>Daily Milestone:</strong> Children achieved <strong>80% mastery</strong> in Santhali animal vocabulary today. Keep the conversation going!
+          <strong>Daily Milestone:</strong> Multilingual learners achieved <strong>{overallGoal}% mastery</strong> in Santali and Hindi foundational competencies today. Keep the conversation going!
         </p>
       </div>
     </div>
   );
 };
+
+export default ProgressCard;

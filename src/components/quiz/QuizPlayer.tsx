@@ -42,7 +42,7 @@ export const QuizPlayer: React.FC<QuizPlayerProps> = ({
   useEffect(() => {
     if (isSubmitted || timeLeft <= 0) return;
     const timer = setInterval(() => {
-      setTimeLeft((t) => {
+      setTimeLeft((t: number) => {
         if (t <= 1) {
           clearInterval(timer);
           handleSubmitQuiz();
@@ -261,7 +261,7 @@ export const QuizPlayer: React.FC<QuizPlayerProps> = ({
         {/* 1. Multiple Choice / Fill in blanks / Sequence */}
         {currentQ.options && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {currentQ.options.map((opt, i) => {
+            {currentQ.options.map((opt: string, i: number) => {
               const isSelected = answers[currentQ.id] === opt;
               return (
                 <button

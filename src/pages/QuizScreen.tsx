@@ -73,7 +73,7 @@ export const QuizScreen: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {quizzes.map((q) => (
+            {quizzes.map((q: QuizPack) => (
               <div
                 key={q.id}
                 className="p-5 rounded-2xl bg-white border border-[#F1EFE8] shadow-2xs hover:shadow-xs transition-all space-y-4 flex flex-col justify-between"

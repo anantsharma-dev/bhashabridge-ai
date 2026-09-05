@@ -23,7 +23,8 @@ import { classroomService } from '../services/classroomService';
 import { analyticsService } from '../services/analyticsService';
 import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
 import { Toast, type ToastType } from '../components/ui/Toast';
-import type { Classroom, AttendanceRecord, AssignmentRecord } from '../firebase/types';
+import type { Classroom, ClassroomStudentRecord, AttendanceRecord, AssignmentRecord } from '../firebase/types';
+import type { WeakTopicAlert } from '../services/classroomService';
 import { recordAttendance, createAssignment as createAssignmentLive } from '../services/firebase/classroomService';
 
 export const TeacherClassroom: React.FC = () => {
@@ -82,13 +83,13 @@ export const TeacherClassroom: React.FC = () => {
 
   // Realtime subscription to active classroom
   useEffect(() => {
-    const unsub = classroomService.subscribe(activeCode, (updated) => {
+    const unsub = classroomService.subscribe(activeCode, (updated: Classroom) => {
       setClassrooms(classroomService.getClassrooms());
       if (updated.code === activeCode) {
         // Initialize attendance map for students if not yet set
         setAttendance((prev) => {
           const next = { ...prev };
-          updated.students.forEach((s, idx) => {
+          updated.students.forEach((s: ClassroomStudentRecord, idx: number) => {
             if (!next[s.id]) {
               next[s.id] = idx === 4 ? 'absent' : idx === 2 ? 'late' : 'present';
             }
@@ -741,7 +742,7 @@ export const TeacherClassroom: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {assignments.map((asg) => (
+            {assignments.map((asg: AssignmentRecord) => (
               <div
                 key={asg.id}
                 className="p-5 rounded-2xl bg-[#FFFDF7] border border-slate-200/80 shadow-2xs space-y-3"
@@ -1070,7 +1071,7 @@ export const TeacherClassroom: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            {weakTopics.map((wt) => (
+            {weakTopics.map((wt: WeakTopicAlert) => (
               <div
                 key={wt.id}
                 className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200 shadow-2xs space-y-3"
