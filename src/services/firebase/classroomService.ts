@@ -1,5 +1,5 @@
 import { classroomRepo, assignmentRepo, attendanceRepo } from '../../firebase/repository';
-import type { Classroom } from '../../types/auth';
+import type { Classroom, ClassroomStudentRecord } from '../../types/auth';
 import type { AssignmentRecord, AttendanceRecord } from '../../firebase/types';
 
 /**
@@ -222,4 +222,78 @@ export async function getAttendanceHistory(
     });
   }
   return records;
+}
+
+/**
+ * 4. REALTIME STUDENT MANAGEMENT & SUBSCRIPTION
+ */
+
+export async function addStudentToClassroomLive(
+  classroomId: string,
+  student: ClassroomStudentRecord
+): Promise<Classroom> {
+  const cls = await getClassroomByCode(classroomId) || await getClassroomById(classroomId);
+  if (!cls) throw new Error(`Classroom ${classroomId} not found`);
+
+  const updated: Classroom = {
+    ...cls,
+    updatedAt: Date.now(),
+    students: [student, ...cls.students],
+  };
+
+  await classroomRepo.save(updated);
+  return updated;
+}
+
+export async function updateStudentInClassroomLive(
+  classroomId: string,
+  studentId: string,
+  updates: Partial<ClassroomStudentRecord>
+): Promise<Classroom> {
+  const cls = await getClassroomByCode(classroomId) || await getClassroomById(classroomId);
+  if (!cls) throw new Error(`Classroom ${classroomId} not found`);
+
+  const updatedStudents = cls.students.map((s) =>
+    s.id === studentId || s.studentId === studentId
+      ? { ...s, ...updates, updatedAt: Date.now() }
+      : s
+  );
+
+  const updated: Classroom = {
+    ...cls,
+    updatedAt: Date.now(),
+    students: updatedStudents,
+  };
+
+  await classroomRepo.save(updated);
+  return updated;
+}
+
+export async function deleteStudentFromClassroomLive(
+  classroomId: string,
+  studentId: string
+): Promise<Classroom> {
+  const cls = await getClassroomByCode(classroomId) || await getClassroomById(classroomId);
+  if (!cls) throw new Error(`Classroom ${classroomId} not found`);
+
+  const updated: Classroom = {
+    ...cls,
+    updatedAt: Date.now(),
+    students: cls.students.filter((s) => s.id !== studentId && s.studentId !== studentId),
+  };
+
+  await classroomRepo.save(updated);
+  return updated;
+}
+
+export function subscribeToClassroomLive(
+  classroomId: string,
+  onUpdate: (c: Classroom) => void
+): () => void {
+  const norm = classroomId.trim().toUpperCase();
+  return classroomRepo.subscribeById(norm, (item) => {
+    if (item) {
+      onUpdate(item);
+    }
+  });
 }

@@ -1,5 +1,5 @@
 import type { Classroom, ClassroomStudentRecord, AttendanceRecord, AssignmentRecord } from '../firebase/types';
-import { INITIAL_CLASSROOMS } from '../data/classrooms';
+import { getClassrooms, saveClassrooms } from '../data/classrooms';
 
 export interface WeakTopicAlert {
   id: string;
@@ -14,18 +14,214 @@ export interface WeakTopicAlert {
 const ATTENDANCE_KEY = 'bhashabridge_classroom_attendance';
 const ASSIGNMENTS_KEY = 'bhashabridge_classroom_assignments';
 
+type ClassroomListener = (classroom: Classroom) => void;
+
 class ClassroomService {
-  private classrooms: Classroom[] = INITIAL_CLASSROOMS;
+  private classrooms: Classroom[] = getClassrooms();
+  private listeners: Map<string, Set<ClassroomListener>> = new Map();
+
+  constructor() {
+    this.classrooms = getClassrooms();
+  }
 
   public getClassrooms(): Classroom[] {
+    this.classrooms = getClassrooms();
     return this.classrooms;
   }
 
   public getClassroomByCode(code: string): Classroom | null {
-    return this.classrooms.find((c) => c.code === code) || this.classrooms[0];
+    const norm = code.trim().toUpperCase();
+    const current = this.getClassrooms();
+    return current.find((c) => c.code.toUpperCase() === norm) || current[0] || null;
   }
 
-  // Attendance management
+  // 1. Classroom Creation & Code Generation
+  public generateJoinCode(district = 'DUMKA'): string {
+    const prefix = district.toUpperCase().slice(0, 3) || 'JH';
+    const randNum = Math.floor(10 + Math.random() * 90);
+    return `JH-${prefix}-${randNum}`;
+  }
+
+  public createClassroom(data: {
+    schoolName: string;
+    teacherName: string;
+    teacherId: string;
+    district: string;
+    block: string;
+    grades: string;
+    code?: string;
+  }): Classroom {
+    const code = (data.code?.trim() || this.generateJoinCode(data.district)).toUpperCase();
+    const newClassroom: Classroom = {
+      id: `cls-${Date.now()}`,
+      code,
+      schoolName: data.schoolName.trim(),
+      teacherName: data.teacherName.trim(),
+      teacherId: data.teacherId || 'teacher-01',
+      district: data.district.trim(),
+      block: data.block.trim(),
+      grades: data.grades || 'Grade 1 & 2 MTB-MLE',
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      students: [],
+    };
+
+    const current = this.getClassrooms();
+    const updated = [newClassroom, ...current.filter((c) => c.code !== code)];
+    this.classrooms = updated;
+    saveClassrooms(updated);
+    this.notifyListeners(code, newClassroom);
+
+    return newClassroom;
+  }
+
+  // 2. Student Enrollment & Management
+  public addStudentToClassroom(classroomId: string, studentData: Omit<ClassroomStudentRecord, 'id'> & { id?: string }): Classroom {
+    const cls = this.getClassroomByCode(classroomId);
+    if (!cls) throw new Error(`Classroom ${classroomId} not found`);
+
+    const id = studentData.id || `s${Date.now()}`;
+    const studentId = studentData.studentId || `STU-${cls.code.replace(/[^A-Z0-9]/g, '')}-${(cls.students.length + 1).toString().padStart(3, '0')}`;
+
+    const newStudent: ClassroomStudentRecord = {
+      ...studentData,
+      id,
+      studentId,
+      village: studentData.village || cls.block,
+      badges: studentData.badges || ['New Learner'],
+      readingLevel: studentData.readingLevel || 'Level 1 (Emergent)',
+      readingMinutes: studentData.readingMinutes || 20,
+      vocabMastered: studentData.vocabMastered || 15,
+      quizAccuracy: studentData.quizAccuracy || 80,
+      dailyXp: studentData.dailyXp || [20, 25, 30, 35, 40, 25, 20],
+      updatedAt: Date.now(),
+    };
+
+    const updatedCls: Classroom = {
+      ...cls,
+      updatedAt: Date.now(),
+      students: [newStudent, ...cls.students],
+    };
+
+    this.saveClassroom(updatedCls);
+    return updatedCls;
+  }
+
+  public updateStudent(
+    classroomId: string,
+    studentId: string,
+    updates: Partial<ClassroomStudentRecord>
+  ): Classroom {
+    const cls = this.getClassroomByCode(classroomId);
+    if (!cls) throw new Error(`Classroom ${classroomId} not found`);
+
+    const updatedStudents = cls.students.map((s) =>
+      s.id === studentId || s.studentId === studentId
+        ? { ...s, ...updates, updatedAt: Date.now() }
+        : s
+    );
+
+    const updatedCls: Classroom = {
+      ...cls,
+      updatedAt: Date.now(),
+      students: updatedStudents,
+    };
+
+    this.saveClassroom(updatedCls);
+    return updatedCls;
+  }
+
+  public deleteStudent(classroomId: string, studentId: string): Classroom {
+    const cls = this.getClassroomByCode(classroomId);
+    if (!cls) throw new Error(`Classroom ${classroomId} not found`);
+
+    const updatedCls: Classroom = {
+      ...cls,
+      updatedAt: Date.now(),
+      students: cls.students.filter((s) => s.id !== studentId && s.studentId !== studentId),
+    };
+
+    this.saveClassroom(updatedCls);
+    return updatedCls;
+  }
+
+  private saveClassroom(cls: Classroom): void {
+    const current = this.getClassrooms();
+    const updated = current.map((c) => (c.code === cls.code ? cls : c));
+    this.classrooms = updated;
+    saveClassrooms(updated);
+    this.notifyListeners(cls.code, cls);
+  }
+
+  // 3. Realtime Updates & Listeners
+  public subscribe(classroomId: string, callback: ClassroomListener): () => void {
+    const norm = classroomId.trim().toUpperCase();
+    if (!this.listeners.has(norm)) {
+      this.listeners.set(norm, new Set());
+    }
+    this.listeners.get(norm)!.add(callback);
+
+    // Initial trigger
+    const current = this.getClassroomByCode(norm);
+    if (current) {
+      callback(current);
+    }
+
+    return () => {
+      this.listeners.get(norm)?.delete(callback);
+    };
+  }
+
+  private notifyListeners(classroomId: string, classroom: Classroom) {
+    const norm = classroomId.trim().toUpperCase();
+    this.listeners.get(norm)?.forEach((cb) => {
+      try {
+        cb(classroom);
+      } catch (err) {
+        console.warn('Classroom listener error:', err);
+      }
+    });
+  }
+
+  // 4. Conflict Resolution (Last-Write-Wins with Roster Merge)
+  public resolveConflict(remote: Classroom, local: Classroom): Classroom {
+    const isRemoteNewer = (remote.updatedAt || 0) >= (local.updatedAt || 0);
+    const base = isRemoteNewer ? remote : local;
+
+    // Merge student records so no student added offline is lost
+    const studentMap = new Map<string, ClassroomStudentRecord>();
+
+    for (const s of local.students) {
+      studentMap.set(s.id, s);
+    }
+
+    for (const s of remote.students) {
+      if (!studentMap.has(s.id)) {
+        studentMap.set(s.id, s);
+      } else {
+        const localS = studentMap.get(s.id)!;
+        // Keep highest XP and merged badges
+        const mergedBadges = Array.from(new Set([...(localS.badges || []), ...(s.badges || [])]));
+        studentMap.set(s.id, {
+          ...(localS.updatedAt && localS.updatedAt > (s.updatedAt || 0) ? localS : s),
+          xp: Math.max(localS.xp, s.xp),
+          stars: Math.max(localS.stars, s.stars),
+          badges: mergedBadges,
+        });
+      }
+    }
+
+    const resolved: Classroom = {
+      ...base,
+      students: Array.from(studentMap.values()),
+      updatedAt: Math.max(remote.updatedAt || 0, local.updatedAt || 0, Date.now()),
+    };
+
+    this.saveClassroom(resolved);
+    return resolved;
+  }
+
+  // 5. Attendance Management
   public getAttendanceHistory(classroomId: string): AttendanceRecord[] {
     if (typeof window === 'undefined') return [];
     try {
@@ -34,19 +230,19 @@ class ClassroomService {
     } catch {
       // ignore
     }
+    const cls = this.getClassroomByCode(classroomId);
+    const students = cls ? cls.students : [];
     return [
       {
-        id: 'att-today',
+        id: `att-today`,
         classroomId,
         date: new Date().toISOString().split('T')[0],
-        teacherId: 'teacher-dumka-01',
-        records: [
-          { studentId: 's1', studentName: 'Ravi Marandi', status: 'present' },
-          { studentId: 's2', studentName: 'Pooja Hansda', status: 'present' },
-          { studentId: 's3', studentName: 'Amit Murmu', status: 'late' },
-          { studentId: 's4', studentName: 'Sunita Hembrom', status: 'present' },
-          { studentId: 's5', studentName: 'Karan Tudu', status: 'absent' },
-        ],
+        teacherId: cls?.teacherId || 'teacher-01',
+        records: students.map((s, idx) => ({
+          studentId: s.id,
+          studentName: s.name,
+          status: idx === 4 ? 'absent' : idx === 2 ? 'late' : 'present',
+        })),
         createdAt: Date.now(),
         synced: true,
       },
@@ -64,7 +260,7 @@ class ClassroomService {
     }
   }
 
-  // Assignments & Homework
+  // 6. Assignments & Homework
   public getAssignments(classroomId: string): AssignmentRecord[] {
     if (typeof window === 'undefined') return [];
     try {
@@ -112,7 +308,7 @@ class ClassroomService {
     }
   }
 
-  // Weak Topic Detection (FLN Gap Analysis)
+  // 7. Weak Topic Detection (FLN Gap Analysis)
   public detectWeakTopics(_classroomId?: string): WeakTopicAlert[] {
     return [
       {
@@ -134,17 +330,6 @@ class ClassroomService {
         recommendedRemedialAction: 'Use concrete tamarind seeds or sal pebbles for hands-on visual takeaway game.',
       },
     ];
-  }
-
-  // Student Enrollment
-  public addStudentToClassroom(classroomId: string, student: ClassroomStudentRecord): Classroom {
-    const cls = this.getClassroomByCode(classroomId) || this.classrooms[0];
-    const updated = {
-      ...cls,
-      students: [student, ...cls.students],
-    };
-    this.classrooms = this.classrooms.map((c) => (c.code === cls.code ? updated : c));
-    return updated;
   }
 }
 

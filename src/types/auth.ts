@@ -50,15 +50,24 @@ export type AuthUser = TeacherProfile | StudentProfile | DistrictAdminProfile;
 
 export interface ClassroomStudentRecord {
   id: string;
+  studentId?: string;
   name: string;
   nativeScript: string;
   pin: string; // 4-digit PIN
   grade: string;
   motherTongue: string;
+  village?: string;
   avatarEmoji: string;
   stars: number;
   xp: number;
   badge?: 'star' | 'needs_help' | 'on_track';
+  badges?: string[];
+  readingLevel?: 'Level 1 (Emergent)' | 'Level 2 (Transitional)' | 'Level 3 (Fluent)';
+  readingMinutes?: number;
+  vocabMastered?: number;
+  quizAccuracy?: number;
+  dailyXp?: number[];
+  updatedAt?: number;
 }
 
 export interface Classroom {
@@ -71,6 +80,8 @@ export interface Classroom {
   block: string;
   grades: string;
   students: ClassroomStudentRecord[];
+  createdAt?: number;
+  updatedAt?: number;
 }
 
 export interface PhoneOtpState {
