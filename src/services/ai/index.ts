@@ -8,3 +8,4 @@ export * from './storySimplificationService';
 export * from './ocrService';
 export * from './aiPipeline';
 export * from './promptTemplates';
+export * from './geminiContentGeneratorService';

@@ -16,6 +16,7 @@ import QuizScreen from '../pages/QuizScreen';
 import SplashScreen from '../pages/SplashScreen';
 import LanguageSelectionScreen from '../pages/LanguageSelectionScreen';
 import LoginScreen from '../pages/LoginScreen';
+import AiContentGenerator from '../pages/AiContentGenerator';
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
       { path: 'flashcards', element: <Flashcards /> },
       { path: 'stories', element: <Stories /> },
       { path: 'lesson-planner', element: <LessonPlanner /> },
+      { path: 'content-generator', element: <AiContentGenerator /> },
       { path: 'offline-library', element: <OfflineLibrary /> },
       { path: 'classroom', element: <TeacherClassroom /> },
       { path: 'quiz', element: <QuizScreen /> },

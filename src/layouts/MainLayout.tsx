@@ -15,6 +15,7 @@ import {
   Layers,
   GraduationCap,
   HelpCircle,
+  Wand2,
 } from 'lucide-react';
 import { cn } from '../utils/utils';
 
@@ -26,6 +27,7 @@ const sidebarItems = [
   { icon: FileText, label: 'Worksheets', path: '/worksheets' },
   { icon: BookOpen, label: 'Stories', path: '/stories' },
   { icon: Sparkles, label: 'Lesson Planner', path: '/lesson-planner' },
+  { icon: Wand2, label: 'AI Content Studio', path: '/content-generator' },
   { icon: Library, label: 'Offline Library', path: '/offline-library' },
   { icon: GraduationCap, label: 'Classroom', path: '/classroom' },
   { icon: HelpCircle, label: 'Quizzes', path: '/quiz' },
