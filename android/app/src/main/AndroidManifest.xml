@@ -1,22 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bhashabridge.ai">
 
-    <!-- Audio and Speech Recognition Permissions -->
+    <!-- Audio and Speech Recognition Permissions (Microphone) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
-    <!-- Network Connectivity and CRC Synchronization -->
+    <!-- Camera Permissions for Textbook OCR & Document Scanning -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <!-- Network Connectivity and Realtime Synchronization -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- Offline Storage for Piper Neural Voices and JCERT Packs -->
+    <!-- Offline Storage for Piper Neural Voices, SQLite DB, and JCERT Packs -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!-- Local Notifications for Reminders & Sync Status -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Tablet Hardware Features -->
-    <uses-feature android:name="android.hardware.microphone" android:required="true" />
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="true" />
 
     <!-- Universal Screen & Tablet Optimization Support -->

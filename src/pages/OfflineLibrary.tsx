@@ -5,6 +5,7 @@ import {
   DownloadManager,
   StorageManagement,
   OfflineReadinessCard,
+  AndroidSyncBar,
 } from '../components/library';
 import { Toast, type ToastType } from '../components/ui/Toast';
 import { useCurriculumStore } from '../services/curriculum/curriculumStore';
@@ -31,7 +32,10 @@ export const OfflineLibrary: React.FC = () => {
       {/* 1. HERO WITH MASCOT CARRYING BOOKS & STORAGE GAUGE */}
       <LibraryHero usedStorage={usedGbStr} totalStorage={totalGbStr} />
 
-      {/* 2. 8 LIBRARY MEDIA SECTIONS CAROUSEL */}
+      {/* 2. ANDROID NATIVE SYNC BAR & PERMISSIONS */}
+      <AndroidSyncBar onToast={showToast} />
+
+      {/* 3. 8 LIBRARY MEDIA SECTIONS CAROUSEL */}
       <LibrarySections
         activeSection={activeSection}
         onSelectSection={(id) => setActiveSection(id)}

@@ -3,3 +3,4 @@ export * from './LibrarySections';
 export * from './DownloadManager';
 export * from './StorageManagement';
 export * from './OfflineReadinessCard';
+export * from './AndroidSyncBar';

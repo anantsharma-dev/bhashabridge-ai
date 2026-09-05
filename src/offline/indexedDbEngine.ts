@@ -1,5 +1,5 @@
-const DB_NAME = 'BhashaBridgeOfflineDB_v2';
-const DB_VERSION = 2;
+const DB_NAME = 'BhashaBridgeOfflineDB_v3';
+const DB_VERSION = 3;
 
 export const STORES = [
   'flashcards',
@@ -11,6 +11,7 @@ export const STORES = [
   'assignments',
   'syncQueue',
   'cachedBlobs',
+  'sqliteTables',
 ] as const;
 
 export type StoreName = (typeof STORES)[number];
