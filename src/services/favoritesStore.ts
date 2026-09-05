@@ -4,11 +4,14 @@ interface FavoritesState {
   favoriteCardIds: string[];
   masteredCardIds: string[];
   favoriteWorksheetIds: string[];
+  favoriteTranslationIds: string[];
   toggleFavoriteCard: (id: string) => void;
   toggleMasteredCard: (id: string) => void;
   toggleFavoriteWorksheet: (id: string) => void;
+  toggleFavoriteTranslation: (id: string) => void;
   isCardFavorite: (id: string) => boolean;
   isCardMastered: (id: string) => boolean;
+  isTranslationFavorite: (id: string) => boolean;
 }
 
 const STORAGE_KEY = 'bhashabridge_favorites_data';
@@ -19,6 +22,7 @@ const getInitialState = () => {
       favoriteCardIds: ['elephant', 'mango'],
       masteredCardIds: ['elephant', 'mango'],
       favoriteWorksheetIds: [],
+      favoriteTranslationIds: [],
     };
   }
 
@@ -35,6 +39,7 @@ const getInitialState = () => {
     favoriteCardIds: ['elephant', 'mango'],
     masteredCardIds: ['elephant', 'mango'],
     favoriteWorksheetIds: [],
+    favoriteTranslationIds: [],
   };
 };
 
@@ -47,6 +52,7 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => {
         favoriteCardIds: nextState.favoriteCardIds ?? get().favoriteCardIds,
         masteredCardIds: nextState.masteredCardIds ?? get().masteredCardIds,
         favoriteWorksheetIds: nextState.favoriteWorksheetIds ?? get().favoriteWorksheetIds,
+        favoriteTranslationIds: nextState.favoriteTranslationIds ?? get().favoriteTranslationIds,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
     } catch {
@@ -55,9 +61,10 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => {
   };
 
   return {
-    favoriteCardIds: initial.favoriteCardIds,
-    masteredCardIds: initial.masteredCardIds,
-    favoriteWorksheetIds: initial.favoriteWorksheetIds,
+    favoriteCardIds: initial.favoriteCardIds || [],
+    masteredCardIds: initial.masteredCardIds || [],
+    favoriteWorksheetIds: initial.favoriteWorksheetIds || [],
+    favoriteTranslationIds: initial.favoriteTranslationIds || [],
 
     toggleFavoriteCard: (id: string) => {
       const { favoriteCardIds } = get();
@@ -86,12 +93,25 @@ export const useFavoritesStore = create<FavoritesState>((set, get) => {
       persist({ favoriteWorksheetIds: updated });
     },
 
+    toggleFavoriteTranslation: (id: string) => {
+      const { favoriteTranslationIds } = get();
+      const updated = favoriteTranslationIds.includes(id)
+        ? favoriteTranslationIds.filter((item) => item !== id)
+        : [...favoriteTranslationIds, id];
+      set({ favoriteTranslationIds: updated });
+      persist({ favoriteTranslationIds: updated });
+    },
+
     isCardFavorite: (id: string) => {
       return get().favoriteCardIds.includes(id);
     },
 
     isCardMastered: (id: string) => {
       return get().masteredCardIds.includes(id);
+    },
+
+    isTranslationFavorite: (id: string) => {
+      return get().favoriteTranslationIds.includes(id);
     },
   };
 });

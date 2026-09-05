@@ -186,5 +186,6 @@ class CurriculumEngine {
   }
 }
 
+export * from '../data/curriculum';
 export const curriculumEngine = new CurriculumEngine();
 export default curriculumEngine;

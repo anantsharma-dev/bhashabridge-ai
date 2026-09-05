@@ -1,4 +1,7 @@
-// Speech recognition service with silence detection, live waveform audio analysis, and Whisper adapter
+// BhashaBridge AI — Production Speech Recognition Service
+// Whisper Tiny ONNX integration, continuous listening, VAD silence detection, biquad noise filtering, and timestamps.
+
+import { whisperService, type WhisperWordTimestamp } from './ai/whisperService';
 
 interface IWindow extends Window {
   webkitSpeechRecognition?: any;
@@ -7,10 +10,11 @@ interface IWindow extends Window {
 }
 
 export interface SpeechRecognitionConfig {
-  language: string; // 'hi-IN', 'en-IN', etc.
+  language: string; // 'hi-IN', 'en-IN', 'sat-IN', etc.
   continuous: boolean;
   interimResults: boolean;
   silenceTimeoutMs: number; // 3000 to 5000 ms
+  classroomMode: boolean; // Enables 300Hz-3400Hz bandpass and ambient noise gate
 }
 
 export interface RecognitionCallbacks {
@@ -18,6 +22,7 @@ export interface RecognitionCallbacks {
   onInterimTranscript?: (interim: string) => void;
   onAudioLevel?: (level: number, frequencyData?: Uint8Array) => void;
   onSilenceDetected?: () => void;
+  onTimestamps?: (timestamps: WhisperWordTimestamp[]) => void;
   onError?: (error: string) => void;
   onEnd?: () => void;
 }
@@ -27,19 +32,20 @@ class SpeechRecognitionService {
   private isListeningState: boolean = false;
   private audioContext: AudioContext | null = null;
   private analyser: AnalyserNode | null = null;
+  private biquadFilter: BiquadFilterNode | null = null;
   private mediaStream: MediaStream | null = null;
   private mediaRecorder: MediaRecorder | null = null;
   private recordedChunks: Blob[] = [];
   private animationFrameId: number | null = null;
   private silenceTimer: ReturnType<typeof setTimeout> | null = null;
-  private simulatedInterval: ReturnType<typeof setInterval> | null = null;
   private callbacks: RecognitionCallbacks = {};
 
   private config: SpeechRecognitionConfig = {
     language: 'hi-IN',
     continuous: true,
     interimResults: true,
-    silenceTimeoutMs: 3500, // 3.5s silence auto-completion
+    silenceTimeoutMs: 3500,
+    classroomMode: true,
   };
 
   public getRecordedAudioBlob(): Blob | null {
@@ -49,6 +55,18 @@ class SpeechRecognitionService {
 
   public setConfig(newConfig: Partial<SpeechRecognitionConfig>) {
     this.config = { ...this.config, ...newConfig };
+    if (newConfig.classroomMode !== undefined) {
+      whisperService.setClassroomMode(newConfig.classroomMode);
+    }
+  }
+
+  public setClassroomMode(enabled: boolean) {
+    this.config.classroomMode = enabled;
+    whisperService.setClassroomMode(enabled);
+  }
+
+  public isClassroomMode(): boolean {
+    return this.config.classroomMode;
   }
 
   public async start(
@@ -60,30 +78,50 @@ class SpeechRecognitionService {
     if (customLang) this.config.language = customLang;
 
     this.isListeningState = true;
+    this.recordedChunks = [];
     this.resetSilenceTimer();
 
-    // 1. Try to initialize AudioContext for real live waveform analysis
+    // 1. Initialize AudioContext with real noise filtering for classroom mode
     try {
       if (typeof navigator !== 'undefined' && navigator.mediaDevices?.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+          },
+        });
         this.mediaStream = stream;
 
         const AudioCtx = window.AudioContext || (window as IWindow).webkitAudioContext;
         if (AudioCtx) {
           this.audioContext = new AudioCtx();
           const source = this.audioContext.createMediaStreamSource(stream);
-          this.analyser = this.audioContext.createAnalyser();
-          this.analyser.fftSize = 64;
-          source.connect(this.analyser);
+
+          // In Classroom Mode, insert Biquad Bandpass Filter (300Hz - 3400Hz vocal formant pass)
+          if (this.config.classroomMode) {
+            this.biquadFilter = this.audioContext.createBiquadFilter();
+            this.biquadFilter.type = 'bandpass';
+            this.biquadFilter.frequency.value = 1850; // Center frequency
+            this.biquadFilter.Q.value = 0.8;
+            source.connect(this.biquadFilter);
+
+            this.analyser = this.audioContext.createAnalyser();
+            this.analyser.fftSize = 64;
+            this.biquadFilter.connect(this.analyser);
+          } else {
+            this.analyser = this.audioContext.createAnalyser();
+            this.analyser.fftSize = 64;
+            source.connect(this.analyser);
+          }
 
           this.startWaveformLoop();
         }
 
-        // Initialize MediaRecorder for audio buffering
+        // Initialize MediaRecorder for recording audio to send to Whisper Tiny ONNX
         if (typeof MediaRecorder !== 'undefined') {
           try {
-            this.recordedChunks = [];
-            this.mediaRecorder = new MediaRecorder(stream);
+            this.mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
             this.mediaRecorder.ondataavailable = (event) => {
               if (event.data && event.data.size > 0) {
                 this.recordedChunks.push(event.data);
@@ -91,16 +129,15 @@ class SpeechRecognitionService {
             };
             this.mediaRecorder.start(250);
           } catch {
-            // MediaRecorder not supported in this environment
+            // MediaRecorder standard fallback
           }
         }
       }
-    } catch {
-      // Microphone permissions or fallback simulation
-      this.startSimulatedAudioLevels();
+    } catch (err) {
+      console.warn('Microphone permission / audio context init warning:', err);
     }
 
-    // 2. Initialize Browser Speech Recognition (Whisper Web Speech API Bridge)
+    // 2. Initialize Speech Recognition Engine
     const win = typeof window !== 'undefined' ? (window as IWindow) : null;
     const SpeechRecognitionClass = win?.SpeechRecognition || win?.webkitSpeechRecognition;
 
@@ -133,6 +170,10 @@ class SpeechRecognitionService {
 
           if (finalStr) {
             this.callbacks.onTranscript?.(finalStr, true);
+
+            // Generate timestamps for recognized final segment
+            const timestamps = whisperService.generateWordTimestamps(finalStr, 2.5, 0.95);
+            this.callbacks.onTimestamps?.(timestamps);
           }
         };
 
@@ -142,26 +183,36 @@ class SpeechRecognitionService {
         };
 
         rec.onend = () => {
-          if (this.isListeningState) {
+          // In continuous mode, restart recognition if still listening
+          if (this.isListeningState && this.config.continuous) {
+            try {
+              rec.start();
+            } catch {
+              this.stop();
+            }
+          } else if (this.isListeningState) {
             this.stop();
           }
         };
 
         rec.start();
         return true;
-      } catch {
-        // Fall through to offline simulation
+      } catch (err: any) {
+        console.warn('SpeechRecognition start notice:', err);
       }
     }
 
-    // 3. Offline simulation fallback for classrooms without internet speech endpoints
-    this.startOfflineSimulation();
     return true;
   }
 
   public stop() {
     this.isListeningState = false;
     this.clearSilenceTimer();
+
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
 
     if (this.recognition) {
       try {
@@ -172,23 +223,12 @@ class SpeechRecognitionService {
       this.recognition = null;
     }
 
-    if (this.animationFrameId !== null) {
-      cancelAnimationFrame(this.animationFrameId);
-      this.animationFrameId = null;
-    }
-
-    if (this.simulatedInterval) {
-      clearInterval(this.simulatedInterval);
-      this.simulatedInterval = null;
-    }
-
     if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
       try {
         this.mediaRecorder.stop();
       } catch {
         // ignore
       }
-      this.mediaRecorder = null;
     }
 
     if (this.mediaStream) {
@@ -200,6 +240,23 @@ class SpeechRecognitionService {
       this.audioContext.close().catch(() => {});
       this.audioContext = null;
       this.analyser = null;
+      this.biquadFilter = null;
+    }
+
+    // Process recorded audio through Whisper Tiny ONNX
+    const audioBlob = this.getRecordedAudioBlob();
+    if (audioBlob && audioBlob.size > 500) {
+      whisperService
+        .transcribeAudio(audioBlob, this.config.language.startsWith('en') ? 'en' : 'hi')
+        .then((result) => {
+          if (result && result.text) {
+            this.callbacks.onTranscript?.(result.text, true);
+            if (result.timestamps) {
+              this.callbacks.onTimestamps?.(result.timestamps);
+            }
+          }
+        })
+        .catch(console.warn);
     }
 
     this.callbacks.onEnd?.();
@@ -239,8 +296,9 @@ class SpeechRecognitionService {
       const avg = sum / bufferLength;
       const normalizedLevel = Math.min(1.0, avg / 128);
 
-      if (normalizedLevel > 0.15) {
-        // Speech activity detected: reset silence timer
+      // Noise floor gate: only consider level > 0.12 as speech in classroom mode
+      const threshold = this.config.classroomMode ? 0.12 : 0.08;
+      if (normalizedLevel > threshold) {
         this.resetSilenceTimer();
       }
 
@@ -249,32 +307,6 @@ class SpeechRecognitionService {
     };
 
     this.animationFrameId = requestAnimationFrame(checkAudio);
-  }
-
-  private startSimulatedAudioLevels() {
-    if (this.simulatedInterval) clearInterval(this.simulatedInterval);
-    this.simulatedInterval = setInterval(() => {
-      if (!this.isListeningState) return;
-      const mockLevel = Math.random() * 0.6 + 0.2;
-      this.callbacks.onAudioLevel?.(mockLevel);
-    }, 120);
-  }
-
-  private startOfflineSimulation() {
-    const offlineClassroomSamples = [
-      'बच्चों, अपनी किताब का पन्ना नंबर पाँच खोलो।',
-      'सभी बच्चे अपनी जगह पर बैठ जाओ।',
-      'Good morning children, open your English book.',
-      'जोहार बच्चों, आज हम एक नई कहानी पढ़ेंगे।',
-      'कॉपी में आज का पाठ लिखो।',
-    ];
-
-    setTimeout(() => {
-      if (!this.isListeningState) return;
-      const rand = offlineClassroomSamples[Math.floor(Math.random() * offlineClassroomSamples.length)];
-      this.callbacks.onTranscript?.(rand, true);
-      this.stop();
-    }, 3200);
   }
 
   public isListening(): boolean {

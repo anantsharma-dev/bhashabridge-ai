@@ -1,4 +1,12 @@
-export type LanguageCode = 'hindi' | 'santhali' | 'english' | 'roman_santhali' | 'roman_hindi' | 'mundari';
+export type LanguageCode =
+  | 'hindi'
+  | 'santhali'
+  | 'english'
+  | 'roman_santhali'
+  | 'roman_hindi'
+  | 'hinglish'
+  | 'mundari'
+  | 'kurukh';
 
 export interface LanguageOption {
   code: LanguageCode;
@@ -13,7 +21,9 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { code: 'santhali', name: 'Santhali', nativeName: 'ᱥᱟᱱᱛᱟᱲᱤ', script: 'Ol Chiki', description: 'ᱚᱞ ᱪᱤᱠᱤ' },
   { code: 'english', name: 'English', nativeName: 'English', script: 'Latin', description: 'Classroom English' },
   { code: 'roman_santhali', name: 'Roman Santhali', nativeName: 'Roman Santali', script: 'Latin', description: 'Phonetic' },
+  { code: 'hinglish', name: 'Hinglish', nativeName: 'Hinglish', script: 'Latin', description: 'Roman Hindi' },
   { code: 'mundari', name: 'Mundari', nativeName: 'ᱢᱩᱱᱰᱟᱨᱤ', script: 'Ol Chiki', description: 'ᱢᱩᱱᱰᱟᱨᱤ (Pilot)' },
+  { code: 'kurukh', name: 'Kurukh', nativeName: 'कुँड़ुख़', script: 'Devanagari', description: 'कुँड़ुख़ / ओरांव' },
 ];
 
 export interface AudioMetadata {

@@ -1,48 +1,293 @@
-{
-  "grade": 3,
-  "state": "Jharkhand",
-  "board": "JCERT / SCERT",
-  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
-  "academicYear": "2026-27",
-  "subjects": [
-    {
-      "id": "g3-lang",
-      "name": "भाषा एवं साहित्य (Language MTB-MLE Grade 3)",
-      "languagePair": "Hindi ↔ Santali (Ol Chiki)",
-      "chapters": [
+[
+  {
+    "id": "g3-his-01",
+    "grade": 3,
+    "subject": "History",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Bhagwan Birsa Munda & The Ulgulan",
+    "titleHindi": "धरती आबा भगवान बिरसा मुंडा और उलगुलान",
+    "titleSanthali": "ᱫᱷᱟᱹᱨᱛᱤ ᱟᱵᱟ ᱵᱤᱨᱥᱟᱹ ᱢᱩᱱᱰᱟᱹ ᱟᱨ ᱩᱞᱜᱩᱞᱟᱱ",
+    "titleRoman": "Dharti Aba Birsa Munda ar Ulgulan",
+    "theme": "Tribal Freedom Fighters & Cultural Pride",
+    "difficultyLevel": "Level 2 (Transitional)",
+    "learningObjectives": [
+      "Understand why Birsa Munda was called Dharti Aba (Father of the Earth)",
+      "Learn about tribal resistance against exploitation and forest preservation",
+      "Develop values of courage, collective unity, and social justice"
+    ],
+    "story": {
+      "id": "st-g3-01",
+      "titleEnglish": "The Young Archer of Ulihatu",
+      "titleHindi": "उलिहातू का वीर धनुर्धर",
+      "titleSanthali": "ᱩᱞᱤᱦᱟᱹᱛᱩ ᱨᱤᱱᱤᱡ ᱵᱤᱨ ᱛᱩᱬᱤᱭᱟᱹ",
+      "titleRoman": "Ulihatu Rinij Bir Tuniya",
+      "paragraphsEnglish": [
+        "In the hill village of Ulihatu, young Birsa learned to play the flute and shoot arrows with pinpoint precision.",
+        "When outside landlords attempted to seize the villagers' ancestral lands, Birsa stood firm: 'Our forest belongs to our people!'",
+        "He united the communities with words of truth and led the Great Tumult (Ulgulan), inspiring generations of freedom fighters."
+      ],
+      "paragraphsHindi": [
+        "उलिहातू के पहाड़ी गाँव में बालक बिरसा ने बाँसुरी बजाना और अचूक तीर चलाना सीखा।",
+        "जब बाहरी जमींदारों ने आदिवासियों की पुरखों की जमीन छीनने की कोशिश की, तो बिरसा ने ललकारा: 'यह जल-जंगल-जमीन हमारा है!'",
+        "उन्होंने सच्चाई और स्वाभिमान का मार्ग दिखाया और उलगुलान क्रांति का बिगुल फूँका, जिसने पूरे देश को आजादी की प्रेरणा दी।"
+      ],
+      "paragraphsSanthali": [
+        "ᱩᱞᱤᱦᱟᱹᱛᱩ ᱵᱩᱨᱩ ᱟᱹᱛᱩ ᱨᱮ ᱠᱟᱹᱴᱤᱡ ᱵᱤᱨᱥᱟᱹ ᱫᱚ ᱛᱤᱨᱤᱭᱚ ᱚᱨᱚᱝ ᱟᱨ ᱥᱟᱹᱨᱤ ᱪᱟᱸᱫᱟ ᱛᱮ ᱟᱜ-ᱥᱟᱨ ᱪᱟᱯᱟᱫ ᱮ ᱪᱮᱫ ᱠᱮᱫ-ᱟ ᱾",
+        "ᱡᱚᱠᱷᱚᱱ ᱵᱟᱦᱨᱮ ᱡᱟᱹᱢᱤᱫᱟᱨ ᱠᱚ ᱦᱟᱯᱲᱟᱢ ᱠᱚᱣᱟᱜ ᱦᱟᱥᱟ ᱨᱮᱡ ᱠᱚ ᱠᱩᱨᱩᱢᱩᱴᱩ ᱠᱮᱫ-ᱟ, ᱵᱤᱨᱥᱟᱹ ᱫᱚ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱱᱚᱣᱟ ᱫᱟᱜ-ᱵᱤᱨ-ᱦᱟᱥᱟ ᱫᱚ ᱟᱵᱚᱣᱟᱜ ᱠᱟᱱᱟ!'",
+        "ᱩᱱᱤ ᱫᱚ ᱥᱟᱹᱨᱤ ᱟᱨ ᱢᱟᱹᱱ ᱨᱮᱱᱟᱜ ᱰᱟᱦᱟᱨ ᱮ ᱩᱫᱩᱜ ᱠᱮᱫ-ᱟ ᱟᱨ ᱩᱞᱜᱩᱞᱟᱱ ᱦᱩᱞ ᱮ ᱮᱛᱚᱦᱚᱵ ᱠᱮᱫ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Ulihatu buru atu re katij Birsa do tiriyo orong ar sari chanda te ag-sar chapad e ched ked-a.",
+        "Jokhon bahre jamidar ko hapram kowag hasa rej ko kurumutu ked-a, Birsa do men ked-a: 'Nowa dag-bir-hasa do abowag kana!'",
+        "Uni do sari ar man renag dahar e udug ked-a ar Ulgulan hul e etohob ked-a."
+      ],
+      "culturalContext": "Birsa Munda's birth on November 15 is celebrated nationwide as Janjatiya Gaurav Divas."
+    },
+    "flashcards": [
+      { "id": "fc-his-01", "english": "Land / Earth", "hindi": "जमीन / धरती", "santhali": "ᱦᱟᱥᱟ / ᱫᱷᱟᱹᱨᱛᱤ", "roman": "Hasa / Dharti", "category": "history" },
+      { "id": "fc-his-02", "english": "Freedom / Revolt", "hindi": "उलगुलान / क्रांति", "santhali": "ᱩᱞᱜᱩᱞᱟᱱ", "roman": "Ulgulan", "category": "history" },
+      { "id": "fc-his-03", "english": "Bow and Arrow", "hindi": "धनुष-बाण", "santhali": "ᱟᱜ-ᱥᱟᱨ", "roman": "Ag-Sar", "category": "history" }
+    ],
+    "worksheet": {
+      "id": "ws-g3-01",
+      "title": "Tribal Freedom Fighters Chronology",
+      "instructionsHindi": "भगवान बिरसा मुंडा के जीवन से जुड़े स्थानों का सही मिलान करें।",
+      "instructionsSanthali": "ᱵᱤᱨᱥᱟᱹ ᱢᱩᱱᱰᱟᱹᱣᱟᱜ ᱡᱤᱭᱚᱱ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱴᱷᱟᱶ ᱠᱚ ᱢᱤᱞᱟᱹᱣ ᱢᱮ ᱾",
+      "tasks": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "सोहराय और करम परब",
-          "titleSanthali": "ᱥᱚᱦᱨᱟᱭ ᱟᱨ ᱠᱟᱨᱟᱢ ᱯᱟᱨᱟᱵᱽ",
-          "titleRoman": "Sohray ar Karam Parab",
-          "theme": "Festivals & Heritage",
-          "nipunCompetency": "L3.1 Reading with comprehension & cultural fluency",
-          "keyVocabulary": [
-            { "hindi": "त्योहार / परब", "santhali": "ᱯᱟᱨᱟᱵᱽ", "roman": "Parab" },
-            { "hindi": "गीत", "santhali": "ᱥᱮᱨᱮᱧ", "roman": "Serenj" },
-            { "hindi": "नृत्य / नाच", "santhali": "ᱮᱱᱮᱡ", "roman": "Enej" }
-          ]
+          "questionHindi": "भगवान बिरसा मुंडा का जन्म गाँव कौन सा है?",
+          "questionSanthali": "ᱵᱤᱨᱥᱟᱹ ᱢᱩᱱᱰᱟᱹᱣᱟᱜ ᱡᱟᱱᱟᱢ ᱟᱹᱛᱩ ᱫᱚ ᱚᱠᱟ ᱠᱟᱱᱟ?",
+          "type": "matching",
+          "options": ["ᱩᱞᱤᱦᱟᱹᱛᱩ (Ulihatu)", "ᱫᱩᱢᱠᱟᱹ (Dumka)", "ᱨᱟᱺᱪᱤ (Ranchi)"],
+          "answer": "ᱩᱞᱤᱦᱟᱹᱛᱩ (Ulihatu)"
         }
       ]
     },
-    {
-      "id": "g3-math",
-      "name": "संख्या एवं ज्यामिति (Math 1–100)",
-      "languagePair": "Hindi ↔ Santali",
-      "chapters": [
+    "miniQuiz": {
+      "id": "mq-g3-01",
+      "title": "Birsa Munda & Freedom Heritage Quiz",
+      "questions": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "गिनती और जोड़-घटाव",
-          "titleSanthali": "ᱮᱞ ᱟᱨ ᱥᱮᱞᱮᱫ-ᱵᱷᱮᱜᱟᱨ",
-          "titleRoman": "El ar Seled-Bhegar",
-          "theme": "Addition & Subtraction",
-          "nipunCompetency": "N3.2 Two-digit mental arithmetic with local currency contexts",
-          "keyVocabulary": [
-            { "hindi": "जोड़", "santhali": "ᱥᱮᱞᱮᱫ", "roman": "Seled" },
-            { "hindi": "घटाव", "santhali": "ᱵᱷᱮᱜᱟᱨ", "roman": "Bhegar" }
-          ]
+          "promptHindi": "बिरसा मुंडा को आदर से क्या कहा जाता है?",
+          "promptSanthali": "ᱵᱤᱨᱥᱟᱹ ᱢᱩᱱᱰᱟᱹ ᱫᱚ ᱢᱟᱹᱱ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱭᱟ?",
+          "options": ["धरती आबा (ᱫᱷᱟᱹᱨᱛᱤ ᱟᱵᱟ)", "गुरुजी", "नेताजी"],
+          "correctIndex": 0,
+          "explanation": "'Dharti Aba' means 'Father of the Earth' in indigenous languages."
         }
       ]
-    }
-  ]
-}
+    },
+    "audioNarration": {
+      "durationSeconds": 60,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Flame",
+      "primaryColor": "#EA580C",
+      "bannerIllustration": "birsa_munda_ulihatu_hills",
+      "altText": "Birsa Munda holding a bow and arrow standing proudly on the green hills of Jharkhand"
+    },
+    "vocabulary": [
+      { "english": "Freedom", "hindi": "आजादी", "santhali": "ᱯᱷᱩᱨᱜᱟᱹᱞ", "roman": "Phurgal", "partOfSpeech": "Noun" },
+      { "english": "Truth", "hindi": "सच्चाई", "santhali": "ᱥᱟᱹᱨᱤ", "roman": "Sari", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱩᱞᱜᱩᱞᱟᱱ", "script": "Ol Chiki", "phoneticIpa": "/ul.gu.laːn/", "romanPhonetic": "Ul-gu-laan", "audioHint": "Even tempo across three syllables" },
+      { "word": "ᱫᱷᱟᱹᱨᱛᱤ", "script": "Ol Chiki", "phoneticIpa": "/dhəːr.ti/", "romanPhonetic": "Dhar-ti", "audioHint": "Voiced dental aspirate dh" }
+    ]
+  },
+  {
+    "id": "g3-geo-01",
+    "grade": 3,
+    "subject": "Geography",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Rivers and Plateaus of Jharkhand",
+    "titleHindi": "झारखंड की नदियाँ और पठारी भूभाग",
+    "titleSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮᱱᱟᱜ ᱜᱟᱰᱟ ᱟᱨ ᱵᱩᱨᱩ ᱯᱟᱛᱷᱟᱨ",
+    "titleRoman": "Jharkhand renag Gada ar Buru Pathar",
+    "theme": "Chota Nagpur Plateau, Rivers, and Hills",
+    "difficultyLevel": "Level 2 (Transitional)",
+    "learningObjectives": [
+      "Locate the major rivers: Subarnarekha, Damodar, and Mayurakshi",
+      "Recognize Chota Nagpur plateau terrain and Parasnath peak",
+      "Understand how monsoon rain feeds terrace farming in valleys"
+    ],
+    "story": {
+      "id": "st-g3-02",
+      "titleEnglish": "The River with Gold in its Sand",
+      "titleHindi": "स्वर्णरेखा नदी की स्वर्णिम रेत",
+      "titleSanthali": "ᱥᱚᱱᱟ ᱜᱤᱛᱤᱞ ᱨᱮᱱᱟᱜ ᱥᱚᱵᱚᱨᱱᱟᱨᱮᱠᱷᱟ ᱜᱟᱰᱟ",
+      "titleRoman": "Sona Gitil renag Subarnarekha Gada",
+      "paragraphsEnglish": [
+        "Rohan and his grandfather stand on the rocks overlooking the sparkling Subarnarekha River.",
+        "Grandfather scoops up river sand: 'Look Rohan, fine specks of gold once washed down from the high plateaus.'",
+        "The river flows past green Sal forests, nourishing hundreds of farming villages on its journey to the sea."
+      ],
+      "paragraphsHindi": [
+        "रोहन और उसके दादाजी चमकती स्वर्णरेखा नदी के किनारे एक बड़े पत्थर पर खड़े हैं।",
+        "दादाजी ने नदी की रेत हाथ में उठाई: 'देखो रोहन, पठारों से बहकर आने वाली इस रेत में सोने के सूक्ष्म कण पाए जाते थे, इसीलिए इसका नाम स्वर्णरेखा है।'",
+        "यह नदी हरे-भरे सखुआ वनों से गुजरती हुई सैकड़ों गाँवों के खेतों को सींचती है।"
+      ],
+      "paragraphsSanthali": [
+        "ᱨᱳᱦᱚᱱ ᱟᱨ ᱟᱡ ᱜᱚᱲᱚᱢ ᱦᱟᱲᱟᱢ ᱥᱚᱵᱚᱨᱱᱟᱨᱮᱠᱷᱟ ᱜᱟᱰᱟ ᱟᱲᱮ ᱨᱮ ᱢᱤᱫ ᱢᱟᱨᱟᱝ ᱫᱷᱤᱨᱤ ᱪᱮᱛᱟᱱ ᱨᱮᱠᱤᱱ ᱛᱤᱸᱜᱩ ᱟᱠᱟᱱᱟ ᱾",
+        "ᱜᱚᱲᱚᱢ ᱦᱟᱲᱟᱢ ᱜᱤᱛᱤᱞ ᱛᱤ ᱛᱮ ᱦᱟᱞᱟᱝ ᱠᱟᱛᱮ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱧᱮᱞ ᱢᱮ ᱨᱳᱦᱚᱱ, ᱵᱩᱨᱩ ᱠᱷᱚᱱ ᱟᱹᱛᱩ ᱦᱤᱡᱩᱜ ᱠᱟᱱ ᱱᱚᱣᱟ ᱜᱤᱛᱤᱞ ᱨᱮ ᱥᱚᱱᱟ ᱠᱩᱪᱤ ᱧᱟᱢᱚᱜ ᱠᱟᱱ ᱛᱟᱦᱮᱸᱫ ᱾'",
+        "ᱱᱚᱣᱟ ᱜᱟᱰᱟ ᱫᱚ ᱦᱟᱹᱨᱭᱟᱹᱲ ᱥᱟᱨᱡᱚᱢ ᱵᱤᱨ ᱛᱟᱞᱟ ᱛᱮ ᱟᱹᱛᱩ ᱟᱠᱟᱱᱟ ᱟᱨ ᱟᱭᱢᱟ ᱟᱹᱛᱩ ᱨᱮᱱᱟᱜ ᱵᱟᱹᱫᱽ ᱠᱚ ᱫᱟᱜ ᱮᱢᱚᱜ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Rohan ar aj gorom haram Subarnarekha gada are re mid marang dhiri chetan rekin tingu akana.",
+        "Gorom haram gitil ti te halang kate men ked-a: 'Njel me Rohan, buru khon atu hijug kan nowa gitil re sona kuchi njamog kan taehed.'",
+        "Nowa gada do hariyar sarjom bir tala te atu akana ar ayma atu renag bad ko dag emog-a."
+      ],
+      "culturalContext": "Geography of Chota Nagpur and Santhal Pargana river systems."
+    },
+    "flashcards": [
+      { "id": "fc-geo-01", "english": "River", "hindi": "नदी", "santhali": "ᱜᱟᱰᱟ", "roman": "Gada", "category": "geography" },
+      { "id": "fc-geo-02", "english": "Mountain / Hill", "hindi": "पहाड़ / पर्वत", "santhali": "ᱵᱩᱨᱩ", "roman": "Buru", "category": "geography" },
+      { "id": "fc-geo-03", "english": "Sand", "hindi": "रेत / बालू", "santhali": "ᱜᱤᱛᱤᱞ", "roman": "Gitil", "category": "geography" }
+    ],
+    "worksheet": {
+      "id": "ws-g3-02",
+      "title": "Rivers of Jharkhand Map Labelling",
+      "instructionsHindi": "नदी और पहाड़ के संथाली नामों का सही मिलान करें।",
+      "instructionsSanthali": "ᱜᱟᱰᱟ ᱟᱨ ᱵᱩᱨᱩ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱛᱟᱲᱤ ᱧᱩᱛᱩᱢ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "पहाड़ (Mountain) को संथाली में क्या कहते हैं?",
+          "questionSanthali": "ᱯᱟᱦᱟᱲ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱵᱩᱨᱩ (Buru)", "ᱜᱟᱰᱟ (Gada)", "ᱦᱟᱥᱟ (Hasa)"],
+          "answer": "ᱵᱩᱨᱩ (Buru)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g3-02",
+      "title": "Jharkhand Landforms Quiz",
+      "questions": [
+        {
+          "promptHindi": "झारखंड की सबसे ऊँची पहाड़ी कौन सी है?",
+          "promptSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱟᱢ ᱠᱷᱚᱱ ᱩᱥᱩᱞ ᱵᱩᱨᱩ ᱚᱠᱟ ᱠᱟᱱᱟ?",
+          "options": ["पारसनाथ (ᱯᱟᱨᱚᱥᱱᱟᱛᱷ / ᱢᱟᱨᱟᱝ ᱵᱩᱨᱩ)", "त्रिकूट", "राजमहल"],
+          "correctIndex": 0,
+          "explanation": "Parasnath (1365m) is the highest peak in Jharkhand."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 56,
+      "speedRate": 0.92,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "MapPin",
+      "primaryColor": "#0D9488",
+      "bannerIllustration": "subarnarekha_river_plateau",
+      "altText": "Sparkling blue river winding through rocky plateau with green hills in background"
+    },
+    "vocabulary": [
+      { "english": "Hill", "hindi": "पहाड़", "santhali": "ᱵᱩᱨᱩ", "roman": "Buru", "partOfSpeech": "Noun" },
+      { "english": "Sand", "hindi": "बालू", "santhali": "ᱜᱤᱛᱤᱞ", "roman": "Gitil", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱵᱩᱨᱩ", "script": "Ol Chiki", "phoneticIpa": "/bu.ru/", "romanPhonetic": "Bu-ru", "audioHint": "Light rolling r" },
+      { "word": "ᱜᱤᱛᱤᱞ", "script": "Ol Chiki", "phoneticIpa": "/gi.til/", "romanPhonetic": "Gi-til", "audioHint": "Clear front i vowels" }
+    ]
+  },
+  {
+    "id": "g3-num-01",
+    "grade": 3,
+    "subject": "Foundational Numeracy",
+    "standards": ["NCERT 2024", "NIPUN Bharat"],
+    "titleEnglish": "Village Haat & Market Arithmetic",
+    "titleHindi": "साप्ताहिक हाट और बाजार का हिसाब",
+    "titleSanthali": "ᱦᱟᱯᱛᱟᱠᱤᱭᱟᱹ ᱦᱟᱴ ᱟᱨ ᱵᱟᱡᱟᱨ ᱞᱮᱠᱷᱟ",
+    "titleRoman": "Haptakiya Haat ar Bajar Lekha",
+    "theme": "Two-Digit Addition, Subtraction & Currency",
+    "difficultyLevel": "Level 2 (Transitional)",
+    "learningObjectives": [
+      "Calculate total cost of vegetables and grains up to ₹100",
+      "Calculate change returned using mental subtraction",
+      "Count Indian currency notes (₹10, ₹20, ₹50, ₹100)"
+    ],
+    "story": {
+      "id": "st-g3-03",
+      "titleEnglish": "Pooja at the Weekly Haat",
+      "titleHindi": "पूजा और साप्ताहिक हाट",
+      "titleSanthali": "ᱯᱩᱡᱟ ᱟᱨ ᱦᱟᱯᱛᱟᱠᱤᱭᱟᱹ ᱦᱟᱴ",
+      "titleRoman": "Pooja ar Haptakiya Haat",
+      "paragraphsEnglish": [
+        "Every Thursday, the open ground in Dumka transforms into a bustling weekly haat.",
+        "Pooja carries a jute basket with ₹50 note given by her mother. She buys fresh sweet potatoes for ₹20 and jaggery for ₹15.",
+        "She calculates in her head: '₹20 + ₹15 = ₹35. ₹50 - ₹35 = ₹15 change!' The shopkeeper smiles and hands her a ₹15 note."
+      ],
+      "paragraphsHindi": [
+        "हर गुरुवार को दुमका का मैदान जीवंत साप्ताहिक हाट में बदल जाता है।",
+        "पूजा माँ के दिए ₹५० के नोट के साथ जूट का थैला लेकर चली। उसने ₹२० के शकरकंद और ₹१५ का गुड़ खरीदा।",
+        "उसने मन ही मन जोड़ा: '२० + १५ = ३५ रुपये। ५० में से ३५ गए तो १५ रुपये बचे!' दुकानदार ने मुस्कुराकर १५ रुपये वापस किए।"
+      ],
+      "paragraphsSanthali": [
+        "ᱡᱟᱣ ᱜᱩᱨᱩᱵᱟᱨ ᱦᱤᱞᱚᱜ ᱫᱩᱢᱠᱟᱹ ᱴᱟᱺᱰᱤ ᱫᱚ ᱢᱤᱫ ᱢᱟᱨᱟᱝ ᱦᱟᱴ ᱨᱮ ᱵᱚᱫᱚᱞᱚᱜ-ᱟ ᱾",
+        "ᱯᱩᱡᱟ ᱫᱚ ᱟᱭᱳ ᱮᱢ ᱟᱠᱟᱫ ᱕᱐ ᱴᱟᱠᱟ ᱥᱟᱵ ᱠᱟᱛᱮ ᱪᱟᱞᱟᱣ ᱮᱱᱟ ᱾ ᱩᱱᱤ ᱒᱐ ᱴᱟᱠᱟ ᱨᱮᱱᱟᱜ ᱥᱟᱠᱚᱨᱠᱟᱸᱫᱽ ᱟᱨ ᱑᱕ ᱴᱟᱠᱟ ᱨᱮᱱᱟᱜ ᱜᱩᱲ ᱮ ᱠᱤᱨᱤᱧ ᱠᱮᱫ-ᱟ ᱾",
+        "ᱩᱱᱤ ᱢᱚᱱᱮ-ᱢᱚᱱᱮ ᱛᱮ ᱞᱮᱠᱷᱟ ᱠᱮᱫ-ᱟ: '᱒᱐ + ᱑᱕ = ᱓᱕ ᱴᱟᱠᱟ ᱾ ᱕᱐ - ᱓᱕ = ᱑᱕ ᱴᱟᱠᱟ ᱨᱩᱣᱟᱹᱲ!' ᱫᱩᱠᱟᱱᱫᱟᱨ ᱞᱟᱸᱫᱟ ᱠᱟᱛᱮ ᱑᱕ ᱴᱟᱠᱟ ᱨᱩᱣᱟᱹᱲ ᱮᱢᱟᱫᱮᱭᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Jaw Gurubar hilog Dumka tandi do mid marang haat re bodolog-a.",
+        "Pooja do ayo em akad 50 taka sab kate chalaw ena. Uni 20 taka renag sakorkand ar 15 taka renag gur e kirinj ked-a.",
+        "Uni mone-mone te lekha ked-a: '20 + 15 = 35 taka. 50 - 35 = 15 taka ruwar!' Dukandar landa kate 15 taka ruwar emadeya."
+      ],
+      "culturalContext": "Traditional Haat bazaar trade and financial literacy in Jharkhand rural economy."
+    },
+    "flashcards": [
+      { "id": "fc-num3-01", "english": "Rupee / Money", "hindi": "रुपया / पैसा", "santhali": "ᱴᱟᱠᱟ / ᱯᱩᱭᱥᱟᱹ", "roman": "Taka / Puysa", "category": "math" },
+      { "id": "fc-num3-02", "english": "Market / Haat", "hindi": "बाजार / हाट", "santhali": "ᱦᱟᱴ / ᱵᱟᱡᱟᱨ", "roman": "Haat / Bajar", "category": "math" },
+      { "id": "fc-num3-03", "english": "Buy / Purchase", "hindi": "खरीदना", "santhali": "ᱠᱤᱨᱤᱧ", "roman": "Kirinj", "category": "math" }
+    ],
+    "worksheet": {
+      "id": "ws-g3-03",
+      "title": "Haat Bazaar Money Calculation Worksheet",
+      "instructionsHindi": "कुल खर्च जोड़ें और शेष राशि की गणना करें।",
+      "instructionsSanthali": "ᱢᱩᱴᱷ ᱠᱷᱚᱨᱪᱟ ᱥᱮᱞᱮᱫ ᱢᱮ ᱟᱨ ᱥᱟᱨᱮᱡ ᱴᱟᱠᱟ ᱞᱮᱠᱷᱟᱭ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "₹२५ + ₹३० = ?",
+          "questionSanthali": "᱒᱕ ᱴᱟᱠᱟ + ᱓᱐ ᱴᱟᱠᱟ = ?",
+          "type": "matching",
+          "options": ["᱕᱕ ᱴᱟᱠᱟ (₹55)", "᱕᱐ ᱴᱟᱠᱟ (₹50)", "᱖᱐ ᱴᱟᱠᱟ (₹60)"],
+          "answer": "᱕᱕ ᱴᱟᱠᱟ (₹55)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g3-03",
+      "title": "Haat Market Math Quiz",
+      "questions": [
+        {
+          "promptHindi": "यदि आपके पास ₹100 हैं और आपने ₹40 का सामान खरीदा, तो कितने रुपये बचेंगे?",
+          "promptSanthali": "ᱡᱩᱫᱤ ᱟᱢ ᱴᱷᱮᱱ ᱑᱐᱐ ᱴᱟᱠᱟ ᱢᱮᱱᱟᱜ-ᱟ ᱟᱨ ᱟᱢ ᱔᱐ ᱴᱟᱠᱟ ᱨᱮᱱᱟᱜ ᱮᱢ ᱠᱤᱨᱤᱧ ᱠᱮᱫ-ᱟ, ᱛᱚᱵᱮ ᱛᱤᱱᱟᱹᱜ ᱥᱟᱨᱮᱡᱚᱜ-ᱟ?",
+          "options": ["₹60 (᱖᱐ ᱴᱟᱠᱟ)", "₹50 (᱕᱐ ᱴᱟᱠᱟ)", "₹70 (᱗᱐ ᱴᱟᱠᱟ)"],
+          "correctIndex": 0,
+          "explanation": "100 - 40 = 60 rupees."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 50,
+      "speedRate": 0.9,
+      "narratorPersona": "child_voice"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Calculator",
+      "primaryColor": "#16A34A",
+      "bannerIllustration": "rural_haat_bazaar_market",
+      "altText": "Colorful village market stalls with vegetable heaps, weighing scale, and jute bags"
+    },
+    "vocabulary": [
+      { "english": "Money", "hindi": "रुपया", "santhali": "ᱴᱟᱠᱟ", "roman": "Taka", "partOfSpeech": "Noun" },
+      { "english": "Market", "hindi": "हाट", "santhali": "ᱦᱟᱴ", "roman": "Haat", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱴᱟᱠᱟ", "script": "Ol Chiki", "phoneticIpa": "/ʈaː.kaː/", "romanPhonetic": "Ta-ka", "audioHint": "Retroflex t with open a" },
+      { "word": "ᱠᱤᱨᱤᱧ", "script": "Ol Chiki", "phoneticIpa": "/ki.riɲ/", "romanPhonetic": "Ki-rinj", "audioHint": "Soft palatal nasal nj" }
+    ]
+  }
+]

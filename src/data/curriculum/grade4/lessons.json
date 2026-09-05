@@ -1,29 +1,293 @@
-{
-  "grade": 4,
-  "state": "Jharkhand",
-  "board": "JCERT / SCERT",
-  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
-  "academicYear": "2026-27",
-  "subjects": [
-    {
-      "id": "g4-evs",
-      "name": "पर्यावरण और हमारा समाज (EVS Grade 4)",
-      "languagePair": "Hindi ↔ Santali",
-      "chapters": [
+[
+  {
+    "id": "g4-civ-01",
+    "grade": 4,
+    "subject": "Civics",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Our Gram Sabha & Manjhi Pargana System",
+    "titleHindi": "हमारी ग्राम सभा और माँझी परगना स्वशासन",
+    "titleSanthali": "ᱟᱵᱚᱣᱟᱜ ᱟᱹᱛᱩ ᱵᱟᱹᱭᱥᱤ ᱟᱨ ᱢᱟᱺᱡᱷᱤ ᱯᱟᱨᱜᱟᱱᱟ ᱥᱟᱥᱚᱱ",
+    "titleRoman": "Abowag Atu Baisi ar Manjhi Pargana Sason",
+    "theme": "Participatory Democracy & Traditional Village Self-Governance",
+    "difficultyLevel": "Level 3 (Competent)",
+    "learningObjectives": [
+      "Understand the democratic role of the Gram Sabha in local decision-making",
+      "Learn the roles of village elders: Manjhi (headman), Godet (messenger), and Naike (priest)",
+      "Appreciate consensus building and equal voice for women in community welfare"
+    ],
+    "story": {
+      "id": "st-g4-01",
+      "titleEnglish": "The Meeting Under the Village Pipal Tree",
+      "titleHindi": "गाँव के पीपल तले सबकी पंचायत",
+      "titleSanthali": "ᱟᱹᱛᱩ ᱦᱮᱸᱫᱮ ᱦᱮᱸᱥᱟᱜ ᱞᱟᱛᱟᱨ ᱨᱮ ᱵᱟᱹᱭᱥᱤ",
+      "titleRoman": "Atu Hende Hesag Latar re Baisi",
+      "paragraphsEnglish": [
+        "The Godet strikes a metal gong three times to announce the evening Gram Sabha under the great sacred Pipal tree.",
+        "Every household sends a representative. Manjhi Baba opens the circle: 'Today we discuss desilting the village drinking pond before monsoon.'",
+        "Young and elderly speak in turn. Everyone listens patiently until a unanimous decision is reached to work together this Saturday."
+      ],
+      "paragraphsHindi": [
+        "गोड़ेत (संदेशवाहक) ने कांस्य की घंटी तीन बार बजाकर पीपल के पेड़ के नीचे शाम की ग्राम सभा की घोषणा की।",
+        "प्रत्येक घर से एक सदस्य सभा में पहुँचा। माँझी बाबा ने सभा शुरू की: 'आज हमें बरसात आने से पहले गाँव के तालाब की गाद निकालने पर निर्णय लेना है।'",
+        "युवा और बुजुर्ग बारी-बारी से बोले। सभी ने धैर्यपूर्वक सुना और सर्वसम्मति से निर्णय लिया कि शनिवार को सब मिलकर श्रमदान करेंगे।"
+      ],
+      "paragraphsSanthali": [
+        "ᱜᱚᱰᱮᱛ ᱫᱚ ᱯᱮ ᱫᱷᱟᱣ ᱜᱷᱟᱹᱱᱴᱤ ᱠᱷᱚᱵᱚᱨ ᱠᱟᱛᱮ ᱦᱮᱸᱥᱟᱜ ᱫᱟᱨᱮ ᱞᱟᱛᱟᱨ ᱨᱮ ᱟᱹᱛᱩ ᱵᱟᱹᱭᱥᱤ ᱦᱚᱦᱚ ᱠᱮᱫ-ᱟ ᱾",
+        "ᱡᱟᱣ ᱜᱷᱟᱨᱚᱸᱡᱽ ᱠᱷᱚᱱ ᱢᱤᱫ ᱦᱚᱲ ᱫᱩᱲᱩᱵ ᱮᱱᱟ ᱠᱚ ᱾ ᱢᱟᱺᱡᱷᱤ ᱵᱟᱵᱟ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱛᱮᱦᱮᱧ ᱫᱚ ᱫᱟᱜ-ᱡᱟᱹᱲᱤ ᱦᱤᱡᱩᱜ ᱢᱟᱬᱟᱝ ᱨᱮ ᱯᱩᱠᱷᱨᱤ ᱥᱟᱯᱷᱟ ᱨᱮᱱᱟᱜ ᱵᱤᱪᱟᱹᱨ ᱦᱩᱭᱩᱜ-ᱟ ᱾'",
+        "ᱡᱩᱣᱟᱹᱱ ᱟᱨ ᱦᱟᱲᱟᱢ ᱠᱚ ᱢᱤᱫ-ᱢᱤᱫ ᱛᱮ ᱨᱚᱲ ᱠᱮᱫ-ᱟ ᱾ ᱥᱟᱱᱟᱢ ᱦᱚᱲ ᱱᱟᱯᱟᱭ ᱛᱮ ᱟᱸᱡᱚᱢ ᱠᱟᱛᱮ ᱥᱤᱱᱤᱵᱟᱨ ᱦᱤᱞᱚᱜ ᱢᱮᱥᱟ ᱠᱟᱛᱮ ᱠᱟᱹᱢᱤ ᱨᱮᱱᱟᱜ ᱠᱟᱛᱷᱟ ᱠᱚ ᱯᱩᱨᱟᱹᱣ ᱠᱮᱫ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Godet do pe dhaw ghanti khobor kate Hesag dare latar re atu baisi hoho ked-a.",
+        "Jaw gharonj khon mid hor durub ena ko. Manjhi Baba men ked-a: 'Tehenj do dag-jari hijug marang re pukhri sapha renag bichar huyug-a.'",
+        "Juwan ar haram ko mid-mid te ror ked-a. Sanam hor napay te anjom kate Sinibar hilog mesa kate kami renag katha ko puraw ked-a."
+      ],
+      "culturalContext": "Manjhi Pargana traditional self-governance protected under PESA Act 1996 in Jharkhand."
+    },
+    "flashcards": [
+      { "id": "fc-civ-01", "english": "Village Council", "hindi": "ग्राम सभा / पंचायत", "santhali": "ᱟᱹᱛᱩ ᱵᱟᱹᱭᱥᱤ", "roman": "Atu Baisi", "category": "civics" },
+      { "id": "fc-civ-02", "english": "Headman", "hindi": "गाँव प्रधान (माँझी)", "santhali": "ᱢᱟᱺᱡᱷᱤ ᱦᱟᱲᱟᱢ", "roman": "Manjhi Haram", "category": "civics" },
+      { "id": "fc-civ-03", "english": "Decision / Justice", "hindi": "निर्णय / न्याय", "santhali": "ᱵᱤᱪᱟᱹᱨ", "roman": "Bichar", "category": "civics" }
+    ],
+    "worksheet": {
+      "id": "ws-g4-01",
+      "title": "Village Self-Governance Roles Matching",
+      "instructionsHindi": "गाँव सभा के पदाधिकारियों और उनके कार्यों का सही मिलान करें।",
+      "instructionsSanthali": "ᱟᱹᱛᱩ ᱥᱟᱥᱚᱱ ᱥᱟᱯᱟᱵ ᱟᱨ ᱠᱟᱹᱢᱤ ᱠᱚ ᱥᱟᱹᱨᱤ ᱢᱤᱞᱟᱹᱣ ᱢᱮ ᱾",
+      "tasks": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "झारखंड के जलप्रपात और पहाड़",
-          "titleSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮᱱᱟᱜ ᱡᱷᱟᱨᱱᱟ ᱟᱨ ᱵᱩᱨᱩ",
-          "titleRoman": "Jharkhand renag Jharna ar Buru",
-          "theme": "Geography & Natural Beauty",
-          "nipunCompetency": "E4.2 Mapping local landmarks & indigenous forest conservation",
-          "keyVocabulary": [
-            { "hindi": "झरना", "santhali": "ᱡᱷᱟᱨᱱᱟ", "roman": "Jharna" },
-            { "hindi": "पहाड़", "santhali": "ᱵᱩᱨᱩ", "roman": "Buru" },
-            { "hindi": "मिट्टी", "santhali": "ᱦᱟᱥᱟ", "roman": "Hasa" }
-          ]
+          "questionHindi": "गाँव के संदेशवाहक को क्या कहा जाता है?",
+          "questionSanthali": "ᱟᱹᱛᱩ ᱨᱮ ᱠᱷᱚᱵᱚᱨ ᱮᱢᱚᱜᱤᱡ ᱫᱚ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱭᱟ?",
+          "type": "matching",
+          "options": ["ᱜᱚᱰᱮᱛ (Godet)", "ᱱᱟᱭᱠᱮ (Naike)", "ᱢᱟᱺᱡᱷᱤ (Manjhi)"],
+          "answer": "ᱜᱚᱰᱮᱛ (Godet)"
         }
       ]
-    }
-  ]
-}
+    },
+    "miniQuiz": {
+      "id": "mq-g4-01",
+      "title": "Gram Sabha & Community Rights Quiz",
+      "questions": [
+        {
+          "promptHindi": "ग्राम सभा में निर्णय कैसे लिए जाते हैं?",
+          "promptSanthali": "ᱟᱹᱛᱩ ᱵᱟᱹᱭᱥᱤ ᱨᱮ ᱵᱤᱪᱟᱹᱨ ᱪᱮᱫ ᱞᱮᱠᱟ ᱛᱮ ᱦᱩᱭᱩᱜ-ᱟ?",
+          "options": ["सबकी सहमति और चर्चा से (Consensus)", "केवल एक व्यक्ति द्वारा", "बिना चर्चा के"],
+          "correctIndex": 0,
+          "explanation": "Decisions in Gram Sabha are taken democratically through community dialogue."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 58,
+      "speedRate": 0.92,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Users",
+      "primaryColor": "#059669",
+      "bannerIllustration": "gram_sabha_village_council_pipal",
+      "altText": "Community meeting under spreading pipal tree with villagers sitting in circle"
+    },
+    "vocabulary": [
+      { "english": "Council", "hindi": "सभा", "santhali": "ᱵᱟᱹᱭᱥᱤ", "roman": "Baisi", "partOfSpeech": "Noun" },
+      { "english": "Justice", "hindi": "न्याय", "santhali": "ᱵᱤᱪᱟᱹᱨ", "roman": "Bichar", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱵᱟᱹᱭᱥᱤ", "script": "Ol Chiki", "phoneticIpa": "/bəːj.si/", "romanPhonetic": "Bay-si", "audioHint": "Diphthong ay sound" },
+      { "word": "ᱢᱟᱺᱡᱷᱤ", "script": "Ol Chiki", "phoneticIpa": "/mãː.dʒhi/", "romanPhonetic": "Maan-jhi", "audioHint": "Nasalized long aa" }
+    ]
+  },
+  {
+    "id": "g4-eco-01",
+    "grade": 4,
+    "subject": "Ecology",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Ecology of the Sal Forest & Hornbills",
+    "titleHindi": "साल वन का पारिस्थितिकी तंत्र और धनेश पक्षी",
+    "titleSanthali": "ᱥᱟᱨᱡᱚᱢ ᱵᱤᱨ ᱨᱮᱱᱟᱜ ᱡᱤᱣᱤ ᱪᱟᱠᱷᱟ ᱟᱨ ᱢᱤᱨᱩ ᱪᱮᱬᱮ",
+    "titleRoman": "Sarjom Bir renag Jiwi Chakha ar Miru Chene",
+    "theme": "Forest Ecosystems, Biodiversity & Canopy Conservation",
+    "difficultyLevel": "Level 3 (Competent)",
+    "learningObjectives": [
+      "Understand how Sal trees (Sarjom) create canopy microclimates",
+      "Recognize the ecological role of the Malabar Pied Hornbill in seed dispersal",
+      "Learn methods for preventing summer forest fires (daavaanal)"
+    ],
+    "story": {
+      "id": "st-g4-02",
+      "titleEnglish": "The Guardians of the Tree Canopy",
+      "titleHindi": "सखुआ के छत्र के पहरेदार",
+      "titleSanthali": "ᱥᱟᱨᱡᱚᱢ ᱫᱟᱨᱮ ᱪᱮᱛᱟᱱ ᱨᱤᱱ ᱨᱩᱠᱷᱤᱭᱟᱹᱫᱟᱨ",
+      "titleRoman": "Sarjom Dare Chetan Rin Rukhiyadar",
+      "paragraphsEnglish": [
+        "Deep inside Saranda, the forest of seven hundred hills, ancient Sal trees form a continuous green canopy.",
+        "A pair of majestic Hornbills with large yellow casques fly from branch to branch, eating wild figs.",
+        "By flying miles across the valley, they drop seeds across distant hills, planting tomorrow's green forests."
+      ],
+      "paragraphsHindi": [
+        "सारंडा के सात सौ पहाड़ियों वाले घने जंगल में पुराने सखुआ के पेड़ एक विशाल हरी छत बनाते हैं।",
+        "बड़ी पीली चोंच वाले धनेश (हॉर्नबिल) पक्षी शाखा-दर-शाखा उड़ते हुए जंगली अंजीर खाते हैं।",
+        "वे मीलों दूर उड़कर बीजों को बिखेरते हैं, जिससे घाटी में नए-नए पेड़ों का जन्म होता है।"
+      ],
+      "paragraphsSanthali": [
+        "ᱥᱟᱨᱟᱱᱰᱟ ᱨᱮᱱᱟᱜ ᱮᱭᱟᱭ ᱥᱟᱭ ᱵᱩᱨᱩ ᱵᱤᱨ ᱨᱮ ᱥᱮᱫᱟᱭ ᱥᱟᱨᱡᱚᱢ ᱫᱟᱨᱮ ᱠᱚ ᱦᱟᱹᱨᱭᱟᱹᱲ ᱪᱷᱟᱛᱟ ᱞᱮᱠᱟ ᱵᱮᱱᱟᱣ ᱟᱠᱟᱱᱟ ᱾",
+        "ᱢᱟᱨᱟᱝ ᱥᱟᱥᱟᱝ ᱛᱷᱳᱸᱴ ᱟᱱ ᱢᱤᱨᱩ ᱪᱮᱬᱮ ᱡᱳᱲᱟ ᱰᱟᱹᱨ ᱠᱷᱚᱱ ᱰᱟᱹᱨ ᱩᱰᱟᱹᱣ ᱠᱟᱛᱮ ᱵᱤᱨ ᱡᱚ ᱠᱤᱱ ᱡᱚᱢ ᱮᱫ-ᱟ ᱾",
+        "ᱩᱱᱠᱤᱱ ᱥᱟᱺᱜᱤᱧ-ᱥᱟᱺᱜᱤᱧ ᱩᱰᱟᱹᱣ ᱠᱟᱛᱮ ᱡᱟᱝ ᱠᱤᱱ ᱧᱩᱨ ᱮᱫ-ᱟ, ᱡᱟᱦᱟᱸ ᱛᱮ ᱱᱟᱣᱟ ᱫᱟᱨᱮ ᱚᱢᱚᱱᱚᱜ ᱠᱟᱱᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Saranda renag eyay say buru bir re seday sarjom dare ko hariyar chhata leka benaw akana.",
+        "Marang sasang thont an miru chene jora dar khon dar udaw kate bir jo kin jom ed-a.",
+        "Unkin sanginj-sanginj udaw kate jang kin njur ed-a, jaha te nawa dare omonog kana."
+      ],
+      "culturalContext": "Saranda Forest in West Singhbhum, Asia's largest Sal forest reserve."
+    },
+    "flashcards": [
+      { "id": "fc-eco-01", "english": "Forest Canopy", "hindi": "वन छत्र", "santhali": "ᱵᱤᱨ ᱪᱷᱟᱛᱟ", "roman": "Bir Chhata", "category": "ecology" },
+      { "id": "fc-eco-02", "english": "Hornbill", "hindi": "धनेश पक्षी", "santhali": "ᱢᱤᱨᱩ ᱪᱮᱬᱮ", "roman": "Miru Chene", "category": "ecology" },
+      { "id": "fc-eco-03", "english": "Seed Dispersal", "hindi": "बीज फैलाव", "santhali": "ᱡᱟᱝ ᱪᱷᱟᱨᱟᱣ", "roman": "Jang Chharaw", "category": "ecology" }
+    ],
+    "worksheet": {
+      "id": "ws-g4-02",
+      "title": "Forest Food Web & Ecology Activity",
+      "instructionsHindi": "वन्य जीवों के आहार चक्र का सही मिलान करें।",
+      "instructionsSanthali": "ᱵᱤᱨ ᱡᱤᱵᱽ ᱠᱚᱣᱟᱜ ᱡᱚᱢᱟᱜ ᱪᱟᱠᱷᱟ ᱥᱟᱹᱨᱤ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "जंगल में नए बीज फैलाने में कौन सा पक्षी मदद करता है?",
+          "questionSanthali": "ᱵᱤᱨ ᱨᱮ ᱡᱟᱝ ᱯᱟᱥᱱᱟᱣ ᱨᱮ ᱚᱠᱟ ᱪᱮᱬᱮ ᱜᱚᱲᱚᱭ ᱮᱢᱚᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱢᱤᱨᱩ ᱪᱮᱬᱮ / ᱫᱷᱚᱱᱮᱥ (Hornbill)", "ᱦᱟᱹᱛᱤ", "ᱛᱟᱹᱨᱩᱵ"],
+          "answer": "ᱢᱤᱨᱩ ᱪᱮᱬᱮ / ᱫᱷᱚᱱᱮᱥ (Hornbill)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g4-02",
+      "title": "Sal Forest Ecosystem Quiz",
+      "questions": [
+        {
+          "promptHindi": "एशिया का सबसे बड़ा साल (सखुआ) का जंगल कौन सा है?",
+          "promptSanthali": "ᱮᱥᱤᱭᱟ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱟᱢ ᱠᱷᱚᱱ ᱢᱟᱨᱟᱝ ᱥᱟᱨᱡᱚᱢ ᱵᱤᱨ ᱚᱠᱟ ᱠᱟᱱᱟ?",
+          "options": ["सारंडा (ᱥᱟᱨᱟᱱᱰᱟ)", "सुंदरवन", "गिर वन"],
+          "correctIndex": 0,
+          "explanation": "Saranda forest in West Singhbhum contains the densest Sal tracts in Asia."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 54,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Trees",
+      "primaryColor": "#15803D",
+      "bannerIllustration": "saranda_sal_canopy_hornbill",
+      "altText": "Dense lush green Sal forest canopy with yellow-billed hornbill in flight"
+    },
+    "vocabulary": [
+      { "english": "Canopy", "hindi": "छत्र", "santhali": "ᱪᱷᱟᱛᱟ", "roman": "Chhata", "partOfSpeech": "Noun" },
+      { "english": "Seed", "hindi": "बीज", "santhali": "ᱡᱟᱝ", "roman": "Jang", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱥᱟᱨᱡᱚᱢ", "script": "Ol Chiki", "phoneticIpa": "/saːr.dʒɔm/", "romanPhonetic": "Sar-jom", "audioHint": "Clear r before jom" },
+      { "word": "ᱥᱟᱨᱟᱱᱰᱟ", "script": "Ol Chiki", "phoneticIpa": "/saː.raːn.daː/", "romanPhonetic": "Sa-ran-da", "audioHint": "Retroflex nd" }
+    ]
+  },
+  {
+    "id": "g4-phi-01",
+    "grade": 4,
+    "subject": "Philosophy for Children",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "The Wise Banyan & Principle of Fairness",
+    "titleHindi": "विशाल बरगद और न्यायसंगत बँटवारे का विचार",
+    "titleSanthali": "ᱥᱮᱬᱟ ᱵᱟᱨᱮ ᱫᱟᱨᱮ ᱟᱨ ᱥᱚᱢᱟᱱ ᱦᱟᱹᱴᱤᱧ ᱨᱮᱱᱟᱜ ᱵᱤᱪᱟᱹᱨ",
+    "titleRoman": "Sena Bare Dare ar Soman Hatinj renag Bichar",
+    "theme": "Ethics, Perspective Taking & Equity",
+    "difficultyLevel": "Level 3 (Competent)",
+    "learningObjectives": [
+      "Distinguish between equal sharing (samata) and need-based equity (nyaysangat)",
+      "Practice attentive listening when peers express opposing opinions",
+      "Analyze moral scenarios involving honesty and common resources"
+    ],
+    "story": {
+      "id": "st-g4-03",
+      "titleEnglish": "Two Friends and the Mango Basket",
+      "titleHindi": "दो दोस्त और मीठे आमों की टोकरी",
+      "titleSanthali": "ᱵᱟᱨ ᱜᱟᱛᱮ ᱟᱨ ᱥᱤᱵᱤᱞ ᱩᱞ ᱴᱩᱠᱨᱤ",
+      "titleRoman": "Bar Gate ar Sibil Ul Tukri",
+      "paragraphsEnglish": [
+        "Laxmi and David found a basket of six golden mangoes under the community tree.",
+        "Laxmi suggested: 'Let us take three each.' But David noted: 'Little Kuni's family has no fruit trees at all.'",
+        "They paused and debated philosophically: Is it fairer to split equally among ourselves, or share with those in greatest need?"
+      ],
+      "paragraphsHindi": [
+        "लक्ष्मी और डेविड को सामुदायिक पेड़ के नीचे छह पके मीठे आमों से भरी टोकरी मिली।",
+        "लक्ष्मी ने कहा: 'हम दोनों तीन-तीन आम बाँट लेते हैं।' लेकिन डेविड ने याद दिलाया: 'नन्हीं कुनी के घर में एक भी फलदार पेड़ नहीं है।'",
+        "दोनों ने विचार किया: क्या केवल अपने बीच आधा-आधा बाँटना न्याय है, या जिसे सबसे अधिक आवश्यकता है उसे भी शामिल करना सच्चा धर्म है?"
+      ],
+      "paragraphsSanthali": [
+        "ᱞᱚᱠᱷᱢᱤ ᱟᱨ ᱰᱮᱵᱷᱤᱰ ᱟᱹᱛᱩ ᱫᱟᱨᱮ ᱞᱟᱛᱟᱨ ᱨᱮ ᱛᱩᱨᱩᱭ ᱜᱚᱴᱟᱝ ᱯᱟᱠᱟ ᱩᱞ ᱴᱩᱠᱨᱤ ᱠᱤᱱ ᱧᱟᱢ ᱠᱮᱫ-ᱟ ᱾",
+        "ᱞᱚᱠᱷᱢᱤ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱟᱞᱟᱝ ᱯᱮ-ᱯᱮ ᱜᱚᱴᱟᱝ ᱞᱟᱝ ᱦᱟᱹᱴᱤᱧ ᱡᱚᱝ-ᱟ ᱾' ᱢᱮᱱᱠᱷᱟᱱ ᱰᱮᱵᱷᱤᱰ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱠᱟᱹᱴᱤᱡ ᱠᱩᱱᱤ ᱛᱟᱠᱚ ᱚᱲᱟᱜ ᱨᱮ ᱢᱤᱫᱴᱟᱹᱝ ᱦᱚᱸ ᱡᱚ ᱫᱟᱨᱮ ᱵᱟᱹᱱᱩᱜ-ᱟ ᱾'",
+        "ᱠᱤᱱ ᱵᱷᱟᱹᱵᱤ ᱠᱮᱫ-ᱟ: ᱪᱮᱫ ᱱᱚᱣᱟ ᱵᱟᱨ ᱦᱚᱲ ᱛᱟᱞᱟ ᱨᱮ ᱦᱟᱹᱴᱤᱧ ᱜᱮ ᱥᱟᱹᱨᱤ ᱱᱤᱭᱟᱹᱢ ᱠᱟᱱᱟ, ᱥᱮ ᱡᱟᱦᱟᱸᱭᱟᱜ ᱞᱟᱹᱠᱛᱤ ᱡᱟᱹᱥᱛᱤ ᱢᱮᱱᱟᱜ-ᱟ ᱩᱱᱠᱩ ᱥᱟᱶ ᱦᱟᱹᱴᱤᱧ ᱜᱮ ᱥᱟᱹᱨᱤ ᱫᱩᱞᱟᱹᱲ ᱠᱟᱱᱟ?"
+      ],
+      "paragraphsRoman": [
+        "Lakhmi ar David atu dare latar re turuy gotang paka ul tukri kin njam ked-a.",
+        "Lakhmi men ked-a: 'Alang pe-pe gotang lang hatinj jong-a.' Menkhan David men ked-a: 'Katij Kuni tako orag re midtang ho jo dare banug-a.'",
+        "Kin bhabi ked-a: Ched nowa bar hor tala re hatinj ge sari niyam kana, se jahanyag lakti jasti menag-a unku saw hatinj ge sari dular kana?"
+      ],
+      "culturalContext": "Traditional philosophy of collective empathy and resource sharing in indigenous Jharkhand."
+    },
+    "flashcards": [
+      { "id": "fc-phi-01", "english": "Fairness / Equity", "hindi": "न्याय / समता", "santhali": "ᱥᱚᱢᱟᱱ ᱵᱤᱪᱟᱹᱨ", "roman": "Soman Bichar", "category": "philosophy" },
+      { "id": "fc-phi-02", "english": "Sharing", "hindi": "बँटवारा / साझेदारी", "santhali": "ᱦᱟᱹᱴᱤᱧ", "roman": "Hatinj", "category": "philosophy" },
+      { "id": "fc-phi-03", "english": "Kindness", "hindi": "दया / करुणा", "santhali": "ᱫᱟᱭᱟ", "roman": "Daya", "category": "philosophy" }
+    ],
+    "worksheet": {
+      "id": "ws-g4-03",
+      "title": "Ethical Dilemmas Discussion Sheet",
+      "instructionsHindi": "नैतिक स्थिति को पढ़ें और उचित संथाली विचार का मिलान करें।",
+      "instructionsSanthali": "ᱱᱟᱯᱟᱭ ᱵᱤᱪᱟᱹᱨ ᱯᱟᱲᱦᱟᱣ ᱠᱟᱛᱮ ᱥᱟᱹᱨᱤ ᱠᱟᱛᱷᱟ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "दूसरों की सहायता करने को संथाली में क्या कहते हैं?",
+          "questionSanthali": "ᱮᱴᱟᱜ ᱦᱚᱲ ᱜᱚᱲᱚ ᱮᱢ ᱫᱚ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱜᱚᱲᱚ-ᱜᱚᱯᱚᱲᱚ (Goro-Goporo)", "ᱵᱷᱮᱜᱟᱨ (Separate)", "ᱮᱠᱞᱟ (Alone)"],
+          "answer": "ᱜᱚᱲᱚ-ᱜᱚᱯᱚᱲᱚ (Goro-Goporo)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g4-03",
+      "title": "Fairness & Ethics Reflection Quiz",
+      "questions": [
+        {
+          "promptHindi": "सच्चा न्याय क्या है?",
+          "promptSanthali": "ᱥᱟᱹᱨᱤ ᱵᱤᱪᱟᱹᱨ ᱫᱚ ᱪᱮᱫ ᱠᱟᱱᱟ?",
+          "options": ["सभी की जरूरतों का ध्यान रखना (Caring for all needs)", "केवल अपना स्वार्थ देखना", "मजबूत को सब कुछ देना"],
+          "correctIndex": 0,
+          "explanation": "True fairness means considering each person's genuine needs with empathy."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 56,
+      "speedRate": 0.9,
+      "narratorPersona": "child_voice"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "HeartHandshake",
+      "primaryColor": "#D97706",
+      "bannerIllustration": "two_children_sharing_mangoes_banyan",
+      "altText": "Two children sitting under large banyan tree peacefully sharing a basket of ripe mangoes"
+    },
+    "vocabulary": [
+      { "english": "Fairness", "hindi": "समता", "santhali": "ᱥᱚᱢᱟᱱ", "roman": "Soman", "partOfSpeech": "Noun" },
+      { "english": "Help", "hindi": "मदद", "santhali": "ᱜᱚᱲᱚ", "roman": "Goro", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱦᱟᱹᱴᱤᱧ", "script": "Ol Chiki", "phoneticIpa": "/həː.tiɲ/", "romanPhonetic": "Ha-tinj", "audioHint": "Short glottalized vowel with palatal nj" },
+      { "word": "ᱜᱚᱲᱚ", "script": "Ol Chiki", "phoneticIpa": "/gɔ.ɽɔ/", "romanPhonetic": "Go-ro", "audioHint": "Open o with flapped r" }
+    ]
+  }
+]

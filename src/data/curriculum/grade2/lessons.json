@@ -1,64 +1,295 @@
-{
-  "grade": 2,
-  "state": "Jharkhand",
-  "board": "JCERT / SCERT",
-  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
-  "academicYear": "2026-27",
-  "subjects": [
-    {
-      "id": "g2-lang",
-      "name": "भाषा सेतु (Language MTB-MLE Grade 2)",
-      "languagePair": "Hindi ↔ Santali (Ol Chiki)",
-      "chapters": [
+[
+  {
+    "id": "g2-evs-01",
+    "grade": 2,
+    "subject": "EVS",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Sacred Groves and Living Water Springs",
+    "titleHindi": "पवित्र सरना स्थल और हमारे जल स्रोत",
+    "titleSanthali": "ᱥᱟᱨᱱᱟ ᱴᱷᱟᱶ ᱟᱨ ᱡᱤᱣᱤ ᱫᱟᱜ ᱡᱷᱟᱨᱱᱟ",
+    "titleRoman": "Sarna Thaw ar Jiwi Dag Jharna",
+    "theme": "Sacred Groves & Water Conservation",
+    "difficultyLevel": "Level 2 (Transitional)",
+    "learningObjectives": [
+      "Understand the ecological role of village sacred groves (Jaher Than)",
+      "Identify clean water sources: river (gada), pond (pukhri), and spring (jharna)",
+      "Learn traditional tribal rules for protecting drinking water cleanliness"
+    ],
+    "story": {
+      "id": "st-g2-01",
+      "titleEnglish": "The Spring Under the Old Mahua Tree",
+      "titleHindi": "बूढ़े महुआ पेड़ के नीचे का झरना",
+      "titleSanthali": "ᱦᱟᱲᱟᱢ ᱢᱟᱹᱛᱠᱚᱢ ᱫᱟᱨᱮ ᱞᱟᱛᱟᱨ ᱨᱮᱱᱟᱜ ᱡᱷᱟᱨᱱᱟ",
+      "titleRoman": "Haram Matkom Dare Latar Renag Jharna",
+      "paragraphsEnglish": [
+        "In the quiet morning, Sunita walks to the natural water spring with her elder brother Arjun.",
+        "A cool crystal stream bubbles out from under the roots of a majestic Mahua tree.",
+        "Arjun reminds her: 'Our elders say we never wash clothes where the spring water begins; this water is for drinking.'"
+      ],
+      "paragraphsHindi": [
+        "सुबह की ठंडी हवा में सुनीता अपने बड़े भाई अर्जुन के साथ प्राकृतिक झरने की ओर चली।",
+        "विशाल महुआ के पेड़ की जड़ों से ठंडा, साफ पानी कल-कल बह रहा था।",
+        "अर्जुन ने समझाया: 'हमारे बुजुर्ग कहते हैं कि जहाँ से झरना फूटता है वहाँ कपड़े नहीं धोते; यह पानी पीने के लिए है।'"
+      ],
+      "paragraphsSanthali": [
+        "ᱥᱮᱛᱟᱜ ᱨᱮᱭᱟᱲ ᱦᱚᱭ ᱨᱮ ᱥᱩᱱᱤᱛᱟ ᱫᱚ ᱟᱡ ᱫᱟᱫᱟ ᱟᱨᱡᱩᱱ ᱥᱟᱞᱟᱜ ᱠᱩᱸᱭ ᱡᱷᱟᱨᱱᱟ ᱥᱮᱫ ᱮ ᱥᱮᱱ ᱮᱱᱟ ᱾",
+        "ᱢᱟᱨᱟᱝ ᱢᱟᱹᱛᱠᱚᱢ ᱫᱟᱨᱮ ᱨᱮᱦᱮᱫ ᱞᱟᱛᱟᱨ ᱠᱷᱚᱱ ᱨᱮᱭᱟᱲ, ᱥᱟᱯᱷᱟ ᱫᱟᱜ ᱡᱷᱟᱞᱠᱟᱣ ᱚᱰᱚᱠᱚᱜ ᱠᱟᱱ ᱛᱟᱦᱮᱸᱫ ᱾",
+        "ᱟᱨᱡᱩᱱ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱦᱟᱲᱟᱢ ᱵᱩᱰᱷᱤ ᱠᱚ ᱞᱟᱹᱭ ᱟᱠᱟᱫ-ᱟ ᱡᱮ ᱡᱷᱟᱨᱱᱟ ᱯᱷᱮᱰᱟᱛ ᱨᱮ ᱞᱩᱜᱽᱲᱤ ᱵᱟᱝ ᱥᱟᱯᱷᱟ ᱦᱩᱭᱩᱜ-ᱟ; ᱱᱚᱣᱟ ᱫᱚ ᱧᱩ ᱫᱟᱜ ᱠᱟᱱᱟ ᱾'"
+      ],
+      "paragraphsRoman": [
+        "Setag reyar hoy re Sunita do aj dada Arjun salag kuny jharna sed e sen ena.",
+        "Marang matkom dare rehed latar khon reyar, sapha dag jhalkaw odokog kan taehed.",
+        "Arjun men ked-a: 'Haram budhi ko lay akad-a je jharna phedat re lugri bang sapha huyug-a; nowa do nju dag kana.'"
+      ],
+      "culturalContext": "Jaher Than and Dari (natural springs) in Santhal village hydrology."
+    },
+    "flashcards": [
+      { "id": "fc-g2-01", "english": "Water", "hindi": "जल / पानी", "santhali": "ᱫᱟᱜ", "roman": "Dag", "category": "nature" },
+      { "id": "fc-g2-02", "english": "Spring", "hindi": "झरना", "santhali": "ᱡᱷᱟᱨᱱᱟ", "roman": "Jharna", "category": "nature" },
+      { "id": "fc-g2-03", "english": "Tree", "hindi": "पेड़", "santhali": "ᱫᱟᱨᱮ", "roman": "Dare", "category": "nature" },
+      { "id": "fc-g2-04", "english": "River", "hindi": "नदी", "santhali": "ᱜᱟᱰᱟ", "roman": "Gada", "category": "nature" }
+    ],
+    "worksheet": {
+      "id": "ws-g2-01",
+      "title": "Clean Water Sources Matching Activity",
+      "instructionsHindi": "जल स्रोतों के नामों का सही संथाली और हिन्दी शब्दों से मिलान करें।",
+      "instructionsSanthali": "ᱫᱟᱜ ᱯᱷᱮᱰᱟᱛ ᱨᱮᱱᱟᱜ ᱧᱩᱛᱩᱢ ᱠᱚ ᱥᱟᱹᱨᱤ ᱟᱹᱲᱟᱹ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "हमारा गाँव और परिवार",
-          "titleSanthali": "ᱟᱞᱮᱭᱟᱜ ᱟᱹᱛᱩ ᱟᱨ ᱜᱷᱟᱨᱚᱸᱡᱽ",
-          "titleRoman": "Aleyag Atu ar Gharonj",
-          "theme": "Family & Village Life",
-          "nipunCompetency": "L2.2 Two-way dialogue in mother tongue & Hindi",
-          "keyVocabulary": [
-            { "hindi": "माँ", "santhali": "ᱟᱭᱳ", "roman": "Ayo" },
-            { "hindi": "पिताजी", "santhali": "ᱵᱟᱵᱟ", "roman": "Baba" },
-            { "hindi": "गाँव", "santhali": "ᱟᱹᱛᱩ", "roman": "Atu" },
-            { "hindi": "घर", "santhali": "ᱚᱲᱟᱜ", "roman": "Orag" }
-          ]
-        },
-        {
-          "chapterNumber": 2,
-          "titleHindi": "महुआ और साल के पेड़",
-          "titleSanthali": "ᱢᱟᱹᱛᱠᱚᱢ ᱟᱨ ᱥᱟᱨᱡᱚᱢ ᱫᱟᱨᱮ",
-          "titleRoman": "Matkom ar Sarjom Dare",
-          "theme": "Local Trees & Seasons",
-          "nipunCompetency": "L2.4 Short passage reading & Ol Chiki recognition",
-          "keyVocabulary": [
-            { "hindi": "पेड़", "santhali": "ᱫᱟᱨᱮ", "roman": "Dare" },
-            { "hindi": "पत्ता", "santhali": "ᱥᱟᱠᱟᱢ", "roman": "Sakam" },
-            { "hindi": "फूल", "santhali": "ᱵᱟᱦᱟ", "roman": "Baha" },
-            { "hindi": "फल", "santhali": "ᱡᱚ", "roman": "Jo" }
-          ]
+          "questionHindi": "नदी (River) का संथाली शब्द क्या है?",
+          "questionSanthali": "ᱱᱟᱹᱫᱤ (River) ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱜᱟᱰᱟ (Gada)", "ᱫᱟᱨᱮ (Dare)", "ᱵᱤᱨ (Bir)"],
+          "answer": "ᱜᱟᱰᱟ (Gada)"
         }
       ]
     },
-    {
-      "id": "g2-evs",
-      "name": "हमारा पर्यावरण (EVS Nature & Water)",
-      "languagePair": "Hindi ↔ Santali",
-      "chapters": [
+    "miniQuiz": {
+      "id": "mq-g2-01",
+      "title": "Water Protection and Nature Quiz",
+      "questions": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "जल ही जीवन है",
-          "titleSanthali": "ᱫᱟᱜ ᱜᱮ ᱡᱤᱣᱤ",
-          "titleRoman": "Dag ge Jiwi",
-          "theme": "Water Sources & Conservation",
-          "nipunCompetency": "E2.1 Identifying local water bodies",
-          "keyVocabulary": [
-            { "hindi": "पानी / जल", "santhali": "ᱫᱟᱜ", "roman": "Dag" },
-            { "hindi": "नदी", "santhali": "ᱜᱟᱰᱟ", "roman": "Gada" },
-            { "hindi": "तालाब", "santhali": "ᱯᱩᱠᱷᱨᱤ", "roman": "Pukhri" }
-          ]
+          "promptHindi": "पीने के झरने को साफ रखने के लिए हमें क्या करना चाहिए?",
+          "promptSanthali": "ᱧᱩ ᱫᱟᱜ ᱥᱟᱯᱷᱟ ᱫᱚᱦᱚ ᱞᱟᱹᱜᱤᱫ ᱪᱮᱫ ᱪᱤᱠᱟᱹ ᱞᱟᱹᱠᱛᱤ ᱠᱟᱱᱟ?",
+          "options": ["झरने के पास कचरा न फेंकें (Jharna sor re kachra alope gidiya)", "साबुन से कपड़े धोएँ", "प्लास्टिक बहाएँ"],
+          "correctIndex": 0,
+          "explanation": "Natural water springs must be kept clean from soap and plastics."
         }
       ]
-    }
-  ]
-}
+    },
+    "audioNarration": {
+      "durationSeconds": 55,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Droplets",
+      "primaryColor": "#0284C7",
+      "bannerIllustration": "forest_water_spring_mahua_tree",
+      "altText": "A clean bubbling forest spring under blooming mahua flowers"
+    },
+    "vocabulary": [
+      { "english": "Water", "hindi": "पानी", "santhali": "ᱫᱟᱜ", "roman": "Dag", "partOfSpeech": "Noun" },
+      { "english": "Spring", "hindi": "झरना", "santhali": "ᱡᱷᱟᱨᱱᱟ", "roman": "Jharna", "partOfSpeech": "Noun" },
+      { "english": "Clean", "hindi": "साफ", "santhali": "ᱥᱟᱯᱷᱟ", "roman": "Sapha", "partOfSpeech": "Adjective" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱫᱟᱜ", "script": "Ol Chiki", "phoneticIpa": "/daːkʼ/", "romanPhonetic": "Daag", "audioHint": "Glottal stop at the end of dag" },
+      { "word": "ᱜᱟᱰᱟ", "script": "Ol Chiki", "phoneticIpa": "/gaː.ɽaː/", "romanPhonetic": "Ga-da", "audioHint": "Voiced velar stop g" }
+    ]
+  },
+  {
+    "id": "g2-mus-01",
+    "grade": 2,
+    "subject": "Music",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Tumdak and Tamak Traditional Drums",
+    "titleHindi": "तुमदाक और टमक: हमारे पारंपरिक वाद्य यंत्र",
+    "titleSanthali": "ᱛᱩᱢᱫᱟᱜ ᱟᱨ ᱴᱟᱢᱟᱠ ᱟᱵᱚᱣᱟᱜ ᱥᱮᱨᱮᱧ ᱥᱟᱯᱟᱵ",
+    "titleRoman": "Tumdak ar Tamak Abowag Serenj Sapab",
+    "theme": "Indigenous Rhythm Instruments & Songs",
+    "difficultyLevel": "Level 2 (Transitional)",
+    "learningObjectives": [
+      "Distinguish the clay drum (Tumdak) and iron kettle drum (Tamak)",
+      "Clap in rhythm to the 4-beat Baha festival tempo",
+      "Sing simple two-line celebration couplets in Santali and Hindi"
+    ],
+    "story": {
+      "id": "st-g2-02",
+      "titleEnglish": "The Heartbeat of the Village Drum",
+      "titleHindi": "गाँव का धड़कता मांदर",
+      "titleSanthali": "ᱟᱹᱛᱩ ᱨᱮᱱᱟᱜ ᱨᱤᱫᱟᱹᱭ ᱛᱩᱢᱫᱟᱜ",
+      "titleRoman": "Atu renag Riday Tumdak",
+      "paragraphsEnglish": [
+        "In the evening, Uncle Somra sits under the banyan tree tuning his earthen Tumdak drum.",
+        "'Dhum-ta, dhum-ta!' echoes the deep rhythm across the green paddy terraces.",
+        "The village children gather around in a circle, clapping hands and moving their feet to the music."
+      ],
+      "paragraphsHindi": [
+        "शाम ढलते ही सोमरा काका बरगद के पेड़ के नीचे बैठकर अपने माटी के तुमदाक (मांदर) का सुर मिला रहे हैं।",
+        "'धुम-ता, धुम-ता!' की गूंजती आवाज हरे-भरे धान के खेतों में तैरने लगी।",
+        "गाँव के बच्चे तालियाँ बजाते हुए गोल घेरा बनाकर संगीत की धुन पर कदम थिरकाने लगे।"
+      ],
+      "paragraphsSanthali": [
+        "ᱟᱹᱭᱩᱵ ᱵᱮᱲᱟ ᱥᱳᱢᱨᱟ ᱠᱟᱠᱟ ᱵᱟᱨᱮ ᱫᱟᱨᱮ ᱞᱟᱛᱟᱨ ᱫᱩᱲᱩᱵ ᱠᱟᱛᱮ ᱦᱟᱥᱟ ᱨᱮᱱᱟᱜ ᱛᱩᱢᱫᱟᱜ-ᱮ ᱥᱟᱡᱟᱣ ᱮᱫ ᱛᱟᱦᱮᱸᱫ ᱾",
+        "'ᱫᱷᱩᱢ-ᱛᱟ, ᱫᱷᱩᱢ-ᱛᱟ!' ᱨᱟᱦᱟ ᱦᱟᱹᱨᱭᱟᱹᱲ ᱦᱳᱲᱳ ᱵᱟᱹᱫᱽ ᱥᱮᱫ ᱟᱸᱡᱚᱢ ᱮᱱᱟ ᱾",
+        "ᱟᱹᱛᱩ ᱨᱤᱱ ᱜᱤᱫᱽᱨᱟᱹ ᱠᱚ ᱜᱩᱞᱟᱹᱸᱴ ᱵᱮᱱᱟᱣ ᱠᱟᱛᱮ ᱛᱟᱞᱤ ᱠᱚ ᱠᱷᱚᱵᱚᱨ ᱠᱮᱫ-ᱟ ᱟᱨ ᱥᱮᱨᱮᱧ ᱨᱮ ᱠᱟᱴᱟ ᱠᱚ ᱛᱟᱞ ᱠᱮᱫ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Ayub bera Somra kaka bare dare latar durub kate hasa renag tumdag-e sajaw ed taehed.",
+        "'Dhum-ta, dhum-ta!' raha hariyar horo bad sed anjom ena.",
+        "Atu rin gidra ko gulant benaw kate tali ko khobor ked-a ar serenj re kata ko tal ked-a."
+      ],
+      "culturalContext": "Tumdak (clay body) and Tamak (metal body) are sacred musical instruments of the Santhal tribe."
+    },
+    "flashcards": [
+      { "id": "fc-mus-01", "english": "Song", "hindi": "गीत", "santhali": "ᱥᱮᱨᱮᱧ", "roman": "Serenj", "category": "music" },
+      { "id": "fc-mus-02", "english": "Dance", "hindi": "नृत्य / नाच", "santhali": "ᱮᱱᱮᱡ", "roman": "Enej", "category": "music" },
+      { "id": "fc-mus-03", "english": "Drum", "hindi": "मांदर", "santhali": "ᱛᱩᱢᱫᱟᱜ", "roman": "Tumdak", "category": "music" }
+    ],
+    "worksheet": {
+      "id": "ws-g2-02",
+      "title": "Musical Instruments Identification",
+      "instructionsHindi": "वाद्य यंत्रों को उनके सही नाम से मिलाएँ।",
+      "instructionsSanthali": "ᱥᱟᱯᱟᱵ ᱠᱚ ᱟᱠᱚᱣᱟᱜ ᱥᱟᱹᱨᱤ ᱧᱩᱛᱩᱢ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "मांदर (Clay Drum) को संथाली में क्या कहते हैं?",
+          "questionSanthali": "ᱢᱟᱱᱫᱟᱨ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱛᱩᱢᱫᱟᱜ (Tumdak)", "ᱴᱟᱢᱟᱠ (Tamak)", "ᱵᱟᱱᱟᱢ (Banam)"],
+          "answer": "ᱛᱩᱢᱫᱟᱜ (Tumdak)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g2-02",
+      "title": "Tribal Musical Rhythms Quiz",
+      "questions": [
+        {
+          "promptHindi": "गीत को संथाली में क्या कहते हैं?",
+          "promptSanthali": "ᱜᱤᱛ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "options": ["ᱥᱮᱨᱮᱧ (Serenj)", "ᱮᱱᱮᱡ (Enej)", "ᱟᱥᱲᱟ (Asra)"],
+          "correctIndex": 0,
+          "explanation": "Serenj (ᱥᱮᱨᱮᱧ) means song in Santali."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 48,
+      "speedRate": 0.95,
+      "narratorPersona": "child_voice"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Music",
+      "primaryColor": "#7C3AED",
+      "bannerIllustration": "tumdak_tamak_folk_drum",
+      "altText": "Traditional earthen Tumdak drum wrapped with goat hide and decorated with tassels"
+    },
+    "vocabulary": [
+      { "english": "Music", "hindi": "संगीत", "santhali": "ᱥᱮᱨᱮᱧ ᱨᱟᱦᱟ", "roman": "Serenj Raha", "partOfSpeech": "Noun" },
+      { "english": "Rhythm", "hindi": "ताल", "santhali": "ᱛᱟᱞ", "roman": "Tal", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱛᱩᱢᱫᱟᱜ", "script": "Ol Chiki", "phoneticIpa": "/tum.daːkʼ/", "romanPhonetic": "Tum-dak", "audioHint": "Nasalized u followed by sharp dak" },
+      { "word": "ᱥᱮᱨᱮᱧ", "script": "Ol Chiki", "phoneticIpa": "/se.reːɲ/", "romanPhonetic": "Se-renj", "audioHint": "Palatal nasal nj at the end" }
+    ]
+  },
+  {
+    "id": "g2-lit-01",
+    "grade": 2,
+    "subject": "Foundational Literacy",
+    "standards": ["NCERT 2024", "NIPUN Bharat"],
+    "titleEnglish": "Animal Friends in Dalma Forest",
+    "titleHindi": "दलमा के वन्य मित्र और उनकी बोलियाँ",
+    "titleSanthali": "ᱫᱟᱞᱢᱟ ᱵᱤᱨ ᱨᱤᱱ ᱡᱟᱱᱣᱟᱨ ᱜᱟᱛᱮ ᱠᱚ",
+    "titleRoman": "Dalma Bir Rin Janwar Gate Ko",
+    "theme": "Wildlife Vocabulary & Expressive Speech",
+    "difficultyLevel": "Level 2 (Transitional)",
+    "learningObjectives": [
+      "Read two-syllable Santali and Hindi animal vocabulary words",
+      "Express animal sounds and actions through expressive dialogue",
+      "Form complete sentences with subject, verb, and object"
+    ],
+    "story": {
+      "id": "st-g2-03",
+      "titleEnglish": "The Elephant and the Singing Bird",
+      "titleHindi": "हाथी दादा और गाने वाली चिड़िया",
+      "titleSanthali": "ᱦᱟᱹᱛᱤ ᱜᱚᱲᱚᱢ ᱟᱨ ᱥᱮᱨᱮᱧ ᱪᱮᱬᱮ",
+      "titleRoman": "Hati Gorom ar Serenj Chene",
+      "paragraphsEnglish": [
+        "In Dalma forest, grandfather Elephant steps gently so he doesn't disturb the small insects.",
+        "A little golden-breasted bird perches on his great curved ear and chirps: 'Good morning, wise friend!'",
+        "The elephant flaps his ear affectionately and answers: 'Johar little bird, may your song bring joy to our woods today.'"
+      ],
+      "paragraphsHindi": [
+        "दलमा के जंगल में हाथी दादा बहुत सावधानी से पैर रखते हैं ताकि नन्हे कीड़े-मकोड़ों को चोट न लगे।",
+        "एक सुनहरी चिड़िया उनके बड़े कान पर बैठती है और चहकती है: 'सुप्रभात, प्यारे हाथी दादा!'",
+        "हाथी दादा ने अपना कान हिलाया और कहा: 'जोहार नन्हीं चिड़िया, तुम्हारा गीत पूरे वन को खुशियाँ दे।'"
+      ],
+      "paragraphsSanthali": [
+        "ᱫᱟᱞᱢᱟ ᱵᱤᱨ ᱨᱮ ᱦᱟᱹᱛᱤ ᱜᱚᱲᱚᱢ ᱫᱚ ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱛᱮ ᱛᱟᱲᱟᱢ ᱮᱫ-ᱟ ᱡᱮᱢᱚᱱ ᱠᱟᱹᱴᱤᱡ ᱛᱤᱡᱩ ᱠᱚ ᱟᱞᱚᱠᱚ ᱡᱚᱠᱷᱚᱢᱚᱜ-ᱢᱟ ᱾",
+        "ᱢᱤᱫ ᱥᱚᱱᱟ ᱪᱮᱬᱮ ᱩᱱᱤᱭᱟᱜ ᱢᱟᱨᱟᱝ ᱞᱩᱛᱩᱨ ᱪᱮᱛᱟᱱ ᱨᱮ ᱫᱩᱲᱩᱵ ᱠᱟᱛᱮ ᱨᱚᱲ ᱠᱮᱫ-ᱟ: 'ᱡᱚᱦᱟᱨ ᱦᱟᱹᱛᱤ ᱜᱚᱲᱚᱢ!'",
+        "ᱦᱟᱹᱛᱤ ᱫᱚ ᱞᱩᱛᱩᱨ ᱦᱤᱞᱟᱹᱣ ᱠᱟᱛᱮ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱡᱚᱦᱟᱨ ᱠᱟᱹᱴᱤᱡ ᱪᱮᱬᱮ, ᱟᱢᱟᱜ ᱥᱮᱨᱮᱧ ᱛᱮᱦᱮᱧ ᱵᱤᱨ ᱨᱮ ᱨᱟᱹᱥᱠᱟᱹ ᱟᱹᱜᱩᱭ ᱢᱟ ᱾'"
+      ],
+      "paragraphsRoman": [
+        "Dalma bir re hati gorom do adi napay te taram ed-a jemon katij tiju ko aloko jokhomog-ma.",
+        "Mid sona chene uniyag marang lutur chetan re durub kate ror ked-a: 'Johar hati gorom!'",
+        "Hati do lutur hilaw kate men ked-a: 'Johar katij chene, amag serenj tehenj bir re raska aguy ma.'"
+      ],
+      "culturalContext": "Dalma Wildlife Sanctuary in East Singhbhum, Jharkhand."
+    },
+    "flashcards": [
+      { "id": "fc-lit-01", "english": "Elephant", "hindi": "हाथी", "santhali": "ᱦᱟᱹᱛᱤ", "roman": "Hati", "category": "animals" },
+      { "id": "fc-lit-02", "english": "Bird", "hindi": "चिड़िया", "santhali": "ᱪᱮᱬᱮ", "roman": "Chene", "category": "animals" },
+      { "id": "fc-lit-03", "english": "Forest", "hindi": "जंगल", "santhali": "ᱵᱤᱨ", "roman": "Bir", "category": "nature" }
+    ],
+    "worksheet": {
+      "id": "ws-g2-03",
+      "title": "Animal Habitat and Sound Pairing",
+      "instructionsHindi": "जानवरों का उनके रहने के स्थान से सही मिलान करें।",
+      "instructionsSanthali": "ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ ᱠᱚ ᱟᱠᱚᱣᱟᱜ ᱛᱟᱦᱮᱱ ᱴᱷᱟᱶ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "हाथी कहाँ रहता है?",
+          "questionSanthali": "ᱦᱟᱹᱛᱤ ᱫᱚ ᱚᱠᱟᱨᱮ ᱛᱟᱦᱮᱱᱟᱭ?",
+          "type": "matching",
+          "options": ["ᱵᱤᱨ ᱨᱮ (In Forest)", "ᱜᱟᱰᱟ ᱨᱮ (In River)", "ᱚᱲᱟᱜ ᱪᱮᱛᱟᱱ ᱨᱮ"],
+          "answer": "ᱵᱤᱨ ᱨᱮ (In Forest)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g2-03",
+      "title": "Wildlife & Nature Story Quiz",
+      "questions": [
+        {
+          "promptHindi": "चिड़िया को संथाली में क्या कहते हैं?",
+          "promptSanthali": "ᱪᱤᱲᱤᱭᱟᱹ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "options": ["ᱪᱮᱬᱮ (Chene)", "ᱦᱟᱹᱛᱤ (Hati)", "ᱛᱟᱹᱨᱩᱵ (Tarub)"],
+          "correctIndex": 0,
+          "explanation": "Chene (ᱪᱮᱬᱮ) means bird in Santali."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 52,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "BookOpen",
+      "primaryColor": "#10B981",
+      "bannerIllustration": "dalma_wildlife_elephant_bird",
+      "altText": "Gentle elephant in lush green forest with yellow songbird on ear"
+    },
+    "vocabulary": [
+      { "english": "Forest", "hindi": "जंगल", "santhali": "ᱵᱤᱨ", "roman": "Bir", "partOfSpeech": "Noun" },
+      { "english": "Elephant", "hindi": "हाथी", "santhali": "ᱦᱟᱹᱛᱤ", "roman": "Hati", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱦᱟᱹᱛᱤ", "script": "Ol Chiki", "phoneticIpa": "/həː.ti/", "romanPhonetic": "Ha-ti", "audioHint": "Deep guttural h" },
+      { "word": "ᱪᱮᱬᱮ", "script": "Ol Chiki", "phoneticIpa": "/tʃe.ɳe/", "romanPhonetic": "Che-ne", "audioHint": "Retroflex n at the end" }
+    ]
+  }
+]

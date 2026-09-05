@@ -15,6 +15,7 @@ import {
 import { useAuthStore } from '../services/authStore';
 import { contentEngineService } from '../services/contentEngineService';
 import { useCurriculumStore } from '../services/curriculum/curriculumStore';
+import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
 import { JourneyMapView } from '../components/gamification/JourneyMapView';
 import { ConfettiCelebration } from '../components/gamification/ConfettiCelebration';
 import { Toast, type ToastType } from '../components/ui/Toast';
@@ -96,15 +97,20 @@ export const Dashboard: React.FC = () => {
     showToast(`Classroom synced successfully! Active curriculum: ${version}`, 'success');
   };
 
-  // Today's Educational Activity Tiles (Duolingo ABC Style)
+  const primaryLesson = ALL_CURRICULUM_LESSONS[0];
+  const numLesson = ALL_CURRICULUM_LESSONS[1];
+  const artLesson = ALL_CURRICULUM_LESSONS[2];
+  const storyLesson = ALL_CURRICULUM_LESSONS[3];
+
+  // Today's Educational Activity Tiles from Master Curriculum Engine
   const activities: ActivityItem[] = [
     {
-      id: 'animals',
-      title: 'Animals',
-      hindiTitle: 'जानवर (हाथी, गाय, बकरी)',
-      santhaliTitle: 'ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ (ᱦᱟᱹᱛᱤ, ᱰᱟᱝᱜᱽᱨᱟ)',
-      subtitle: '12 new sounds & names',
-      tag: 'Flashcards',
+      id: primaryLesson.id,
+      title: primaryLesson.titleEnglish,
+      hindiTitle: primaryLesson.titleHindi,
+      santhaliTitle: primaryLesson.titleSanthali,
+      subtitle: `${primaryLesson.vocabulary.length} words • ${primaryLesson.theme}`,
+      tag: 'FLN Literacy',
       illustration: <CuteElephant size={105} />,
       accentColor: '#F59E0B',
       bgColor: 'bg-[#FFFBEB]',
@@ -113,11 +119,11 @@ export const Dashboard: React.FC = () => {
       route: '/flashcards',
     },
     {
-      id: 'numbers',
-      title: 'Numbers 1–20',
-      hindiTitle: 'गिनती (एक, दो, तीन)',
-      santhaliTitle: 'ᱮᱞ (ᱢᱤᱫ, ᱵᱟᱨ, ᱯᱮ)',
-      subtitle: 'Count & match objects',
+      id: numLesson.id,
+      title: numLesson.titleEnglish,
+      hindiTitle: numLesson.titleHindi,
+      santhaliTitle: numLesson.titleSanthali,
+      subtitle: `${numLesson.vocabulary.length} numbers • CPA method`,
       tag: 'Math FLN',
       illustration: <CountingBlocks size={105} />,
       accentColor: '#2563EB',
@@ -127,25 +133,25 @@ export const Dashboard: React.FC = () => {
       route: '/flashcards',
     },
     {
-      id: 'fruits',
-      title: 'Sweet Fruits',
-      hindiTitle: 'फल (आम, केला, अमरूद)',
-      santhaliTitle: 'ᱡᱚ (ᱩᱞ, ᱠᱟᱭᱨᱟ)',
-      subtitle: 'Sweet tastes & colors',
-      tag: 'Vocabulary',
+      id: artLesson.id,
+      title: artLesson.titleEnglish,
+      hindiTitle: artLesson.titleHindi,
+      santhaliTitle: artLesson.titleSanthali,
+      subtitle: 'Sohrai Earth Motifs',
+      tag: 'Tribal Arts',
       illustration: <CuteMango size={105} />,
       accentColor: '#22C55E',
       bgColor: 'bg-[#F0FDF4]',
       borderColor: 'border-emerald-200/80',
       buttonBg: '#22C55E',
-      route: '/flashcards',
+      route: '/worksheets',
     },
     {
-      id: 'stories',
-      title: 'Folk Stories',
-      hindiTitle: 'लोक कथाएँ (चालाक लोमड़ी)',
-      santhaliTitle: 'ᱠᱟᱹᱦᱱᱤ (ᱛᱟᱹᱨᱩᱵ ᱟᱨ ᱪᱮᱬᱮ)',
-      subtitle: 'Traditional Dumka tales',
+      id: storyLesson.id,
+      title: storyLesson.titleEnglish,
+      hindiTitle: storyLesson.titleHindi,
+      santhaliTitle: storyLesson.titleSanthali,
+      subtitle: 'Bilingual Reader',
       tag: 'Read Along',
       illustration: <StoryBook size={105} />,
       accentColor: '#8B5CF6',
@@ -299,9 +305,9 @@ export const Dashboard: React.FC = () => {
 
       {/* SECTION 2: CONTINUE LEARNING CARD */}
       <LearningCard
-        title={continueTitle}
-        hindiTitle="वन्य एवं घरेलू पशु (गाय, बकरी, हाथी, बाघ)"
-        santhaliTitle="ᱵᱤᱨ ᱟᱨ ᱚᱲᱟᱜ ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ (Bir ar orag jib jiyali)"
+        title={continueTitle || primaryLesson.titleEnglish}
+        hindiTitle={primaryLesson.titleHindi}
+        santhaliTitle={`${primaryLesson.titleSanthali} (${primaryLesson.titleRoman})`}
         duration="12 mins"
         progressPercent={continueProgressPercent}
         wordsMastered={continueSubtitle}

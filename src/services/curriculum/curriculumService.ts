@@ -1,8 +1,9 @@
-import grade1Data from '../../data/curriculum/grade1/lessons.json';
-import grade2Data from '../../data/curriculum/grade2/lessons.json';
-import grade3Data from '../../data/curriculum/grade3/lessons.json';
-import grade4Data from '../../data/curriculum/grade4/lessons.json';
-import grade5Data from '../../data/curriculum/grade5/lessons.json';
+import type { CurriculumGrade, CurriculumLesson } from '../../data/curriculum';
+import {
+  ALL_CURRICULUM_LESSONS,
+  getLessonsByGrade,
+  searchCurriculumLessons,
+} from '../../data/curriculum';
 
 export interface CurriculumLessonData {
   grade: number;
@@ -30,27 +31,56 @@ export interface CurriculumLessonData {
   }[];
 }
 
-const GRADE_DATABASE: Record<number, CurriculumLessonData> = {
-  1: grade1Data as CurriculumLessonData,
-  2: grade2Data as CurriculumLessonData,
-  3: grade3Data as CurriculumLessonData,
-  4: grade4Data as CurriculumLessonData,
-  5: grade5Data as CurriculumLessonData,
-};
-
 class CurriculumService {
   public getCurriculumByGrade(grade: number): CurriculumLessonData | null {
-    return GRADE_DATABASE[grade] || null;
+    if (grade < 1 || grade > 5) return null;
+    const lessons = getLessonsByGrade(grade as CurriculumGrade);
+
+    return {
+      grade,
+      state: 'Jharkhand',
+      board: 'JCERT / SCERT',
+      curriculumFramework: 'NEP 2020 & NIPUN Bharat FLN',
+      academicYear: '2026-27',
+      subjects: [
+        {
+          id: `g${grade}-mle`,
+          name: `MTB-MLE Grade ${grade}`,
+          languagePair: 'Hindi ↔ Santali (Ol Chiki)',
+          chapters: lessons.map((l, index) => ({
+            chapterNumber: index + 1,
+            titleHindi: l.titleHindi,
+            titleSanthali: l.titleSanthali,
+            titleRoman: l.titleRoman,
+            theme: l.theme,
+            nipunCompetency: l.standards.join(' • '),
+            keyVocabulary: l.vocabulary.map((v) => ({
+              hindi: v.hindi,
+              santhali: v.santhali,
+              roman: v.roman,
+            })),
+          })),
+        },
+      ],
+    };
   }
 
   public getAllGrades(): number[] {
     return [1, 2, 3, 4, 5];
   }
 
+  public getLessons(grade?: number): CurriculumLesson[] {
+    if (grade && grade >= 1 && grade <= 5) {
+      return getLessonsByGrade(grade as CurriculumGrade);
+    }
+    return ALL_CURRICULUM_LESSONS;
+  }
+
   public searchCurriculum(query: string) {
     const q = query.trim().toLowerCase();
     if (!q) return [];
 
+    const matchedLessons = searchCurriculumLessons(q);
     const results: {
       grade: number;
       subject: string;
@@ -60,27 +90,22 @@ class CurriculumService {
       roman: string;
     }[] = [];
 
-    for (const [gradeStr, data] of Object.entries(GRADE_DATABASE)) {
-      const grade = parseInt(gradeStr, 10);
-      for (const subj of data.subjects) {
-        for (const chap of subj.chapters) {
-          for (const vocab of chap.keyVocabulary) {
-            if (
-              vocab.hindi.toLowerCase().includes(q) ||
-              vocab.santhali.includes(q) ||
-              vocab.roman.toLowerCase().includes(q) ||
-              chap.titleHindi.toLowerCase().includes(q)
-            ) {
-              results.push({
-                grade,
-                subject: subj.name,
-                chapterTitle: chap.titleHindi,
-                hindi: vocab.hindi,
-                santhali: vocab.santhali,
-                roman: vocab.roman,
-              });
-            }
-          }
+    for (const l of matchedLessons) {
+      for (const vocab of l.vocabulary) {
+        if (
+          vocab.hindi.toLowerCase().includes(q) ||
+          vocab.santhali.includes(q) ||
+          vocab.roman.toLowerCase().includes(q) ||
+          l.titleHindi.toLowerCase().includes(q)
+        ) {
+          results.push({
+            grade: l.grade,
+            subject: l.subject,
+            chapterTitle: l.titleHindi,
+            hindi: vocab.hindi,
+            santhali: vocab.santhali,
+            roman: vocab.roman,
+          });
         }
       }
     }

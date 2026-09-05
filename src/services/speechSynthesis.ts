@@ -14,6 +14,7 @@ export interface SpeechPlayOptions {
   rate?: number;
   pitch?: number;
   volume?: number;
+  persona?: 'female_teacher' | 'child_voice';
   onStart?: () => void;
   onEnd?: () => void;
   onError?: (err: unknown) => void;

@@ -1,3 +1,5 @@
+import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
+
 export interface StoryWordToken {
   id: string;
   hindi: string;
@@ -337,20 +339,86 @@ export const STORIES_DATABASE: BilingualStory[] = [
   },
 ];
 
+const CURRICULUM_STORIES: BilingualStory[] = ALL_CURRICULUM_LESSONS.map((l) => {
+  const pages: StoryPage[] = l.story.paragraphsHindi.map((hindi, idx) => ({
+    pageNumber: idx + 1,
+    paragraphHindi: hindi,
+    paragraphSanthali: l.story.paragraphsSanthali[idx] || '',
+    paragraphRoman: l.story.paragraphsRoman[idx] || '',
+    tokens: l.vocabulary.slice(0, 4).map((v, vIdx) => ({
+      id: `${l.id}-tok-${vIdx}`,
+      hindi: v.hindi,
+      santhali: v.santhali,
+      roman: v.roman,
+    })),
+    illustrationTheme: l.illustrationMetadata.bannerIllustration,
+  }));
+
+  const categoryMap: Record<string, BilingualStory['category']> = {
+    'Foundational Literacy': 'rhymes',
+    'Foundational Numeracy': 'values',
+    'EVS': 'nature',
+    'History': 'history',
+    'Geography': 'nature',
+    'Arts': 'folk',
+    'Music': 'rhymes',
+    'Psychology': 'values',
+    'Philosophy for Children': 'values',
+    'Civics': 'history',
+    'Ecology': 'nature',
+  };
+
+  return {
+    id: l.story.id,
+    titleHindi: l.story.titleHindi,
+    titleSanthali: l.story.titleSanthali,
+    titleRoman: l.story.titleRoman,
+    category: categoryMap[l.subject] || 'folk',
+    grade: l.grade,
+    readingMinutes: Math.max(2, Math.round(l.audioNarration.durationSeconds / 20)),
+    totalWords: l.story.paragraphsEnglish.join(' ').split(' ').length,
+    coverEmoji:
+      l.subject === 'History'
+        ? '🏹'
+        : l.subject === 'Arts'
+        ? '🎨'
+        : l.subject === 'Music'
+        ? '🪘'
+        : l.subject === 'Ecology' || l.subject === 'EVS'
+        ? '🌳'
+        : '📖',
+    summary: `${l.story.culturalContext} (${l.standards.join(', ')})`,
+    pages,
+  };
+});
+
+export const ALL_COMBINED_STORIES: BilingualStory[] = [
+  ...STORIES_DATABASE,
+  ...CURRICULUM_STORIES.filter(
+    (cs) => !STORIES_DATABASE.some((s) => s.id === cs.id)
+  ),
+];
+
 class StoriesService {
   public getAllStories(): BilingualStory[] {
-    return STORIES_DATABASE;
+    return ALL_COMBINED_STORIES;
   }
 
   public getStoriesByCategory(category: string): BilingualStory[] {
-    const matched = STORIES_DATABASE.filter(
+    const matched = ALL_COMBINED_STORIES.filter(
       (s) => s.category.toLowerCase() === category.toLowerCase()
     );
-    return matched.length > 0 ? matched : [STORIES_DATABASE[0]];
+    return matched.length > 0 ? matched : [ALL_COMBINED_STORIES[0]];
   }
 
   public getStoryById(id: string): BilingualStory | undefined {
-    return STORIES_DATABASE.find((s) => s.id === id);
+    return ALL_COMBINED_STORIES.find((s) => s.id === id);
+  }
+
+  public getStoryByLesson(lessonId: string): BilingualStory | undefined {
+    const lesson = ALL_CURRICULUM_LESSONS.find((l) => l.id === lessonId);
+    if (!lesson) return undefined;
+    return this.getStoryById(lesson.story.id);
   }
 }
 

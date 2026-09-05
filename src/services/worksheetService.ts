@@ -1,4 +1,5 @@
 import type { WorksheetConfig } from '../components/worksheets/WorksheetGeneratorForm';
+import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
 
 export interface WorksheetQuestion {
   id: string;
@@ -127,15 +128,78 @@ class WorksheetService {
     }));
   }
 
+  public getCurriculumWorksheets(): GeneratedWorksheet[] {
+    return ALL_CURRICULUM_LESSONS.map((lesson) => {
+      const questions: WorksheetQuestion[] = lesson.worksheet.tasks.map((task, idx) => ({
+        id: `${lesson.worksheet.id}-q${idx + 1}`,
+        questionNumber: idx + 1,
+        promptHindi: task.questionHindi,
+        promptSanthali: task.questionSanthali,
+        type: task.type === 'tracing' ? 'tracing' : task.type === 'drawing' ? 'fill_blank' : 'matching',
+        leftItem: {
+          textHindi: task.questionHindi,
+          textSanthali: task.questionSanthali,
+          icon: lesson.illustrationMetadata.themeIcon,
+        },
+        rightItem: {
+          textHindi: task.answer,
+          textSanthali: task.answer,
+        },
+        answerGuide: `उत्तर: ${task.answer}`,
+      }));
+
+      const config: WorksheetConfig = {
+        grade: `Grade ${lesson.grade}`,
+        subject: lesson.subject,
+        topic: lesson.titleEnglish,
+        language: 'Hindi + Santali (Ol Chiki)',
+        difficulty: lesson.difficultyLevel.includes('Foundational')
+          ? 'Foundational (सरल)'
+          : lesson.difficultyLevel.includes('Transitional')
+          ? 'Standard (मध्यम)'
+          : 'Enrichment (अभ्यास)',
+        nipunCompetency: lesson.standards.join(' • '),
+        questionCount: Math.max(4, questions.length),
+        illustrationStyle: 'Line Art Tracing',
+        isOffline: true,
+        type: 'matching',
+      };
+
+      return {
+        id: lesson.worksheet.id,
+        title: `${lesson.titleEnglish} — Grade ${lesson.grade} (${lesson.titleHindi})`,
+        titleSanthali: lesson.titleSanthali,
+        config,
+        instructionsHindi: lesson.worksheet.instructionsHindi,
+        instructionsSanthali: lesson.worksheet.instructionsSanthali,
+        questions,
+        createdAt: Date.now() - (6 - lesson.grade) * 86400000,
+      };
+    });
+  }
+
+  public generateFromLesson(lessonId: string): GeneratedWorksheet | undefined {
+    return this.getCurriculumWorksheets().find((w) => w.id.includes(lessonId) || w.title.includes(lessonId));
+  }
+
   public getSavedWorksheets(): GeneratedWorksheet[] {
-    if (typeof window === 'undefined') return [];
+    if (typeof window === 'undefined') return this.getCurriculumWorksheets();
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
     } catch {
       // ignore
     }
-    return [];
+    const defaults = this.getCurriculumWorksheets();
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
+    } catch {
+      // ignore
+    }
+    return defaults;
   }
 
   public saveWorksheet(worksheet: GeneratedWorksheet) {

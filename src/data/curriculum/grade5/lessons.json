@@ -1,29 +1,293 @@
-{
-  "grade": 5,
-  "state": "Jharkhand",
-  "board": "JCERT / SCERT",
-  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
-  "academicYear": "2026-27",
-  "subjects": [
-    {
-      "id": "g5-heritage",
-      "name": "जनजातीय गौरव एवं स्वाधीनता सेनानी (Tribal Heritage Grade 5)",
-      "languagePair": "Hindi ↔ Santali",
-      "chapters": [
+[
+  {
+    "id": "g5-psy-01",
+    "grade": 5,
+    "subject": "Psychology",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Understanding Emotions & Peer Support",
+    "titleHindi": "भावनाओं की पहचान और मित्रों का संबल",
+    "titleSanthali": "ᱢᱚᱱᱮ ᱨᱮᱱᱟᱜ ᱵᱷᱟᱵᱽ ᱵᱩᱡᱷᱟᱹᱣ ᱟᱨ ᱜᱟᱛᱮ ᱜᱚᱲᱚ",
+    "titleRoman": "Mone renag Bhab Bujhaw ar Gate Goro",
+    "theme": "Social-Emotional Learning, Mental Wellness & Empathy",
+    "difficultyLevel": "Level 3 (Competent)",
+    "learningObjectives": [
+      "Name complex emotional states: anxiety (bhawna), sadness (dukh), pride (garb), joy (raska)",
+      "Learn positive coping strategies: deep breathing, expressive drawing, talking to trusted teachers",
+      "Recognize distress signals in peers and offer quiet, non-judgmental support"
+    ],
+    "story": {
+      "id": "st-g5-01",
+      "titleEnglish": "Sunil's Quiet Day",
+      "titleHindi": "सुनील का उदास दिन और दोस्तों का साथ",
+      "titleSanthali": "ᱥᱩᱱᱤᱞ ᱟᱜ ᱩᱫᱟᱹᱥ ᱫᱤᱱ ᱟᱨ ᱜᱟᱛᱮ ᱠᱚᱣᱟᱜ ᱥᱟᱶ",
+      "titleRoman": "Sunil ag Udas Din ar Gate Kowag Saw",
+      "paragraphsEnglish": [
+        "During lunch break, Sunil sat alone at the edge of the school field, staring quietly at his shoes.",
+        "His friend Ravi did not make fun of him. Instead, he sat down beside him quietly and offered half of his roasted corn.",
+        "After a few minutes in peaceful silence, Sunil whispered: 'My mother is unwell.' Ravi said softly: 'We will pray at the Sarna together, and I will help you with today's notes.'"
+      ],
+      "paragraphsHindi": [
+        "दोपहर के भोजन के समय सुनील स्कूल के मैदान के कोने में अकेला बैठकर चुपचाप अपने जूतों को देख रहा था।",
+        "उसके दोस्त रवि ने उसका उपहास नहीं किया। वह चुपचाप उसके पास बैठा और अपने भुने हुए भुट्टे का आधा हिस्सा बढ़ाया।",
+        "कुछ पलों की शांत संगति के बाद सुनील ने धीमी आवाज में कहा: 'मेरी माँ बीमार हैं।' रवि ने स्नेह से कहा: 'हम सब मिलकर उनके स्वस्थ होने की कामना करेंगे और मैं आज का सारा पाठ तुम्हें समझाऊँगा।'"
+      ],
+      "paragraphsSanthali": [
+        "ᱴᱤᱯᱷᱤᱱ ᱚᱠᱛᱚ ᱥᱩᱱᱤᱞ ᱟᱥᱲᱟ ᱴᱟᱺᱰᱤ ᱠᱳᱬ ᱨᱮ ᱮᱠᱞᱟ ᱫᱩᱲᱩᱵ ᱠᱟᱛᱮ ᱪᱩᱯᱪᱟᱯ ᱟᱡᱟᱜ ᱡᱩᱛᱟᱹ ᱠᱚᱭᱚᱜ ᱮᱫ ᱛᱟᱦᱮᱸᱫ ᱾",
+        "ᱩᱱᱤᱭᱤᱡ ᱜᱟᱛᱮ ᱨᱚᱵᱤ ᱫᱚ ᱵᱟᱭ ᱞᱟᱸᱫᱟᱣᱟᱫ-ᱟ ᱾ ᱵᱤᱪᱠᱚᱢ ᱩᱱᱤ Sor ᱨᱮ ᱫᱩᱲᱩᱵ ᱠᱟᱛᱮ ᱨᱟᱯᱟᱜ ᱡᱚᱱᱰᱨᱟ ᱦᱟᱹᱴᱤᱧ ᱮᱢᱟᱫᱮᱭᱟ ᱾",
+        "ᱛᱷᱚᱲᱟ ᱜᱷᱟᱹᱲᱤᱠ ᱛᱷᱤᱨ ᱛᱟᱦᱮᱸᱱ ᱛᱟᱭᱚᱢ ᱥᱩᱱᱤᱞ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱤᱧ ᱟᱭᱳᱭ ᱨᱩᱣᱟᱹ ᱠᱟᱱᱟ ᱾' ᱨᱚᱵᱤ ᱫᱩᱞᱟᱹᱲ ᱛᱮ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱟᱵᱚ ᱥᱟᱨᱱᱟ ᱨᱮ ᱵᱚᱱ ᱱᱮᱦᱚᱸᱨᱟ, ᱟᱨ ᱤᱧ ᱛᱮᱦᱮᱧᱟᱜ ᱚᱞ-ᱯᱟᱲᱦᱟᱣ ᱨᱮ ᱜᱚᱲᱚᱢᱟ ᱾'"
+      ],
+      "paragraphsRoman": [
+        "Tiffin okto Sunil asra tandi kon re ekla durub kate chupchap ajag juta koyog ed taehed.",
+        "Uniyij gate Ravi do bay landawad-a. Bichkom uni sor re durub kate rapag jondra hatinj emadeya.",
+        "Thora gharik thir tahen tayom Sunil men ked-a: 'Inj ayoy ruwa kana.' Ravi dular te men ked-a: 'Abo Sarna re bon nehor-a, ar inj tehenjag ol-parhaw re gorom-a.'"
+      ],
+      "culturalContext": "Mental health, community resilience and compassionate friendship in rural schools."
+    },
+    "flashcards": [
+      { "id": "fc-psy-01", "english": "Mind / Emotion", "hindi": "मन / भावना", "santhali": "ᱢᱚᱱᱮ / ᱵᱷᱟᱵᱽ", "roman": "Mone / Bhab", "category": "psychology" },
+      { "id": "fc-psy-02", "english": "Happiness / Joy", "hindi": "खुशी / आनंद", "santhali": "ᱨᱟᱹᱥᱠᱟᱹ", "roman": "Raska", "category": "psychology" },
+      { "id": "fc-psy-03", "english": "Sadness / Sorrow", "hindi": "दुख / उदासी", "santhali": "ᱫᱩᱠᱷ / ᱩᱫᱟᱹᱥ", "roman": "Dukh / Udas", "category": "psychology" }
+    ],
+    "worksheet": {
+      "id": "ws-g5-01",
+      "title": "Emotional Vocabulary & Empathy Matching",
+      "instructionsHindi": "भावनात्मक स्थितियों को उनके सही संथाली शब्दों से मिलाएँ।",
+      "instructionsSanthali": "ᱢᱚᱱᱮ ᱨᱮᱱᱟᱜ ᱵᱷᱟᱵᱽ ᱠᱚ ᱥᱟᱹᱨᱤ ᱟᱹᱲᱟᱹ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "भगवान बिरसा मुंडा और सिदो-कान्हू",
-          "titleSanthali": "ᱵᱤᱨᱥᱟᱹ ᱢᱩᱱᱰᱟ ᱟᱨ ᱥᱤᱫᱚ-ᱠᱟᱹᱱᱦᱩ ᱡᱚᱦᱟᱨ",
-          "titleRoman": "Birsa Munda ar Sido-Kanhu Johar",
-          "theme": "Jharkhand Heroes & Ulgulan",
-          "nipunCompetency": "L5.3 Critical reading & historical essay writing",
-          "keyVocabulary": [
-            { "hindi": "क्रांति / उलगुलान", "santhali": "ᱩᱞᱜᱩᱞᱟᱱ", "roman": "Ulgulan" },
-            { "hindi": "वीर सेनानी", "santhali": "ᱵᱤᱨ ᱵᱟᱱᱴᱟ", "roman": "Bir Banta" },
-            { "hindi": "स्वतंत्रता", "santhali": "ᱯᱷᱩᱨᱜᱟᱹᱞ", "roman": "Phurgal" }
-          ]
+          "questionHindi": "खुशी (Happiness) का संथाली शब्द क्या है?",
+          "questionSanthali": "ᱠᱩᱥᱤ (Happiness) ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱨᱟᱹᱥᱠᱟᱹ (Raska)", "ᱫᱩᱠᱷ (Dukh)", "ᱵᱚᱛᱚᱨ (Fear)"],
+          "answer": "ᱨᱟᱹᱥᱠᱟᱹ (Raska)"
         }
       ]
-    }
-  ]
-}
+    },
+    "miniQuiz": {
+      "id": "mq-g5-01",
+      "title": "Empathy & Peer Support Quiz",
+      "questions": [
+        {
+          "promptHindi": "जब कोई दोस्त उदास हो, तो सबसे सही व्यवहार क्या है?",
+          "promptSanthali": "ᱡᱚᱠᱷᱚᱱ ᱜᱟᱛᱮ ᱩᱫᱟᱹᱥ ᱮ ᱛᱟᱦᱮᱸᱱᱟ, ᱛᱚᱵᱮ ᱪᱮᱫ ᱪᱤᱠᱟᱹ ᱱᱟᱯᱟᱭᱟ?",
+          "options": ["प्यार से सुनना और साथ बैठना (Listening with compassion)", "हँसना और चिढ़ाना", "उसे अकेला छोड़ देना"],
+          "correctIndex": 0,
+          "explanation": "Listening quietly with care gives emotional comfort to a grieving friend."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 58,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Smile",
+      "primaryColor": "#EC4899",
+      "bannerIllustration": "two_friends_talking_field_support",
+      "altText": "Two schoolboys sitting closely on grassy school ground sharing corn and comforting each other"
+    },
+    "vocabulary": [
+      { "english": "Mind", "hindi": "मन", "santhali": "ᱢᱚᱱᱮ", "roman": "Mone", "partOfSpeech": "Noun" },
+      { "english": "Joy", "hindi": "आनंद", "santhali": "ᱨᱟᱹᱥᱠᱟᱹ", "roman": "Raska", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱢᱚᱱᱮ", "script": "Ol Chiki", "phoneticIpa": "/mɔ.ne/", "romanPhonetic": "Mo-ne", "audioHint": "Gentle alveolar n" },
+      { "word": "ᱨᱟᱹᱥᱠᱟᱹ", "script": "Ol Chiki", "phoneticIpa": "/rəːs.kəː/", "romanPhonetic": "Ras-ka", "audioHint": "Aspirated guttural vowels" }
+    ]
+  },
+  {
+    "id": "g5-evs-01",
+    "grade": 5,
+    "subject": "EVS",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Medicinal Plants of Santhal Pargana",
+    "titleHindi": "संथाल परगना के औषधीय पौधे और पारंपरिक ज्ञान",
+    "titleSanthali": "ᱥᱟᱱᱛᱟᱲ ᱯᱟᱨᱜᱟᱱᱟ ᱨᱮᱱᱟᱜ ᱨᱟᱱ ᱫᱟᱨᱮ-ᱱᱟᱹᱲᱤ",
+    "titleRoman": "Santhal Pargana renag Ran Dare-Nari",
+    "theme": "Ethnobotany, Traditional Herbal Medicine & Biodiversity",
+    "difficultyLevel": "Level 3 (Competent)",
+    "learningObjectives": [
+      "Identify common medicinal flora: Neem (Nim), Tulsi, Haritaki (Rola), and Giloy",
+      "Explain how tribal vaidyas (Rusi/Rar) preserve forest pharmacological knowledge",
+      "Document native healing practices for fever, cold, and wounds"
+    ],
+    "story": {
+      "id": "st-g5-02",
+      "titleEnglish": "The Forest Pharmacy of Grandma Marang Buru",
+      "titleHindi": "दादी की वनौषधि वाटिका",
+      "titleSanthali": "ᱵᱩᱰᱷᱤ ᱟᱭᱳᱣᱟᱜ ᱵᱤᱨ ᱨᱟᱱ ᱵᱟᱜᱟᱱ",
+      "titleRoman": "Budhi Ayowag Bir Ran Bagan",
+      "paragraphsEnglish": [
+        "Whenever someone in the hamlet has a stubborn cough, Grandma reaches for fresh Tulsi leaves and crushed black pepper.",
+        "'Nature has given us medicine in every leaf,' she explains, pointing to the bitter Neem and the climbing Giloy vine.",
+        "She teaches the children: 'Pick only the leaves you need for healing; never harm the roots of the forest mother.'"
+      ],
+      "paragraphsHindi": [
+        "जब भी टोले में किसी को खाँसी या सर्दी होती है, दादी तुलसी की पत्तियाँ और काली मिर्च का काढ़ा बनाती हैं।",
+        "'प्रकृति ने हर पत्ते में जीवनदायी औषधि रखी है,' वे कड़वे नीम और चढ़ती गिलोय की बेल की ओर इशारा करते हुए कहती हैं।",
+        "वे बच्चों को सिखाती हैं: 'केवल उतनी ही पत्तियाँ तोड़ो जितनी उपचार के लिए आवश्यक हों; जंगल की जड़ों को कभी नुकसान मत पहुँचाओ।'"
+      ],
+      "paragraphsSanthali": [
+        "ᱡᱚᱠᱷᱚᱱ ᱜᱮ ᱴᱳᱞᱟ ᱨᱮ ᱡᱟᱦᱟᱸᱭᱟᱜ ᱠᱷᱚᱠᱷᱚᱜ ᱦᱩᱭᱩᱜ-ᱟ, ᱵᱩᱰᱷᱤ ᱟᱭᱳ ᱛᱩᱞᱥᱤ ᱥᱟᱠᱟᱢ ᱟᱨ ᱜᱳᱞᱢᱚᱨᱤᱪ ᱨᱮᱱᱟᱜ ᱨᱟᱱ ᱮ ᱵᱮᱱᱟᱣ-ᱟ ᱾",
+        "'ᱫᱷᱟᱹᱨᱛᱤ ᱟᱭᱳ ᱫᱚ ᱡᱟᱣ ᱥᱟᱠᱟᱢ ᱨᱮ ᱨᱟᱱ-ᱮ ᱫᱚᱦᱚ ᱟᱠᱟᱫ-ᱟ,' ᱩᱱᱤ ᱦᱟᱲᱦᱟᱴ ᱱᱤᱢ ᱟᱨ ᱜᱤᱞᱳᱭ ᱱᱟᱹᱲᱤ ᱩᱫᱩᱜ ᱠᱟᱛᱮ ᱢᱮᱱ ᱠᱮᱫ-ᱟ ᱾",
+        "ᱩᱱᱤ ᱜᱤᱫᱽᱨᱟᱹ ᱠᱚᱭ ᱪᱮᱫ ᱟᱫ ᱠᱚᱣᱟ: 'ᱛᱤᱱᱟᱹᱜ ᱨᱟᱱ ᱞᱟᱹᱠᱛᱤ ᱠᱟᱱᱟ ᱩᱱᱟᱹᱜ ᱜᱮ ᱥᱟᱠᱟᱢ ᱜᱤᱫᱤ ᱢᱮ; ᱵᱤᱨ ᱫᱟᱨᱮ ᱨᱮᱦᱮᱫ ᱫᱚ ᱛᱤᱥ ᱦᱚᱸ ᱟᱞᱚᱯᱮ ᱵᱟᱹᱲᱤᱡ-ᱟ ᱾'"
+      ],
+      "paragraphsRoman": [
+        "Jokhon ge tola re jahanyag khokhog huyug-a, budhi ayo tulsi sakam ar golmorich renag ran e benaw-a.",
+        "'Dharti ayo do jaw sakam re ran-e doho akad-a,' uni harhat nim ar giloy nari udug kate men ked-a.",
+        "Uni gidra koy ched ad kowa: 'Tinag ran lakti kana unag ge sakam gidi me; bir dare rehed do tis ho alope barij-a.'"
+      ],
+      "culturalContext": "Traditional ethnobotany and conservation ethics practiced in Jharkhand Santhal communities."
+    },
+    "flashcards": [
+      { "id": "fc-evs5-01", "english": "Medicine / Cure", "hindi": "दवा / औषधि", "santhali": "ᱨᱟᱱ", "roman": "Ran", "category": "science" },
+      { "id": "fc-evs5-02", "english": "Leaf", "hindi": "पत्ता", "santhali": "ᱥᱟᱠᱟᱢ", "roman": "Sakam", "category": "nature" },
+      { "id": "fc-evs5-03", "english": "Root", "hindi": "जड़", "santhali": "ᱨᱮᱦᱮᱫ", "roman": "Rehed", "category": "nature" }
+    ],
+    "worksheet": {
+      "id": "ws-g5-02",
+      "title": "Medicinal Plants and Benefits Activity",
+      "instructionsHindi": "पौधों को उनके औषधीय लाभों से मिलाएँ।",
+      "instructionsSanthali": "ᱫᱟᱨᱮ-ᱱᱟᱹᱲᱤ ᱠᱚ ᱟᱠᱚᱣᱟᱜ ᱨᱟᱱ ᱜᱩᱱ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "संथाली में दवा (Medicine) को क्या कहते हैं?",
+          "questionSanthali": "ᱨᱟᱱ (Medicine) ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱨᱟᱱ (Ran)", "ᱥᱟᱠᱟᱢ (Sakam)", "ᱫᱟᱜ (Dag)"],
+          "answer": "ᱨᱟᱱ (Ran)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g5-02",
+      "title": "Herbal Plants Knowledge Quiz",
+      "questions": [
+        {
+          "promptHindi": "घाव साफ करने और कीटाणुनाशक के रूप में किस पेड़ की पत्तियों का प्रयोग होता है?",
+          "promptSanthali": "ᱜᱷᱟᱣ ᱥᱟᱯᱷᱟ ᱞᱟᱹᱜᱤᱫ ᱚᱠᱟ ᱫᱟᱨᱮ ᱥᱟᱠᱟᱢ ᱠᱚ ᱵᱮᱵᱷᱟᱨ-ᱟ?",
+          "options": ["नीम (Nim / ᱱᱤᱢ)", "केला", "बाँस"],
+          "correctIndex": 0,
+          "explanation": "Neem has strong antiseptic and antibacterial properties recognized globally."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 55,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Sparkles",
+      "primaryColor": "#15803D",
+      "bannerIllustration": "medicinal_herbs_neem_tulsi",
+      "altText": "Traditional herbal garden with lush green neem branch, tulsi pots, and mortar pestle"
+    },
+    "vocabulary": [
+      { "english": "Medicine", "hindi": "औषधि", "santhali": "ᱨᱟᱱ", "roman": "Ran", "partOfSpeech": "Noun" },
+      { "english": "Root", "hindi": "जड़", "santhali": "ᱨᱮᱦᱮᱫ", "roman": "Rehed", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱨᱟᱱ", "script": "Ol Chiki", "phoneticIpa": "/raːn/", "romanPhonetic": "Raan", "audioHint": "Clear open long aa" },
+      { "word": "ᱨᱮᱦᱮᱫ", "script": "Ol Chiki", "phoneticIpa": "/re.hedʼ/", "romanPhonetic": "Re-hed", "audioHint": "Glottal final consonant" }
+    ]
+  },
+  {
+    "id": "g5-his-01",
+    "grade": 5,
+    "subject": "History",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "The Great Santhal Hul of 1855 (Sidho-Kanho)",
+    "titleHindi": "१८५५ का ऐतिहासिक संथाल हुल: सिदो-कान्हू की शौर्य गाथा",
+    "titleSanthali": "᱑᱘᱕᱕ ᱥᱟᱞ ᱨᱮᱱᱟᱜ ᱱᱟᱜᱟᱢᱤᱭᱟᱹ ᱥᱟᱱᱛᱟᱲ ᱦᱩᱞ: ᱥᱤᱫᱳ-ᱠᱟᱹᱱᱦᱩ ᱵᱤᱨ ᱠᱟᱹᱦᱱᱤ",
+    "titleRoman": "1855 Sal renag Nagamiya Santhal Hul: Sidho-Kanho Bir Kahni",
+    "theme": "The 1855 Santhal Insurrection, Solidarity & Sovereignty",
+    "difficultyLevel": "Level 3 (Competent)",
+    "learningObjectives": [
+      "Understand the causes of the 1855 Santhal Hul rebellion against British colonial exploitation",
+      "Learn about the heroic leadership of brothers Sidho, Kanho, Chand, Bhairav and sisters Phulo and Jhano",
+      "Trace the historical creation of the Santhal Pargana Tenancy Act (SPT Act)"
+    ],
+    "story": {
+      "id": "st-g5-03",
+      "titleEnglish": "The Call from Bhognadih",
+      "titleHindi": "भोगनाडीह से क्रांति का शंखनाद",
+      "titleSanthali": "ᱵᱷᱳᱜᱽᱱᱟᱰᱤᱦ ᱠᱷᱚᱱ ᱦᱩᱞ ᱦᱚᱦᱚ",
+      "titleRoman": "Bhognadih khon Hul Hoho",
+      "paragraphsEnglish": [
+        "On June 30, 1855, over ten thousand Santhal men and women assembled at the village of Bhognadih.",
+        "Brothers Sidho and Kanho Murmu hoisted the flag of freedom, declaring that their soil and lives belonged to truth, not foreign oppressors.",
+        "Sisters Phulo and Jhano bravely delivered rations and intelligence, creating an immortal chapter of unity and indigenous dignity."
+      ],
+      "paragraphsHindi": [
+        "३० जून १८५५ को भोगनाडीह गाँव में दस हजार से अधिक संथाल स्त्री-पुरुष एकत्रित हुए।",
+        "सिदो और कान्हू मुर्मू ने आजादी का झंडा फहराया और ऐलान किया कि हमारी मिट्टी और आजादी पर किसी विदेशी हुकूमत का अधिकार नहीं हो सकता।",
+        "वीरांगना फूलो और झानो ने भोजन और गुप्त संदेश पहुँचाकर आंदोलन को अभूतपूर्व शक्ति दी, जिसने इतिहास में अमर शौर्य गाथा लिख दी।"
+      ],
+      "paragraphsSanthali": [
+        "᱓᱐ ᱡᱩᱱ ᱑᱘᱕᱕ ᱦᱤᱞᱚᱜ ᱵᱷᱳᱜᱽᱱᱟᱰᱤᱦ ᱟᱹᱛᱩ ᱨᱮ ᱜᱮᱞ ᱦᱟᱡᱟᱨ ᱠᱷᱚᱱ ᱵᱟᱹᱲᱛᱤ ᱥᱟᱱᱛᱟᱲ ᱦᱚᱲ ᱠᱚ ᱡᱟᱣᱨᱟ ᱞᱮᱱᱟ ᱾",
+        "ᱥᱤᱫᱳ ᱟᱨ ᱠᱟᱹᱱᱦᱩ ᱢᱩᱨᱢᱩ ᱫᱚ ᱯᱷᱩᱨᱜᱟᱹᱞ ᱪᱤᱨ ᱠᱤᱱ ᱦᱤᱞᱟᱹᱣ ᱠᱮᱫ-ᱟ ᱟᱨ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱟᱵᱚᱣᱟᱜ ᱦᱟᱥᱟ ᱟᱨ ᱡᱤᱣᱤ ᱫᱚ ᱟᱵᱚᱣᱟᱜ ᱜᱮᱭᱟ ᱾'",
+        "ᱵᱤᱨ ᱠᱩᱲᱤ ᱯᱷᱩᱞᱳ ᱟᱨ ᱡᱷᱟᱱᱳ ᱫᱚ ᱡᱚᱢᱟᱜ ᱟᱨ ᱠᱷᱚᱵᱚᱨ ᱤᱫᱤ ᱠᱟᱛᱮ ᱦᱩᱞ ᱠᱤᱱ ᱠᱮᱴᱮᱡ ᱠᱮᱫ-ᱟ, ᱡᱟᱦᱟᱸ ᱫᱚ ᱱᱟᱜᱟᱢ ᱨᱮ ᱚᱢᱚᱨ ᱛᱟᱦᱮᱸᱱᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "30 June 1855 hilog Bhognadih atu re gel hajar khon barti Santhal hor ko jawra lena.",
+        "Sidho ar Kanho Murmu do phurgal chir kin hilaw ked-a ar men ked-a: 'Abowag hasa ar jiwi do abowag geya.'",
+        "Bir kuri Phulo ar Jhano do jomag ar khobor idi kate hul kin ketej ked-a, jaha do nagam re omor tahen-a."
+      ],
+      "culturalContext": "Hul Diwas is celebrated across Jharkhand on June 30 as a day of solemn remembrance."
+    },
+    "flashcards": [
+      { "id": "fc-his5-01", "english": "Rebellion / Revolution", "hindi": "हुल / क्रांति", "santhali": "ᱦᱩᱞ", "roman": "Hul", "category": "history" },
+      { "id": "fc-his5-02", "english": "Bravery / Courage", "hindi": "साहस / वीरता", "santhali": "ᱫᱤᱞ-ᱫᱟᱲᱮ", "roman": "Dil-Dare", "category": "history" },
+      { "id": "fc-his5-03", "english": "Flag", "hindi": "झंडा / ध्वज", "santhali": "ᱪᱤᱨ", "roman": "Chir", "category": "history" }
+    ],
+    "worksheet": {
+      "id": "ws-g5-03",
+      "title": "Santhal Hul 1855 Historical Timeline",
+      "instructionsHindi": "संथाल हुल के महानायकों और उनके जन्मस्थान का सही मिलान करें।",
+      "instructionsSanthali": "ᱥᱟᱱᱛᱟᱲ ᱦᱩᱞ ᱨᱤᱱ ᱵᱤᱨ ᱠᱚ ᱟᱠᱚᱣᱟᱜ ᱴᱷᱟᱶ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "संथाल हुल का ऐतिहासिक शंखनाद किस स्थान से हुआ था?",
+          "questionSanthali": "ᱥᱟᱱᱛᱟᱲ ᱦᱩᱞ ᱫᱚ ᱚᱠᱟ ᱴᱷᱟᱶ ᱠᱷᱚᱱ ᱮᱛᱚᱦᱚᱵ ᱞᱮᱱᱟ?",
+          "type": "matching",
+          "options": ["ᱵᱷᱳᱜᱽᱱᱟᱰᱤᱦ (Bhognadih)", "ᱨᱟᱺᱪᱤ (Ranchi)", "ᱫᱷᱟᱱᱵᱟᱫᱽ (Dhanbad)"],
+          "answer": "ᱵᱷᱳᱜᱽᱱᱟᱰᱤᱦ (Bhognadih)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g5-03",
+      "title": "Santhal Hul 1855 Revolution Quiz",
+      "questions": [
+        {
+          "promptHindi": "झारखंड में 'हुल दिवस' प्रतिवर्ष किस तिथि को मनाया जाता है?",
+          "promptSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮ 'ᱦᱩᱞ ᱢᱟᱦᱟᱸ' ᱫᱚ ᱚᱠᱟ ᱦᱤᱞᱚᱜ ᱠᱚ ᱢᱟᱱᱟᱣ-ᱟ?",
+          "options": ["३० जून (30 June)", "१५ अगस्त", "२६ जनवरी"],
+          "correctIndex": 0,
+          "explanation": "Hul Diwas is commemorated on June 30 honoring the martyrs of the 1855 Santhal uprising."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 62,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Flag",
+      "primaryColor": "#B91C1C",
+      "bannerIllustration": "sidho_kanho_bhognadih_monument",
+      "altText": "Historical monument of Sidho and Kanho Murmu with tribal youth raising green branch of solidarity"
+    },
+    "vocabulary": [
+      { "english": "Revolution", "hindi": "क्रांति", "santhali": "ᱦᱩᱞ", "roman": "Hul", "partOfSpeech": "Noun" },
+      { "english": "Courage", "hindi": "वीरता", "santhali": "ᱫᱤᱞ", "roman": "Dil", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱦᱩᱞ", "script": "Ol Chiki", "phoneticIpa": "/hul/", "romanPhonetic": "Hul", "audioHint": "Clear crisp l" },
+      { "word": "ᱪᱤᱨ", "script": "Ol Chiki", "phoneticIpa": "/tʃiːr/", "romanPhonetic": "Chir", "audioHint": "Voiceless affricate ch" }
+    ]
+  }
+]

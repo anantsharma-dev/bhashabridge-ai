@@ -8,6 +8,7 @@ import {
   StoryBook,
 } from '../components/ui/DashboardIllustrations';
 import { JoharHornbill } from '../components/ui/JoharHornbill';
+import { ALL_CURRICULUM_LESSONS } from '../data/curriculum';
 
 export interface BilingualFlashcardItem {
   id: string;
@@ -602,13 +603,35 @@ export const CURRICULUM_FLASHCARDS: BilingualFlashcardItem[] = [
   },
 ];
 
+const LESSON_DERIVED_CARDS: BilingualFlashcardItem[] = ALL_CURRICULUM_LESSONS.flatMap((lesson) =>
+  lesson.flashcards.map((fc) => ({
+    id: fc.id,
+    hindi: fc.hindi,
+    santhali: fc.santhali,
+    santhaliLatin: fc.roman,
+    english: fc.english,
+    category: fc.category || 'classroom',
+    grade: lesson.grade,
+    sampleSentenceHindi: `${fc.hindi} — ${lesson.titleHindi}`,
+    sampleSentenceSanthali: `${fc.santhali} — ${lesson.titleSanthali}`,
+    didYouKnow: `${lesson.standards.join(' • ')} (${lesson.theme})`,
+  }))
+);
+
+export const ALL_ACTIVE_FLASHCARDS: BilingualFlashcardItem[] = [
+  ...CURRICULUM_FLASHCARDS,
+  ...LESSON_DERIVED_CARDS.filter(
+    (derived) => !CURRICULUM_FLASHCARDS.some((existing) => existing.id === derived.id)
+  ),
+];
+
 class FlashcardService {
   public getCardsByCategory(category: string): FlashcardData[] {
-    const matched = CURRICULUM_FLASHCARDS.filter(
+    const matched = ALL_ACTIVE_FLASHCARDS.filter(
       (item) => item.category.toLowerCase() === category.toLowerCase()
     );
 
-    const source = matched.length > 0 ? matched : CURRICULUM_FLASHCARDS;
+    const source = matched.length > 0 ? matched : ALL_ACTIVE_FLASHCARDS;
 
     return source.map((item) => ({
       id: item.id,
@@ -628,7 +651,7 @@ class FlashcardService {
   }
 
   public getCardsByGrade(grade: number): FlashcardData[] {
-    const matched = CURRICULUM_FLASHCARDS.filter((item) => item.grade <= grade);
+    const matched = ALL_ACTIVE_FLASHCARDS.filter((item) => item.grade <= grade);
     return matched.map((item) => ({
       id: item.id,
       hindi: item.hindi,
@@ -642,6 +665,24 @@ class FlashcardService {
       sampleSentenceHindi: item.sampleSentenceHindi,
       sampleSentenceSanthali: item.sampleSentenceSanthali,
       didYouKnow: item.didYouKnow,
+      isMastered: false,
+    }));
+  }
+
+  public getCardsByLesson(lessonId: string): FlashcardData[] {
+    const lesson = ALL_CURRICULUM_LESSONS.find((l) => l.id === lessonId);
+    if (!lesson) return [];
+    return lesson.flashcards.map((fc) => ({
+      id: fc.id,
+      hindi: fc.hindi,
+      santhali: fc.santhali,
+      santhaliLatin: fc.roman,
+      english: fc.english,
+      category: fc.category,
+      illustration: React.createElement(CuteElephant, { size: 105 }),
+      sampleSentenceHindi: `${fc.hindi} — ${lesson.titleHindi}`,
+      sampleSentenceSanthali: `${fc.santhali} — ${lesson.titleSanthali}`,
+      didYouKnow: `${lesson.standards.join(' • ')} (${lesson.theme})`,
       isMastered: false,
     }));
   }
@@ -667,14 +708,14 @@ class FlashcardService {
 
   public generateQuizQuestions(category?: string) {
     const pool = category
-      ? CURRICULUM_FLASHCARDS.filter((c) => c.category === category)
-      : CURRICULUM_FLASHCARDS;
+      ? ALL_ACTIVE_FLASHCARDS.filter((c) => c.category.toLowerCase() === category.toLowerCase())
+      : ALL_ACTIVE_FLASHCARDS;
 
-    const source = pool.length >= 2 ? pool : CURRICULUM_FLASHCARDS;
+    const source = pool.length >= 2 ? pool : ALL_ACTIVE_FLASHCARDS;
 
     return source.slice(0, 4).map((item, idx) => {
       // Find plausible distractor options from other cards
-      const otherItems = CURRICULUM_FLASHCARDS.filter((c) => c.id !== item.id);
+      const otherItems = ALL_ACTIVE_FLASHCARDS.filter((c) => c.id !== item.id);
       const distractor1 = otherItems[(idx * 3) % otherItems.length]?.santhali || 'ᱦᱟᱹᱛᱤ';
       const distractor2 = otherItems[(idx * 5 + 1) % otherItems.length]?.santhali || 'ᱩᱞ';
 

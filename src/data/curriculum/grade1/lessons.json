@@ -1,66 +1,355 @@
-{
-  "grade": 1,
-  "state": "Jharkhand",
-  "board": "JCERT / SCERT",
-  "curriculumFramework": "NEP 2020 & NIPUN Bharat FLN",
-  "academicYear": "2026-27",
-  "subjects": [
-    {
-      "id": "g1-lang",
-      "name": "हिन्दी एवं संथाली भाषा सेतु (Language MTB-MLE)",
-      "languagePair": "Hindi ↔ Santali (Ol Chiki)",
-      "chapters": [
+[
+  {
+    "id": "g1-fln-01",
+    "grade": 1,
+    "subject": "Foundational Literacy",
+    "standards": ["NCERT 2024", "NIPUN Bharat", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Welcome to Our Classroom",
+    "titleHindi": "हमारी प्यारी कक्षा",
+    "titleSanthali": "ᱟᱵᱚᱣᱟᱜ ᱫᱩᱞᱟᱹᱲ ᱟᱥᱲᱟ",
+    "titleRoman": "Abowag Dular Asra",
+    "theme": "Classroom & Greetings",
+    "difficultyLevel": "Level 1 (Foundational)",
+    "learningObjectives": [
+      "Greet teacher and classmates in mother tongue (Santali) and Hindi",
+      "Recognize first 4 letters in Ol Chiki and Devanagari",
+      "Associate pictures of book, pen, school with trilingual vocabulary"
+    ],
+    "story": {
+      "id": "st-g1-01",
+      "titleEnglish": "Salma Goes to School",
+      "titleHindi": "सलमा का पहला दिन",
+      "titleSanthali": "ᱥᱟᱞᱢᱟᱦᱟᱜ ᱯᱩᱭᱞᱩ ᱫᱤᱱ",
+      "titleRoman": "Salmahag Puylu Din",
+      "paragraphsEnglish": [
+        "Today is Salma's first day at GPS Dumka Primary School. She holds her mother's hand tightly.",
+        "Teacher Sangeeta welcomes her warmly saying: 'Johar Salma! Come sit with your new friends.'",
+        "Salma smiles and opens her new colorful textbook."
+      ],
+      "paragraphsHindi": [
+        "आज सलमा का जीपीएस दुमका प्राथमिक विद्यालय में पहला दिन है। वह अपनी माँ का हाथ पकड़े हुए है।",
+        "शिक्षिका संगीता ने प्यार से स्वागत किया: 'जोहार सलमा! आओ अपने नए दोस्तों के साथ बैठो।'",
+        "सलमा मुस्कुराई और अपनी रंग-बिरंगी नई किताब खोली।"
+      ],
+      "paragraphsSanthali": [
+        "ᱛᱮᱦᱮᱧ ᱫᱚ ᱥᱟᱞᱢᱟᱦᱟᱜ ᱡᱤᱯᱤᱮᱥ ᱫᱩᱢᱠᱟᱹ ᱟᱥᱲᱟ ᱨᱮ ᱯᱩᱭᱞᱩ ᱫᱤᱱ ᱠᱟᱱᱟ ᱾ ᱩᱱᱤ ᱫᱚ ᱟᱡ ᱟᱭᱳᱣᱟᱜ ᱛᱤ ᱥᱟᱵ ᱟᱠᱟᱫ-ᱟ ᱾",
+        "ᱢᱟᱪᱮᱛ ᱥᱟᱝᱜᱤᱛᱟ ᱢᱮᱱ ᱠᱮᱫ-ᱟ: 'ᱡᱚᱦᱟᱨ ᱥᱟᱞᱢᱟ! ᱦᱤᱡᱩᱜ ᱢᱮ, ᱜᱟᱛᱮ ᱠᱚ ᱥᱟᱶ ᱫᱩᱲᱩᱵ ᱢᱮ ᱾'",
+        "ᱥᱟᱞᱢᱟ ᱞᱟᱸᱫᱟ ᱠᱟᱛᱮ ᱟᱡᱟᱜ ᱱᱟᱣᱟ ᱯᱩᱛᱷᱤ ᱡᱷᱤᱡᱽ ᱠᱮᱫ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Tehenj do Salmahag GPS Dumka asra re puylu din kana. Uni do aj ayowag ti sab akad-a.",
+        "Machet Sangeeta men ked-a: 'Johar Salma! Hijug me, gate ko saw durub me.'",
+        "Salma landa kate ajag nawa puthi jhij ked-a."
+      ],
+      "culturalContext": "MTB-MLE classroom orientation in Santhal Pargana, Jharkhand."
+    },
+    "flashcards": [
+      {
+        "id": "fc-g1-01",
+        "english": "School",
+        "hindi": "स्कूल",
+        "santhali": "ᱟᱥᱲᱟ",
+        "roman": "Asra",
+        "category": "classroom"
+      },
+      {
+        "id": "fc-g1-02",
+        "english": "Teacher",
+        "hindi": "शिक्षक",
+        "santhali": "ᱢᱟᱪᱮᱛ",
+        "roman": "Machet",
+        "category": "classroom"
+      },
+      {
+        "id": "fc-g1-03",
+        "english": "Book",
+        "hindi": "किताब",
+        "santhali": "ᱯᱩᱛᱷᱤ",
+        "roman": "Puthi",
+        "category": "classroom"
+      },
+      {
+        "id": "fc-g1-04",
+        "english": "Hello / Greetings",
+        "hindi": "नमस्ते",
+        "santhali": "ᱡᱚᱦᱟᱨ",
+        "roman": "Johar",
+        "category": "greetings"
+      }
+    ],
+    "worksheet": {
+      "id": "ws-g1-01",
+      "title": "My Classroom Friends Tracing & Matching",
+      "instructionsHindi": "चित्र देखकर सही संथाली और हिन्दी शब्द का मिलान करें।",
+      "instructionsSanthali": "ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ ᱠᱟᱛᱮ ᱥᱟᱹᱨᱤ ᱟᱹᱲᱟᱹ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "हमारा प्यारा स्कूल",
-          "titleSanthali": "ᱟᱵᱚᱣᱟᱜ ᱫᱩᱞᱟᱹᱲ ᱟᱥᱲᱟ",
-          "titleRoman": "Abowag Dular Asra",
-          "theme": "Classroom & Greetings",
-          "nipunCompetency": "L1.1 Oral Greetings & Mother Tongue Expression",
-          "keyVocabulary": [
-            { "hindi": "स्कूल", "santhali": "ᱟᱥᱲᱟ", "roman": "Asra" },
-            { "hindi": "शिक्षक", "santhali": "ᱢᱟᱪᱮᱛ", "roman": "Machet" },
-            { "hindi": "किताब", "santhali": "ᱯᱩᱛᱷᱤ", "roman": "Puthi" },
-            { "hindi": "नमस्ते", "santhali": "ᱡᱚᱦᱟᱨ", "roman": "Johar" }
-          ]
+          "questionHindi": "स्कूल (School) को संथाली में क्या कहते हैं?",
+          "questionSanthali": "ᱥᱠᱩᱞ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱟᱥᱲᱟ (Asra)", "ᱯᱩᱛᱷᱤ (Puthi)", "ᱫᱟᱨᱮ (Dare)"],
+          "answer": "ᱟᱥᱲᱟ (Asra)"
         },
         {
-          "chapterNumber": 2,
-          "titleHindi": "झारखंड के पशु-पक्षी",
-          "titleSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮᱱ ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ ᱟᱨ ᱪᱮᱬᱮ",
-          "titleRoman": "Jharkhand ren Jib Jiyali ar Chene",
-          "theme": "Forest Animals & Birds",
-          "nipunCompetency": "L1.3 Picture-Sound Association",
-          "keyVocabulary": [
-            { "hindi": "हाथी", "santhali": "ᱦᱟᱹᱛᱤ", "roman": "Hati" },
-            { "hindi": "मोर", "santhali": "ᱢᱟᱨᱟᱜ", "roman": "Marag" },
-            { "hindi": "बाघ", "santhali": "ᱛᱟᱹᱨᱩᱵ", "roman": "Tarub" },
-            { "hindi": "हिरण", "santhali": "ᱡᱤᱞ", "roman": "Jil" }
-          ]
+          "questionHindi": "किताब (Book) का सही संथाली शब्द चुनें:",
+          "questionSanthali": "ᱠᱤᱛᱟᱵᱽ ᱨᱮᱱᱟᱜ ᱥᱟᱹᱨᱤ ᱟᱹᱲᱟᱹ ᱵᱟᱪᱷᱟᱣ ᱢᱮ:",
+          "type": "matching",
+          "options": ["ᱯᱩᱛᱷᱤ (Puthi)", "ᱢᱟᱪᱮᱛ (Machet)", "ᱡᱚᱦᱟᱨ (Johar)"],
+          "answer": "ᱯᱩᱛᱷᱤ (Puthi)"
         }
       ]
     },
-    {
-      "id": "g1-math",
-      "name": "गणित मेला (Math 1–20)",
-      "languagePair": "Hindi ↔ Santali",
-      "chapters": [
+    "miniQuiz": {
+      "id": "mq-g1-01",
+      "title": "Greetings & School Vocabulary Quiz",
+      "questions": [
         {
-          "chapterNumber": 1,
-          "titleHindi": "आओ 1 से 10 तक गिनें",
-          "titleSanthali": "ᱢᱤᱫ ᱠᱷᱚᱱ ᱜᱮᱞ ᱦᱟᱹᱵᱤᱡ ᱞᱮᱠᱷᱟ",
-          "titleRoman": "Mid khon Gel habij Lekha",
-          "theme": "Counting Numbers",
-          "nipunCompetency": "N1.1 Counting concrete objects up to 10",
-          "keyVocabulary": [
-            { "hindi": "एक", "santhali": "ᱢᱤᱫ", "roman": "Mid" },
-            { "hindi": "दो", "santhali": "ᱵᱟᱨ", "roman": "Bar" },
-            { "hindi": "तीन", "santhali": "ᱯᱮ", "roman": "Pe" },
-            { "hindi": "चार", "santhali": "ᱯᱩᱱ", "roman": "Pun" },
-            { "hindi": "पाँच", "santhali": "ᱢᱚᱬᱮ", "roman": "Mone" }
-          ]
+          "promptHindi": "झारखंड में अभिवादन के लिए कौन सा शब्द बोला जाता है?",
+          "promptSanthali": "ᱡᱷᱟᱨᱠᱷᱚᱸᱰ ᱨᱮ ᱡᱚᱦᱟᱨ ᱞᱟᱹᱜᱤᱫ ᱪᱮᱫ ᱟᱹᱲᱟᱹ ᱠᱚ ᱨᱚᱲ-ᱟ?",
+          "options": ["जोहार (ᱡᱚᱦᱟᱨ)", "अलविदा", "शुक्रिया", "टाटा"],
+          "correctIndex": 0,
+          "explanation": "'जोहार' (Johar) is the traditional respectful greeting in Jharkhand."
+        },
+        {
+          "promptHindi": "शिक्षिका को संथाली में क्या कहते हैं?",
+          "promptSanthali": "ᱢᱟᱪᱮᱛᱟᱹᱱᱤ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "options": ["ᱢᱟᱪᱮᱛ (Machet)", "ᱜᱟᱛᱮ (Gate)", "ᱦᱟᱹᱛᱤ (Hati)", "ᱚᱲᱟᱜ (Orag)"],
+          "correctIndex": 0,
+          "explanation": "Teacher is called Machet (ᱢᱟᱪᱮᱛ) in Santali."
         }
       ]
-    }
-  ]
-}
+    },
+    "audioNarration": {
+      "durationSeconds": 45,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "School",
+      "primaryColor": "#F59E0B",
+      "bannerIllustration": "rural_jharkhand_school_morning",
+      "altText": "Santhal tribal school with children greeting teacher"
+    },
+    "vocabulary": [
+      { "english": "School", "hindi": "स्कूल", "santhali": "ᱟᱥᱲᱟ", "roman": "Asra", "partOfSpeech": "Noun" },
+      { "english": "Teacher", "hindi": "शिक्षक", "santhali": "ᱢᱟᱪᱮᱛ", "roman": "Machet", "partOfSpeech": "Noun" },
+      { "english": "Friend", "hindi": "दोस्त", "santhali": "ᱜᱟᱛᱮ", "roman": "Gate", "partOfSpeech": "Noun" },
+      { "english": "Book", "hindi": "किताब", "santhali": "ᱯᱩᱛᱷᱤ", "roman": "Puthi", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      {
+        "word": "ᱡᱚᱦᱟᱨ",
+        "script": "Ol Chiki",
+        "phoneticIpa": "/dʒoː.haːr/",
+        "romanPhonetic": "Jo-haar",
+        "audioHint": "Soft j followed by open ahar"
+      },
+      {
+        "word": "ᱟᱥᱲᱟ",
+        "script": "Ol Chiki",
+        "phoneticIpa": "/aːs.ɽaː/",
+        "romanPhonetic": "Aas-ra",
+        "audioHint": "Flapped r sound at the end"
+      }
+    ]
+  },
+  {
+    "id": "g1-fnn-01",
+    "grade": 1,
+    "subject": "Foundational Numeracy",
+    "standards": ["NCERT 2024", "NIPUN Bharat"],
+    "titleEnglish": "Counting with Forest Seeds (1 to 10)",
+    "titleHindi": "वन्य बीजों से गिनती (१ से १०)",
+    "titleSanthali": "ᱵᱤᱨ ᱡᱟᱝ ᱛᱮ ᱞᱮᱠᱷᱟ (᱑ ᱠᱷᱚᱱ ᱑᱐)",
+    "titleRoman": "Bir Jang te Lekha (1 khon 10)",
+    "theme": "Numbers 1-10",
+    "difficultyLevel": "Level 1 (Foundational)",
+    "learningObjectives": [
+      "Count physical seeds from 1 to 10 in mother tongue and Hindi",
+      "Write numbers in Ol Chiki and Devanagari numerals",
+      "Compare quantities (more vs less)"
+    ],
+    "story": {
+      "id": "st-g1-02",
+      "titleEnglish": "Birsa's Sal Tree Seeds",
+      "titleHindi": "बिरसा और सखुआ के बीज",
+      "titleSanthali": "ᱵᱤᱨᱥᱟ ᱟᱨ ᱥᱟᱨᱡᱚᱢ ᱡᱟᱝ",
+      "titleRoman": "Birsa ar Sarjom Jang",
+      "paragraphsEnglish": [
+        "Birsa walks through the green Sal forest. Under the tall tree, brown seeds are scattered.",
+        "He picks up one seed: 'Mid (ᱢᱤᱫ)!', then two: 'Bar (ᱵᱟᱨ)!', then three: 'Pe (ᱯᱮ)!'",
+        "By noon, he has collected ten seeds to plant in the school garden."
+      ],
+      "paragraphsHindi": [
+        "बिरसा हरे-भरे सखुआ के जंगल में टहल रहा है। बड़े पेड़ के नीचे भूरे बीज बिखरे हैं।",
+        "उसने एक बीज उठाया: 'एक (१)!', फिर दो: 'दो (२)!', फिर तीन: 'तीन (३)!'",
+        "दोपहर तक उसने स्कूल के बगीचे में बोने के लिए दस बीज इकट्ठे कर लिए।"
+      ],
+      "paragraphsSanthali": [
+        "ᱵᱤᱨᱥᱟ ᱫᱚ ᱦᱟᱹᱨᱭᱟᱹᱲ ᱥᱟᱨᱡᱚᱢ ᱵᱤᱨ ᱨᱮ ᱫᱟᱬᱟᱸ ᱠᱟᱱᱟᱭ ᱾ ᱫᱟᱨᱮ ᱞᱟᱛᱟᱨ ᱨᱮ ᱡᱟᱝ ᱧᱩᱨ ᱟᱠᱟᱱᱟ ᱾",
+        "ᱩᱱᱤ ᱢᱤᱫᱴᱟᱹᱝ ᱡᱟᱝ ᱦᱟᱞᱟᱝ ᱠᱮᱫ-ᱟ: 'ᱢᱤᱫ (᱑)!', ᱤᱱᱟᱹ ᱛᱟᱭᱚᱢ ᱵᱟᱨ: 'ᱵᱟᱨ (᱒)!', ᱟᱨ ᱯᱮ: 'ᱯᱮ (᱓)!'",
+        "ᱛᱤᱠᱤᱱ ᱦᱟᱹᱵᱤᱡ ᱩᱱᱤ ᱜᱮᱞ ᱜᱚᱴᱟᱝ ᱡᱟᱝ ᱟᱥᱲᱟ ᱵᱟᱜᱟᱱ ᱨᱮ ᱨᱚᱦᱚᱭ ᱞᱟᱹᱜᱤᱫ-ᱮ ᱡᱚᱢᱟᱣ ᱠᱮᱫ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Birsa do hariyar sarjom bir re dana kanay. Dare latar re jang njur akana.",
+        "Uni midtang jang halang ked-a: 'Mid (1)!', ina tayom bar: 'Bar (2)!', ar pe: 'Pe (3)!'",
+        "Tikin habij uni gel gotang jang asra bagan re rohoy lagid-e jomaw ked-a."
+      ],
+      "culturalContext": "Sal tree conservation and counting practice in rural Dumka."
+    },
+    "flashcards": [
+      { "id": "fc-num-01", "english": "One", "hindi": "एक", "santhali": "ᱢᱤᱫ", "roman": "Mid", "category": "numbers" },
+      { "id": "fc-num-02", "english": "Two", "hindi": "दो", "santhali": "ᱵᱟᱨ", "roman": "Bar", "category": "numbers" },
+      { "id": "fc-num-03", "english": "Three", "hindi": "तीन", "santhali": "ᱯᱮ", "roman": "Pe", "category": "numbers" },
+      { "id": "fc-num-04", "english": "Five", "hindi": "पाँच", "santhali": "ᱢᱚᱬᱮ", "roman": "Mone", "category": "numbers" },
+      { "id": "fc-num-05", "english": "Ten", "hindi": "दस", "santhali": "ᱜᱮᱞ", "roman": "Gel", "category": "numbers" }
+    ],
+    "worksheet": {
+      "id": "ws-g1-02",
+      "title": "Counting Forest Leaves & Seeds",
+      "instructionsHindi": "पत्तियों को गिनकर सही संख्या लिखें।",
+      "instructionsSanthali": "ᱥᱟᱠᱟᱢ ᱞᱮᱠᱷᱟ ᱠᱟᱛᱮ ᱥᱟᱹᱨᱤ ᱮᱞ ᱚᱞ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "५ + २ = ?",
+          "questionSanthali": "ᱢᱚᱬᱮ + ᱵᱟᱨ = ?",
+          "type": "matching",
+          "options": ["ᱮᱭᱟᱭ (7)", "ᱛᱩᱨᱩᱭ (6)", "ᱤᱨᱟᱹᱞ (8)"],
+          "answer": "ᱮᱭᱟᱭ (7)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g1-02",
+      "title": "Number Sense 1–10 Quiz",
+      "questions": [
+        {
+          "promptHindi": "संथाली में ५ को क्या कहते हैं?",
+          "promptSanthali": "ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱕ ᱫᱚ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "options": ["ᱢᱚᱬᱮ (Mone)", "ᱯᱩᱱ (Pun)", "ᱛᱩᱨᱩᱭ (Turuy)", "ᱜᱮᱞ (Gel)"],
+          "correctIndex": 0,
+          "explanation": "Five is Mone (ᱢᱚᱬᱮ) in Santali."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 40,
+      "speedRate": 0.85,
+      "narratorPersona": "child_voice"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Hash",
+      "primaryColor": "#2563EB",
+      "bannerIllustration": "sal_forest_seeds_counting",
+      "altText": "Children counting shiny brown seeds on clean Sal leaves"
+    },
+    "vocabulary": [
+      { "english": "Seed", "hindi": "बीज", "santhali": "ᱡᱟᱝ", "roman": "Jang", "partOfSpeech": "Noun" },
+      { "english": "Count", "hindi": "गिनती", "santhali": "ᱞᱮᱠᱷᱟ", "roman": "Lekha", "partOfSpeech": "Verb" },
+      { "english": "Tree", "hindi": "पेड़", "santhali": "ᱫᱟᱨᱮ", "roman": "Dare", "partOfSpeech": "Noun" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱢᱤᱫ", "script": "Ol Chiki", "phoneticIpa": "/mid/", "romanPhonetic": "Mid", "audioHint": "Short clear i" },
+      { "word": "ᱢᱚᱬᱮ", "script": "Ol Chiki", "phoneticIpa": "/mɔ.ɳe/", "romanPhonetic": "Mo-ne", "audioHint": "Retroflex n sound" }
+    ]
+  },
+  {
+    "id": "g1-art-01",
+    "grade": 1,
+    "subject": "Arts",
+    "standards": ["NCERT 2024", "Jharkhand SCERT MTB-MLE"],
+    "titleEnglish": "Sohrai Painting with Earth Colors",
+    "titleHindi": "सोहराय भित्ति चित्रकला और मिट्टी के रंग",
+    "titleSanthali": "ᱥᱚᱦᱨᱟᱭ ᱪᱤᱛᱟᱹᱨ ᱟᱨ ᱦᱟᱥᱟ ᱨᱚᱝ",
+    "titleRoman": "Sohray Chitar ar Hasa Rong",
+    "theme": "Traditional Murals & Natural Pigments",
+    "difficultyLevel": "Level 1 (Foundational)",
+    "learningObjectives": [
+      "Identify red clay (geru), white earth (dudhi mitti), and charcoal used in tribal wall art",
+      "Draw sacred animal motifs (cow, calf, peacock) using natural lines",
+      "Sing traditional Sohrai welcome song lines in Santali and Hindi"
+    ],
+    "story": {
+      "id": "st-g1-03",
+      "titleEnglish": "Champa Paints the Courtyard Wall",
+      "titleHindi": "चंपा और आँगन की दीवार",
+      "titleSanthali": "ᱪᱟᱢᱯᱟ ᱟᱨ ᱨᱟᱪᱟ ᱠᱟᱸᱛ",
+      "titleRoman": "Champa ar Racha Kant",
+      "paragraphsEnglish": [
+        "Sohrai festival has arrived in Champa's village. Everyone cleans and decorates their mud houses.",
+        "Grandmother mixes red earth from the riverbank with rice paste. 'Look, Champa, this is Mother Nature's color.'",
+        "Champa uses a soft twig brush to draw a little calf with curved horns on the wall."
+      ],
+      "paragraphsHindi": [
+        "चंपा के गाँव में सोहराय परब का आगमन हुआ। सभी लोग अपने मिट्टी के घरों की सफाई और सजावट कर रहे हैं।",
+        "दादी नदी किनारे की लाल मिट्टी (गेरू) और चावल का लेप घोलती हैं। 'चंपा देखो, यह धरती माँ का रंग है।'",
+        "चंपा ने नीम की दातुन से दीवार पर मुड़ी हुई सींगों वाले एक प्यारे बछड़े का चित्र बनाया।"
+      ],
+      "paragraphsSanthali": [
+        "ᱪᱟᱢᱯᱟᱣᱟᱜ ᱟᱹᱛᱩ ᱨᱮ ᱥᱚᱦᱨᱟᱭ ᱯᱟᱨᱟᱵᱽ ᱥᱮᱴᱮᱨ ᱮᱱᱟ ᱾ ᱥᱟᱱᱟᱢ ᱦᱚᱲ ᱟᱠᱚᱣᱟᱜ ᱦᱟᱥᱟ ᱚᱲᱟᱜ ᱠᱚ ᱥᱟᱯᱷᱟ ᱟᱨ ᱥᱟᱡᱟᱣ ᱮᱫ-ᱟ ᱾",
+        "ᱜᱚᱲᱚᱢ ᱵᱩᱰᱷᱤ ᱜᱟᱰᱟ ᱟᱲᱮ ᱨᱮᱱᱟᱜ ᱟᱨᱟᱜ ᱦᱟᱥᱟ ᱟᱨ ᱦᱳᱲᱳ ᱞᱮᱣᱴᱟᱭ ᱜᱩᱞᱟᱹᱣ ᱠᱮᱫ-ᱟ ᱾ 'ᱪᱟᱢᱯᱟ ᱧᱮᱞ ᱢᱮ, ᱱᱚᱣᱟ ᱫᱚ ᱫᱷᱟᱹᱨᱛᱤ ᱟᱭᱳᱣᱟᱜ ᱨᱚᱝ ᱠᱟᱱᱟ ᱾'",
+        "ᱪᱟᱢᱯᱟ ᱫᱚ ᱢᱤᱫ ᱪᱤᱛᱟᱹᱨ ᱛᱩᱞᱤ ᱛᱮ ᱠᱟᱸᱛ ᱨᱮ ᱠᱚᱰᱨᱟ ᱫᱟᱹᱲ ᱜᱟᱹᱭ ᱜᱩᱲᱤᱭᱟᱹᱣᱟᱜ ᱪᱤᱛᱟᱹᱨ ᱮ ᱵᱮᱱᱟᱣ ᱠᱮᱫ-ᱟ ᱾"
+      ],
+      "paragraphsRoman": [
+        "Champawag atu re Sohray parab seter ena. Sanam hor akowag hasa orag ko sapha ar sajaw ed-a.",
+        "Gorom budhi gada are renag arag hasa ar horo lewta gulanw ked-a. 'Champa njel me, nowa do dharti ayowag rong kana.'",
+        "Champa do mid chitar tuli te kant re kodra dar gay guriyawag chitar e benaw ked-a."
+      ],
+      "culturalContext": "UNESCO recognized Sohrai-Khovar mural art traditions in Hazaribagh and Dumka."
+    },
+    "flashcards": [
+      { "id": "fc-art-01", "english": "Color", "hindi": "रंग", "santhali": "ᱨᱚᱝ", "roman": "Rong", "category": "arts" },
+      { "id": "fc-art-02", "english": "Cow / Cattle", "hindi": "गाय", "santhali": "ᱜᱟᱹᱭ", "roman": "Gay", "category": "arts" },
+      { "id": "fc-art-03", "english": "Wall", "hindi": "दीवार", "santhali": "ᱠᱟᱸᱛ", "roman": "Kant", "category": "arts" },
+      { "id": "fc-art-04", "english": "Earth / Soil", "hindi": "मिट्टी", "santhali": "ᱦᱟᱥᱟ", "roman": "Hasa", "category": "nature" }
+    ],
+    "worksheet": {
+      "id": "ws-g1-03",
+      "title": "Sohrai Animal Motif Tracing & Color Matching",
+      "instructionsHindi": "चित्र देखकर रंगों का संथाली और हिन्दी में सही मिलान करें।",
+      "instructionsSanthali": "ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ ᱠᱟᱛᱮ ᱨᱚᱝ ᱠᱚ ᱥᱟᱹᱨᱤ ᱟᱹᱲᱟᱹ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+      "tasks": [
+        {
+          "questionHindi": "लाल मिट्टी (Geru) को संथाली में क्या कहते हैं?",
+          "questionSanthali": "ᱟᱨᱟᱜ ᱦᱟᱥᱟ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜ-ᱟ?",
+          "type": "matching",
+          "options": ["ᱟᱨᱟᱜ ᱦᱟᱥᱟ (Arag hasa)", "ᱯᱩᱸᱰ ᱦᱟᱥᱟ (Pund hasa)", "ᱦᱮᱸᱫᱮ ᱦᱟᱥᱟ (Hende hasa)"],
+          "answer": "ᱟᱨᱟᱜ ᱦᱟᱥᱟ (Arag hasa)"
+        }
+      ]
+    },
+    "miniQuiz": {
+      "id": "mq-g1-03",
+      "title": "Sohrai Art & Festival Quiz",
+      "questions": [
+        {
+          "promptHindi": "सोहराय परब मुख्य रूप से किस मौसम में मनाया जाता है?",
+          "promptSanthali": "ᱥᱚᱦᱨᱟᱭ ᱯᱟᱨᱟᱵᱽ ᱫᱚ ᱚᱠᱟ ᱚᱠᱛᱚ ᱨᱮ ᱠᱚ ᱢᱟᱱᱟᱣ-ᱟ?",
+          "options": ["धान कटाई के बाद (Horo ir tayom)", "गर्मी में", "बरसात शुरू होते ही"],
+          "correctIndex": 0,
+          "explanation": "Sohrai is celebrated right after the winter paddy harvest as Thanksgiving to cattle."
+        }
+      ]
+    },
+    "audioNarration": {
+      "durationSeconds": 50,
+      "speedRate": 0.9,
+      "narratorPersona": "female_teacher"
+    },
+    "illustrationMetadata": {
+      "themeIcon": "Palette",
+      "primaryColor": "#DC2626",
+      "bannerIllustration": "sohrai_art_wall_painting",
+      "altText": "Santhal tribal girl painting elephant and calf on white-washed mud wall"
+    },
+    "vocabulary": [
+      { "english": "Painting", "hindi": "चित्रकला", "santhali": "ᱪᱤᱛᱟᱹᱨ", "roman": "Chitar", "partOfSpeech": "Noun" },
+      { "english": "Earth / Clay", "hindi": "मिट्टी", "santhali": "ᱦᱟᱥᱟ", "roman": "Hasa", "partOfSpeech": "Noun" },
+      { "english": "Red", "hindi": "लाल", "santhali": "ᱟᱨᱟᱜ", "roman": "Arag", "partOfSpeech": "Adjective" }
+    ],
+    "pronunciationGuide": [
+      { "word": "ᱥᱚᱦᱨᱟᱭ", "script": "Ol Chiki", "phoneticIpa": "/sɔh.raːj/", "romanPhonetic": "Soh-ray", "audioHint": "Aspirated h with melodic ending" },
+      { "word": "ᱪᱤᱛᱟᱹᱨ", "script": "Ol Chiki", "phoneticIpa": "/tʃi.təːr/", "romanPhonetic": "Chi-tar", "audioHint": "Soft ch sound" }
+    ]
+  }
+]
