@@ -206,3 +206,105 @@ export async function getDueVocabularyReviews(
     return [];
   }
 }
+
+import { indexedDbEngine } from '../offline/indexedDbEngine';
+import type { VocabularyWord, GradeLevel, SubjectCode } from '../types/curriculum';
+import { PRODUCTION_VOCABULARY } from '../data/curriculumData';
+
+/**
+ * 5. Curriculum Vocabulary Catalog Queries
+ */
+class VocabularyService {
+  public async getVocabularyWords(options: {
+    grade?: GradeLevel;
+    subject?: SubjectCode | string;
+    category?: string;
+    relatedLesson?: string;
+  } = {}): Promise<VocabularyWord[]> {
+    try {
+      let q = query(collection(db, 'vocabulary'));
+      if (options.grade) q = query(q, where('grade', '==', options.grade));
+      if (options.subject) q = query(q, where('subject', '==', options.subject));
+      if (options.category) q = query(q, where('category', '==', options.category));
+      if (options.relatedLesson) q = query(q, where('relatedLesson', '==', options.relatedLesson));
+
+      const snap = await getDocs(q);
+      if (!snap.empty) {
+        const words = snap.docs.map((d) => d.data() as VocabularyWord);
+        for (const w of words) {
+          indexedDbEngine.setItem('vocabulary' as any, { id: `voc_${w.wordId}`, ...w }).catch(() => {});
+        }
+        return words;
+      }
+    } catch (err) {
+      console.warn('Firestore getVocabularyWords failed, checking cache:', err);
+    }
+
+    try {
+      const cached = await indexedDbEngine.getAll<any>('vocabulary');
+      const filtered = cached.filter((w) => {
+        if (options.grade && w.grade !== options.grade) return false;
+        if (options.subject && w.subject !== options.subject) return false;
+        if (options.category && w.category !== options.category) return false;
+        if (options.relatedLesson && w.relatedLesson !== options.relatedLesson) return false;
+        return w && w.wordId;
+      });
+      if (filtered.length > 0) return filtered;
+    } catch {}
+
+    return PRODUCTION_VOCABULARY.filter((w) => {
+      if (options.grade && w.grade !== options.grade) return false;
+      if (options.subject && w.subject !== options.subject) return false;
+      if (options.category && w.category !== options.category) return false;
+      if (options.relatedLesson && w.relatedLesson !== options.relatedLesson) return false;
+      return true;
+    });
+  }
+
+  public async getWordById(wordId: string): Promise<VocabularyWord | null> {
+    try {
+      const snap = await getDoc(doc(db, 'vocabulary', wordId));
+      if (snap.exists()) {
+        const data = snap.data() as VocabularyWord;
+        indexedDbEngine.setItem('vocabulary' as any, { id: `voc_${data.wordId}`, ...data }).catch(() => {});
+        return data;
+      }
+    } catch {
+      const cached = await indexedDbEngine.getItem<VocabularyWord>('vocabulary', `voc_${wordId}`);
+      if (cached) return cached;
+    }
+
+    return PRODUCTION_VOCABULARY.find((w) => w.wordId === wordId) || null;
+  }
+
+  public async searchVocabulary(term: string): Promise<VocabularyWord[]> {
+    const clean = term.trim().toLowerCase();
+    if (!clean) return [];
+    const all = await this.getVocabularyWords();
+    return all.filter(
+      (w) =>
+        w.english.toLowerCase().includes(clean) ||
+        w.hindi.toLowerCase().includes(clean) ||
+        w.santaliOlChiki.includes(clean) ||
+        w.romanSantali.toLowerCase().includes(clean) ||
+        w.definition.toLowerCase().includes(clean) ||
+        w.tags.some((t) => t.toLowerCase().includes(clean))
+    );
+  }
+
+  public async getCategories(): Promise<string[]> {
+    const all = await this.getVocabularyWords();
+    const set = new Set(all.map((w) => w.category));
+    return Array.from(set);
+  }
+
+  // Preserve SM-2 methods on service instance
+  public reviewWord = reviewVocabularyWord;
+  public getStudentProgress = getStudentVocabularyProgress;
+  public listenToProgress = listenToStudentVocabulary;
+  public getDueReviews = getDueVocabularyReviews;
+}
+
+export const vocabularyService = new VocabularyService();
+export default vocabularyService;
+

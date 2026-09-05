@@ -41,6 +41,18 @@ export { generateQuizReport } from './reportCards';
 export { syncOfflineAttempt, resumeAttempt } from './offlineSync';
 
 // ----------------------------------------------------------------------
+// SPRINT 4 EXPORTS: Production Curriculum Engine & Pedagogical Recommendations
+// ----------------------------------------------------------------------
+export {
+  recommendLesson,
+  recommendStory,
+  recommendWorksheet,
+  recommendQuiz,
+  recommendFlashcards,
+} from './recommendations';
+export { searchCurriculum, downloadCurriculumPack } from './curriculumSearch';
+
+// ----------------------------------------------------------------------
 // BACKGROUND TRIGGERS & ANALYTICS
 // ----------------------------------------------------------------------
 

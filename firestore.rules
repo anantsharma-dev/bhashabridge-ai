@@ -195,5 +195,62 @@ service cloud.firestore {
     match /offlineSyncQueue/{queueId} {
       allow read, write: if isAuthenticated();
     }
+
+    // 20. SPRINT 4: Production Curriculum Engine (Public Read, Admin/Teacher Write)
+    match /curriculum/{curriculumId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /subjects/{subjectId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /chapters/{chapterId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /lessons/{lessonId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /competencies/{competencyId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /vocabulary/{wordId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /stories/{storyId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /activities/{activityId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /worksheetsTemplates/{worksheetId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /lessonPlans/{templateId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin() || isTeacher();
+    }
+    match /flashcardsLibrary/{cardId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /mediaLibrary/{mediaId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /curriculumPacks/{packId} {
+      allow read: if true;
+      allow write: if isDistrictAdmin();
+    }
+    match /lessonCompletions/{completionId} {
+      allow read, write: if isAuthenticated();
+    }
   }
 }
