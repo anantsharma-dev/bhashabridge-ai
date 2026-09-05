@@ -7,10 +7,32 @@ if (!admin.apps.length) {
 }
 const db = admin.firestore();
 
-// Export Sprint 1 Production Backend Cloud Functions
+// ----------------------------------------------------------------------
+// SPRINT 1 EXPORTS: Authentication, Classroom, and Student Management
+// ----------------------------------------------------------------------
 export { createTeacherProfile, syncTeacherProfile } from './auth';
 export { createStudent, deleteStudent, updateAttendance } from './students';
 export { generateClassCode, joinClassroom } from './classrooms';
+
+// ----------------------------------------------------------------------
+// SPRINT 2 EXPORTS: Progress, XP, Attendance, SM-2 Vocabulary, Reading, Speech, Leaderboard
+// ----------------------------------------------------------------------
+export {
+  awardXP,
+  calculateLevelCallable,
+  updateProgress,
+  completeWorksheet,
+  completeQuiz,
+} from './progress';
+export { markAttendance } from './attendance';
+export { completeFlashcard } from './vocabulary';
+export { completeStory } from './reading';
+export { completeSpeechPractice } from './speech';
+export { generateLeaderboard, dailyStreakJob } from './leaderboard';
+
+// ----------------------------------------------------------------------
+// BACKGROUND TRIGGERS & ANALYTICS
+// ----------------------------------------------------------------------
 
 /**
  * 1. Automatically update classroom leaderboard whenever a student's progress updates
@@ -21,27 +43,28 @@ export const onStudentProgressUpdated = onDocumentWritten(
     const afterData = event.data?.after.data();
     if (!afterData) return;
 
-    const { classroomId, studentId, totalXp, starsCount } = afterData;
+    const { classroomId, studentId, totalXP, streak, attendanceXP, level } = afterData;
     if (!classroomId || !studentId) return;
 
     try {
       // Fetch student details for name and avatar
       const studentDoc = await db.collection('students').doc(studentId).get();
       const studentData = studentDoc.data();
-      const studentName = studentData?.name || `Student ${studentId}`;
-      const avatarEmoji = studentData?.avatarEmoji || '🐯';
+      const studentName = studentData?.name || `Student ${studentId.slice(0, 5)}`;
+      const avatar = studentData?.avatar || '🐯';
 
       // Update leaderboard entry for this student
       const leaderboardDocId = `lb_${classroomId}_${studentId}`;
       await db.collection('leaderboard').doc(leaderboardDocId).set(
         {
-          id: leaderboardDocId,
-          classroomId,
           studentId,
+          classroomId,
           studentName,
-          avatarEmoji,
-          xp: totalXp || 0,
-          stars: starsCount || 0,
+          avatar,
+          totalXP: totalXP || 0,
+          streak: streak || 0,
+          attendanceXP: attendanceXP || 0,
+          level: level || 1,
           updatedAt: Date.now(),
         },
         { merge: true }
@@ -83,7 +106,6 @@ export const onClassroomCreated = onDocumentCreated(
  * 3. Callable function: District-Wide FLN Analytics for District Administrators
  */
 export const getDistrictAnalytics = onCall(async (request) => {
-  // Ensure authentication
   if (!request.auth) {
     throw new HttpsError('unauthenticated', 'User must be authenticated to access district analytics.');
   }

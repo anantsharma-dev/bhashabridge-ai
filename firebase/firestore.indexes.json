@@ -1,6 +1,70 @@
 {
   "indexes": [
     {
+      "collectionGroup": "progress",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "teacherId", "order": "ASCENDING" },
+        { "fieldPath": "totalXP", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "progress",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "classroomId", "order": "ASCENDING" },
+        { "fieldPath": "totalXP", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "progress",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "updatedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "vocabularyProgress",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "lastReviewed", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "vocabularyProgress",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "nextReviewDate", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "dailyActivity",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "readingSessions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "speechSessions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "classrooms",
       "queryScope": "COLLECTION",
       "fields": [
@@ -41,6 +105,14 @@
       ]
     },
     {
+      "collectionGroup": "attendance",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "assignments",
       "queryScope": "COLLECTION",
       "fields": [
@@ -62,14 +134,6 @@
       "fields": [
         { "fieldPath": "category", "order": "ASCENDING" },
         { "fieldPath": "gradeLevel", "order": "ASCENDING" }
-      ]
-    },
-    {
-      "collectionGroup": "progress",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "studentId", "order": "ASCENDING" },
-        { "fieldPath": "updatedAt", "order": "DESCENDING" }
       ]
     },
     {

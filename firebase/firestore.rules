@@ -47,8 +47,7 @@ service cloud.firestore {
     
     // 4. District Analytics & Schools (District admins access district-wide analytics)
     match /districtAnalytics/{districtId} {
-      allow read: if isDistrictAdmin();
-      allow write: if isDistrictAdmin();
+      allow read, write: if isDistrictAdmin();
     }
 
     match /schools/{schoolId} {
@@ -61,86 +60,103 @@ service cloud.firestore {
       allow write: if isDistrictAdmin();
     }
     
-    // 5. Attendance records (Teachers manage their classroom attendance)
+    // 5. Attendance records (Teachers manage classroom attendance, Admins inspect)
     match /attendance/{attendanceId} {
       allow read: if isAuthenticated();
       allow write: if isTeacher() || isDistrictAdmin();
     }
     
-    // 6. Assignments & Homework
-    match /assignments/{assignmentId} {
-      allow read: if isAuthenticated();
-      allow write: if isTeacher() || isDistrictAdmin();
-    }
-    
-    // 7. Worksheets & Worksheet History
-    match /worksheets/{worksheetId} {
-      allow read: if isAuthenticated();
-      allow write: if isTeacher() || isDistrictAdmin();
-    }
-
-    match /worksheetHistory/{historyId} {
-      allow read: if isAuthenticated();
-      allow write: if isAuthenticated();
-    }
-    
-    // 8. Stories & Story History
-    match /stories/{storyId} {
-      allow read: if isAuthenticated();
-      allow write: if isTeacher() || isDistrictAdmin();
-    }
-
-    match /storyHistory/{historyId} {
-      allow read: if isAuthenticated();
-      allow write: if isAuthenticated();
-    }
-    
-    // 9. Flashcards & Flashcard History
-    match /flashcards/{flashcardId} {
-      allow read: if isAuthenticated();
-      allow write: if isTeacher() || isDistrictAdmin();
-    }
-
-    match /flashcardHistory/{historyId} {
-      allow read: if isAuthenticated();
-      allow write: if isAuthenticated();
-    }
-    
-    // 10. Quizzes & Quiz Attempts
-    match /quizzes/{quizId} {
-      allow read: if isAuthenticated();
-      allow write: if isTeacher() || isDistrictAdmin();
-    }
-
-    match /quizAttempts/{attemptId} {
-      allow read: if isAuthenticated();
-      allow write: if isAuthenticated();
-    }
-    
-    // 11. Student Progress (Students only access their own progress; Teachers & Admins can inspect)
+    // 6. Student Progress (Students read only their own progress; Teachers & Admins can read & update)
     match /progress/{progressId} {
       allow read: if isDistrictAdmin() || isTeacher() || 
         (isAuthenticated() && (resource == null || resource.data.studentId == request.auth.uid));
       allow write: if isDistrictAdmin() || isTeacher() || 
         (isAuthenticated() && (resource == null || resource.data.studentId == request.auth.uid));
     }
-    
-    // 12. Badges, Streaks & Leaderboard
-    match /badges/{badgeId} {
+
+    // 7. Daily Activity Logs
+    match /dailyActivity/{activityId} {
       allow read: if isAuthenticated();
       allow write: if isAuthenticated();
     }
-    
-    match /streaks/{streakId} {
+
+    // 8. Vocabulary Progress (SM-2 Spaced Repetition)
+    match /vocabularyProgress/{vocabId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    // 9. Reading Sessions Analytics
+    match /readingSessions/{sessionId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 10. Speech & Pronunciation Sessions
+    match /speechSessions/{sessionId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 11. Streak History
+    match /streakHistory/{streakId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 12. Badges & Leaderboard
+    match /badges/{badgeId} {
       allow read, write: if isAuthenticated();
     }
 
     match /leaderboard/{entryId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 13. Assignments & Homework
+    match /assignments/{assignmentId} {
       allow read: if isAuthenticated();
-      allow write: if isAuthenticated();
+      allow write: if isTeacher() || isDistrictAdmin();
     }
     
-    // 13. Translations & Voice History
+    // 14. Worksheets & Worksheet History
+    match /worksheets/{worksheetId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isDistrictAdmin();
+    }
+
+    match /worksheetHistory/{historyId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 15. Stories & Story History
+    match /stories/{storyId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isDistrictAdmin();
+    }
+
+    match /storyHistory/{historyId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 16. Flashcards & Flashcard History
+    match /flashcards/{flashcardId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isDistrictAdmin();
+    }
+
+    match /flashcardHistory/{historyId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 17. Quizzes & Quiz Attempts
+    match /quizzes/{quizId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isDistrictAdmin();
+    }
+
+    match /quizAttempts/{attemptId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // 18. Translations & Voice History
     match /translations/{translationId} {
       allow read, write: if isAuthenticated();
     }
@@ -149,7 +165,7 @@ service cloud.firestore {
       allow read, write: if isAuthenticated();
     }
 
-    // 14. Offline Sync Queue
+    // 19. Offline Sync Queue
     match /offlineSyncQueue/{queueId} {
       allow read, write: if isAuthenticated();
     }
