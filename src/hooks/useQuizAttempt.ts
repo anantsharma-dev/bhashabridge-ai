@@ -7,6 +7,8 @@ export interface UseQuizAttemptProps {
   studentId: string;
   classroomId?: string;
   teacherId?: string;
+  studentName?: string;
+  avatar?: string;
   onComplete?: (result: QuizResult) => void;
 }
 
@@ -19,12 +21,16 @@ export interface UseQuizAttemptReturn {
   timeRemainingSeconds: number;
   loading: boolean;
   isSubmitting: boolean;
+  isOffline: boolean;
+  isCachedOffline: boolean;
   result: QuizResult | null;
   setAnswer: (questionId: string, answer: any) => void;
   goToQuestion: (index: number) => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
   submitQuiz: () => Promise<QuizResult | null>;
+  retakeQuiz: () => void;
+  cacheQuizOffline: () => Promise<boolean>;
 }
 
 export function useQuizAttempt({
@@ -32,6 +38,8 @@ export function useQuizAttempt({
   studentId,
   classroomId = 'class_dumka_g2',
   teacherId = 'teacher-01',
+  studentName = 'Student',
+  avatar = '👦',
   onComplete,
 }: UseQuizAttemptProps): UseQuizAttemptReturn {
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -42,11 +50,29 @@ export function useQuizAttempt({
   const [loading, setLoading] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [result, setResult] = useState<QuizResult | null>(null);
+  const [isOffline, setIsOffline] = useState<boolean>(
+    typeof navigator !== 'undefined' ? !navigator.onLine : false
+  );
+  const [isCachedOffline, setIsCachedOffline] = useState<boolean>(false);
 
   const attemptIdRef = useRef<string>(`att_${studentId}_${quizId}_${Date.now()}`);
   const startTimeRef = useRef<number>(Date.now());
   const timerRef = useRef<any>(null);
   const autoSaveTimerRef = useRef<any>(null);
+
+  // Monitor network status
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   // 1. Initial Load & Resume Safe Attempt
   useEffect(() => {
@@ -55,14 +81,16 @@ export function useQuizAttempt({
     async function loadQuizData() {
       try {
         setLoading(true);
-        const [q, qs] = await Promise.all([
+        const [q, qs, cached] = await Promise.all([
           quizService.getQuizById(quizId),
           quizService.getQuizQuestions(quizId),
+          quizService.isQuizCachedOffline(quizId),
         ]);
 
         if (!isMounted) return;
         setQuiz(q);
         setQuestions(qs);
+        setIsCachedOffline(cached);
 
         const initialTime = (q?.timeLimitMinutes || 15) * 60;
         setTimeRemainingSeconds(initialTime);
@@ -141,6 +169,30 @@ export function useQuizAttempt({
     }
   };
 
+  const cacheQuizOffline = useCallback(async (): Promise<boolean> => {
+    const success = await quizService.cacheQuizForOffline(quizId);
+    setIsCachedOffline(success);
+    return success;
+  }, [quizId]);
+
+  const retakeQuiz = useCallback(() => {
+    // Clear previous timers & autosave
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (autoSaveTimerRef.current) clearInterval(autoSaveTimerRef.current);
+    quizService.clearAutoSave(attemptIdRef.current);
+
+    // Reset fresh attempt
+    attemptIdRef.current = `att_${studentId}_${quizId}_${Date.now()}`;
+    startTimeRef.current = Date.now();
+    setCurrentIndex(0);
+    setAnswers({});
+    setResult(null);
+    setIsSubmitting(false);
+
+    const initialTime = (quiz?.timeLimitMinutes || 15) * 60;
+    setTimeRemainingSeconds(initialTime);
+  }, [quiz, quizId, studentId]);
+
   const submitQuiz = useCallback(async (): Promise<QuizResult | null> => {
     if (isSubmitting || result) return result;
 
@@ -196,7 +248,7 @@ export function useQuizAttempt({
 
       if (totalPoints === 0) totalPoints = 100;
       const percentage = Math.round((earnedPoints / totalPoints) * 100);
-      const passed = percentage >= 60;
+      const passed = percentage >= (quiz?.passingMarks ? Math.round((quiz.passingMarks / totalPoints) * 100) : 60);
       const earnedXP = passed ? 40 : 15;
 
       const attemptPayload = {
@@ -205,6 +257,8 @@ export function useQuizAttempt({
         studentId,
         teacherId,
         classroomId,
+        studentName,
+        avatar,
         startedAt: startTimeRef.current,
         timeTakenSeconds: timeTaken,
         score: earnedPoints,
@@ -229,7 +283,21 @@ export function useQuizAttempt({
     } finally {
       setIsSubmitting(false);
     }
-  }, [isSubmitting, result, quiz, timeRemainingSeconds, questions, answers, quizId, studentId, teacherId, classroomId, onComplete]);
+  }, [
+    isSubmitting,
+    result,
+    quiz,
+    timeRemainingSeconds,
+    questions,
+    answers,
+    quizId,
+    studentId,
+    teacherId,
+    classroomId,
+    studentName,
+    avatar,
+    onComplete,
+  ]);
 
   const handleAutoSubmit = () => {
     submitQuiz();
@@ -244,12 +312,16 @@ export function useQuizAttempt({
     timeRemainingSeconds,
     loading,
     isSubmitting,
+    isOffline,
+    isCachedOffline,
     result,
     setAnswer,
     goToQuestion,
     nextQuestion,
     prevQuestion,
     submitQuiz,
+    retakeQuiz,
+    cacheQuizOffline,
   };
 }
 
