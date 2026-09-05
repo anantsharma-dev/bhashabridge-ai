@@ -21,15 +21,22 @@ export interface RewardItem {
 
 export interface RewardBadgeProps {
   className?: string;
+  starsCount?: number;
+  streakDays?: number;
+  badgesCount?: number;
 }
 
-export const DailyRewardsSection: React.FC<RewardBadgeProps> = ({ className = '' }) => {
+export const DailyRewardsSection: React.FC<RewardBadgeProps> = ({
+  className = '',
+  starsCount = 18,
+  streakDays = 5,
+}) => {
   const rewards: RewardItem[] = [
     {
       id: 'stars',
-      title: '15 Stars Earned',
+      title: `${starsCount} Stars Earned`,
       hindiTitle: 'आज के सितारे',
-      badgeTag: 'Goal: 20 ⭐',
+      badgeTag: `Goal: ${Math.max(20, starsCount + 5)} ⭐`,
       subtitle: 'Classroom rewards today',
       illustration: <StarRewardBadge size={68} />,
       bgColor: 'bg-[#FEFCE8]',
@@ -38,9 +45,9 @@ export const DailyRewardsSection: React.FC<RewardBadgeProps> = ({ className = ''
     },
     {
       id: 'streak',
-      title: '5 Days Active',
+      title: `${streakDays} Days Active`,
       hindiTitle: 'दैनिक लकीर',
-      badgeTag: '5 Days 🔥',
+      badgeTag: `${streakDays} Days 🔥`,
       subtitle: 'Consistent learning streak',
       illustration: <StreakFlameBadge size={68} />,
       bgColor: 'bg-[#FFF7ED]',

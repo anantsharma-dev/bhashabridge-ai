@@ -18,18 +18,27 @@ export interface ProgressItemData {
 
 export interface ProgressCardProps {
   className?: string;
+  vocabularyMastered?: number;
+  speakingPhrases?: number;
+  readingCards?: number;
+  nipunScore?: number;
 }
 
-export const ProgressCard: React.FC<ProgressCardProps> = ({ className = '' }) => {
+export const ProgressCard: React.FC<ProgressCardProps> = ({ 
+  className = '',
+  vocabularyMastered = 28,
+  speakingPhrases = 15,
+  readingCards = 8,
+}) => {
   const items: ProgressItemData[] = [
     {
       id: 'vocab',
       label: 'Vocabulary Completed',
       hindiLabel: 'शब्द ज्ञान',
-      current: 28,
+      current: vocabularyMastered,
       total: 35,
       unit: 'words',
-      percent: 80,
+      percent: Math.min(100, Math.round((vocabularyMastered / 35) * 100)),
       color: 'text-emerald-700 bg-emerald-50 border-emerald-200',
       barColor: '#22C55E',
       icon: <BookOpen size={18} className="text-emerald-600" />,
@@ -39,10 +48,10 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ className = '' }) =>
       id: 'speaking',
       label: 'Speaking Practice',
       hindiLabel: 'मौखिक अभ्यास',
-      current: 15,
+      current: speakingPhrases,
       total: 20,
       unit: 'phrases',
-      percent: 75,
+      percent: Math.min(100, Math.round((speakingPhrases / 20) * 100)),
       color: 'text-blue-700 bg-blue-50 border-blue-200',
       barColor: '#2563EB',
       icon: <Mic size={18} className="text-blue-600" />,
@@ -52,14 +61,14 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ className = '' }) =>
       id: 'reading',
       label: 'Reading Practice',
       hindiLabel: 'पठन अभ्यास',
-      current: 8,
+      current: readingCards,
       total: 10,
       unit: 'cards',
-      percent: 80,
+      percent: Math.min(100, Math.round((readingCards / 10) * 100)),
       color: 'text-amber-700 bg-amber-50 border-amber-200',
       barColor: '#F59E0B',
       icon: <BookMarked size={18} className="text-amber-600" />,
-      hint: 'Picture cards with Ol Chiki script',
+      hint: 'Traditional stories & folk tales',
     },
     {
       id: 'counting',

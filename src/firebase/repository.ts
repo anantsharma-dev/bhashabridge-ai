@@ -28,6 +28,11 @@ import type {
   StreakRecord,
   VoiceHistoryRecord,
   OfflineSyncQueueItem,
+  FlashcardHistoryRecord,
+  StoryHistoryRecord,
+  WorksheetHistoryRecord,
+  LeaderboardEntryRecord,
+  QuizAttemptRecord,
 } from './types';
 import { offlineSyncQueueEngine } from '../offline/syncQueueEngine';
 
@@ -244,3 +249,8 @@ export const badgeRepo = new FirestoreRepository<BadgeRecord>('badges');
 export const streakRepo = new FirestoreRepository<StreakRecord>('streaks');
 export const voiceHistoryRepo = new FirestoreRepository<VoiceHistoryRecord>('voiceHistory');
 export const syncQueueRepo = new FirestoreRepository<OfflineSyncQueueItem>('offlineSyncQueue');
+export const flashcardHistoryRepo = new FirestoreRepository<FlashcardHistoryRecord>('flashcardHistory');
+export const storyHistoryRepo = new FirestoreRepository<StoryHistoryRecord>('storyHistory');
+export const worksheetHistoryRepo = new FirestoreRepository<WorksheetHistoryRecord>('worksheetHistory');
+export const leaderboardRepo = new FirestoreRepository<LeaderboardEntryRecord>('leaderboard');
+export const quizAttemptRepo = new FirestoreRepository<QuizAttemptRecord>('quizAttempts');

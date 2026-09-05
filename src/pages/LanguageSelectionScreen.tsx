@@ -125,7 +125,7 @@ export const LanguageSelectionScreen: React.FC = () => {
 
   const [selectedLang, setSelectedLang] = useState<string>(currentLanguage || 'santhali');
   const [selectedGrade, setSelectedGrade] = useState<string>('Grade 2');
-  const [selectedRole, setSelectedRole] = useState<'teacher' | 'student'>(role || 'teacher');
+  const [selectedRole, setSelectedRole] = useState<'teacher' | 'student'>(role === 'student' ? 'student' : 'teacher');
 
   const handleHearGreeting = (e: React.MouseEvent, opt: LanguageOption) => {
     e.stopPropagation();

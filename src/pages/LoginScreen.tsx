@@ -10,6 +10,7 @@ import {
   ArrowRight,
   AlertCircle,
   KeyRound,
+  Shield,
 } from 'lucide-react';
 import { useAuthStore } from '../services/authStore';
 import { JoharHornbill } from '../components/ui/JoharHornbill';
@@ -26,15 +27,19 @@ export const LoginScreen: React.FC = () => {
     loginWithEmail,
     registerWithEmail,
     loginStudent,
+    loginDistrictAdmin,
     loginDemoTeacher,
     loginDemoStudent,
+    loginDemoDistrictAdmin,
     phoneState,
     authError,
     isLoading,
     clearError,
   } = useAuthStore();
 
-  const [activeTab, setActiveTab] = useState<'teacher' | 'student'>('teacher');
+  const [activeTab, setActiveTab] = useState<'teacher' | 'student' | 'district_admin'>('teacher');
+  const [adminEmail, setAdminEmail] = useState('deo.dumka@jharkhand.gov.in');
+  const [adminPassword, setAdminPassword] = useState('DumkaEdu@2026');
   const [teacherAuthMethod, setTeacherAuthMethod] = useState<'google' | 'phone' | 'email'>('google');
 
   // Phone state
@@ -112,6 +117,17 @@ export const LoginScreen: React.FC = () => {
     }
   };
 
+  const handleDistrictAdminSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      clearError();
+      await loginDistrictAdmin(adminEmail, adminPassword);
+      navigate(from, { replace: true });
+    } catch {
+      // error handled in store
+    }
+  };
+
   const handleQuickDemoTeacher = (preset: 'sangeeta' | 'birsa') => {
     loginDemoTeacher(preset);
     navigate(from, { replace: true });
@@ -152,21 +168,21 @@ export const LoginScreen: React.FC = () => {
         </div>
 
         {/* Primary Role Tabs */}
-        <div className="p-1 rounded-2xl bg-slate-200/80 grid grid-cols-2 gap-1">
+        <div className="p-1 rounded-2xl bg-slate-200/80 grid grid-cols-3 gap-1">
           <button
             type="button"
             onClick={() => {
               setActiveTab('teacher');
               clearError();
             }}
-            className={`min-h-[46px] rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`min-h-[46px] rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               activeTab === 'teacher'
                 ? 'bg-white text-blue-700 shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <GraduationCap size={18} />
-            <span>Teacher (शिक्षक)</span>
+            <GraduationCap size={16} />
+            <span>Teacher</span>
           </button>
 
           <button
@@ -175,14 +191,30 @@ export const LoginScreen: React.FC = () => {
               setActiveTab('student');
               clearError();
             }}
-            className={`min-h-[46px] rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`min-h-[46px] rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               activeTab === 'student'
                 ? 'bg-white text-emerald-700 shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <UserCheck size={18} />
-            <span>Student (विद्यार्थी)</span>
+            <UserCheck size={16} />
+            <span>Student</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('district_admin');
+              clearError();
+            }}
+            className={`min-h-[46px] rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              activeTab === 'district_admin'
+                ? 'bg-white text-purple-700 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Shield size={16} />
+            <span>Admin</span>
           </button>
         </div>
 
@@ -531,6 +563,93 @@ export const LoginScreen: React.FC = () => {
                   <div className="text-[10px] text-emerald-700">⭐ 42 Stars • Grade 2</div>
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* DISTRICT ADMINISTRATOR TAB */}
+        {activeTab === 'district_admin' && (
+          <div className="bg-white rounded-[24px] border border-[#F1EFE8] p-6 shadow-xs space-y-5">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="p-2 rounded-xl bg-purple-100 text-purple-800">
+                  <Shield size={18} />
+                </span>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900 font-baloo">
+                    District Administration Portal
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Jharkhand School Education & Literacy Department (FLN Oversight)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <form onSubmit={handleDistrictAdminSubmit} className="space-y-4">
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  Official Gov / Admin Email
+                </label>
+                <div className="relative">
+                  <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="email"
+                    value={adminEmail}
+                    onChange={(e) => setAdminEmail(e.target.value)}
+                    required
+                    placeholder="deo.dumka@jharkhand.gov.in"
+                    className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  Security Password
+                </label>
+                <div className="relative">
+                  <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    required
+                    placeholder="••••••••••••"
+                    className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-colors"
+              >
+                <span>Access District Analytics • जिला डैशबोर्ड</span>
+                <ArrowRight size={16} />
+              </button>
+            </form>
+
+            {/* Quick Demo District Admin */}
+            <div className="pt-3 border-t border-slate-100 space-y-2">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                Instant District Admin Access (Demo)
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  loginDemoDistrictAdmin();
+                  navigate('/dashboard');
+                }}
+                className="w-full p-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200 text-xs font-bold text-left cursor-pointer transition-colors flex items-center justify-between"
+              >
+                <div>
+                  <div className="font-extrabold">Dr. Rameshwar Hansda (DEO)</div>
+                  <div className="text-[10px] text-purple-700">District Education Officer • Dumka (248 Schools)</div>
+                </div>
+                <span className="text-xs px-2 py-1 bg-purple-200 text-purple-900 rounded-lg font-bold">Instant In →</span>
+              </button>
             </div>
           </div>
         )}

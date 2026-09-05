@@ -177,3 +177,103 @@ export interface OfflineSyncQueueItem {
   lastAttemptAt?: number;
   errorMessage?: string;
 }
+
+export interface StudentRecord {
+  id: string;
+  name: string;
+  pin: string;
+  classroomCode: string;
+  classroomId: string;
+  schoolName: string;
+  grade: string;
+  motherTongue: string;
+  nativeScript: string;
+  avatarEmoji: string;
+  stars: number;
+  xp: number;
+  streakDays: number;
+  badge?: 'star' | 'needs_help' | 'on_track';
+  teacherId: string;
+  createdAt: number;
+  updatedAt?: number;
+}
+
+export interface FlashcardHistoryRecord {
+  id: string;
+  studentId: string;
+  cardId: string;
+  category: string;
+  quality: number; // 0-5
+  interval: number;
+  repetitions: number;
+  easeFactor: number;
+  nextReviewAt: number;
+  timestamp: number;
+}
+
+export interface StoryHistoryRecord {
+  id: string;
+  studentId: string;
+  storyId: string;
+  storyTitle: string;
+  pagesRead: number;
+  totalPages: number;
+  quizScore?: number;
+  timeSpentSeconds: number;
+  completed: boolean;
+  timestamp: number;
+}
+
+export interface WorksheetHistoryRecord {
+  id: string;
+  worksheetId: string;
+  worksheetTitle: string;
+  studentId?: string;
+  teacherId?: string;
+  classroomId: string;
+  score?: number;
+  totalQuestions: number;
+  submittedAnswersJson?: string;
+  timestamp: number;
+}
+
+export interface LeaderboardEntryRecord {
+  id: string;
+  classroomId: string;
+  studentId: string;
+  studentName: string;
+  avatarEmoji: string;
+  xp: number;
+  stars: number;
+  rank: number;
+  updatedAt: number;
+}
+
+export interface QuizAttemptRecord {
+  id: string;
+  quizId: string;
+  quizTitle: string;
+  studentId: string;
+  classroomId: string;
+  score: number;
+  totalPoints: number;
+  percentage: number;
+  answersJson: string;
+  passed: boolean;
+  xpEarned: number;
+  starsEarned: number;
+  timestamp: number;
+}
+
+export interface DistrictAnalytics {
+  district: string;
+  totalSchools: number;
+  totalTeachers: number;
+  totalStudents: number;
+  averageFLNMastery: number;
+  attendanceRate: number;
+  activeLanguages: string[];
+  topPerformingSchools: { schoolName: string; masteryPercent: number }[];
+  weakTopics: { topic: string; masteryPercent: number }[];
+  lastUpdated: number;
+}

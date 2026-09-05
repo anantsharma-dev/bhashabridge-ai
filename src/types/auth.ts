@@ -1,4 +1,4 @@
-export type UserRole = 'teacher' | 'student';
+export type UserRole = 'teacher' | 'student' | 'district_admin';
 
 export interface TeacherProfile {
   id: string;
@@ -33,7 +33,20 @@ export interface StudentProfile {
   badge?: 'star' | 'needs_help' | 'on_track';
 }
 
-export type AuthUser = TeacherProfile | StudentProfile;
+export interface DistrictAdminProfile {
+  id: string;
+  role: 'district_admin';
+  displayName: string;
+  email?: string;
+  phoneNumber?: string;
+  photoURL?: string;
+  district: string;
+  state: string;
+  assignedSchoolsCount: number;
+  provider: 'phone' | 'password' | 'demo' | 'google';
+}
+
+export type AuthUser = TeacherProfile | StudentProfile | DistrictAdminProfile;
 
 export interface ClassroomStudentRecord {
   id: string;

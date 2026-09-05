@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { onAuthStateChanged, type User as FirebaseUser } from 'firebase/auth';
-import type { AuthUser, TeacherProfile, StudentProfile, UserRole } from '../types/auth';
+import type { AuthUser, TeacherProfile, StudentProfile, DistrictAdminProfile, UserRole } from '../types/auth';
 import { auth, isFirebaseConfigured } from './firebase';
 import {
   signInWithGoogleService,
@@ -12,6 +12,7 @@ import {
   signOutService,
   buildDefaultTeacherProfile,
 } from './authService';
+import { signInDistrictAdmin } from './firebase/authService';
 
 const AUTH_STORAGE_KEY = 'bhashabridge_auth_session_v1';
 
@@ -38,8 +39,10 @@ interface AuthState {
   loginWithEmail: (email: string, pass: string) => Promise<void>;
   registerWithEmail: (email: string, pass: string, displayName: string, schoolName?: string) => Promise<void>;
   loginStudent: (classroomCode: string, studentId: string, pin: string) => Promise<void>;
+  loginDistrictAdmin: (email: string, pass: string) => Promise<void>;
   loginDemoTeacher: (preset?: 'sangeeta' | 'birsa') => void;
   loginDemoStudent: (studentId?: string) => void;
+  loginDemoDistrictAdmin: () => void;
   logout: () => Promise<void>;
   clearError: () => void;
   setAuthError: (err: string | null) => void;
@@ -246,6 +249,51 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       });
       throw err;
     }
+  },
+
+  // District Administrator Login (Email & Password)
+  loginDistrictAdmin: async (email: string, pass: string) => {
+    set({ isLoading: true, authError: null });
+    try {
+      const admin = await signInDistrictAdmin(email, pass);
+      persistSession(admin, 'district_admin');
+      set({
+        user: admin,
+        role: 'district_admin',
+        isAuthenticated: true,
+        isLoading: false,
+        authError: null,
+      });
+    } catch (err: any) {
+      set({
+        isLoading: false,
+        authError: err.message || 'District Administrator login failed.',
+      });
+      throw err;
+    }
+  },
+
+  // Instant Demo District Admin login for testing
+  loginDemoDistrictAdmin: () => {
+    const admin: DistrictAdminProfile = {
+      id: 'admin-dumka-01',
+      role: 'district_admin',
+      displayName: 'Dr. Rameshwar Hansda',
+      email: 'deo.dumka@jharkhand.gov.in',
+      phoneNumber: '+919876543210',
+      district: 'Dumka',
+      state: 'Jharkhand',
+      assignedSchoolsCount: 248,
+      provider: 'demo',
+    };
+    persistSession(admin, 'district_admin');
+    set({
+      user: admin,
+      role: 'district_admin',
+      isAuthenticated: true,
+      isLoading: false,
+      authError: null,
+    });
   },
 
   // Instant Demo Teacher login for testing / review

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   HeroCard,
   LearningCard,
@@ -14,7 +14,6 @@ import {
 } from '../components/ui';
 import { useAuthStore } from '../services/authStore';
 import { contentEngineService } from '../services/contentEngineService';
-import { classroomService } from '../services/classroomService';
 import { useCurriculumStore } from '../services/curriculum/curriculumStore';
 import { JourneyMapView } from '../components/gamification/JourneyMapView';
 import { ConfettiCelebration } from '../components/gamification/ConfettiCelebration';
@@ -25,8 +24,16 @@ import {
   RefreshCw,
   Volume2,
   Bell,
+  ShieldCheck,
 } from 'lucide-react';
 import { speechSynthesisService } from '../services/speechSynthesis';
+import {
+  getStudentProgress,
+  getUserStreak,
+  getStoryHistory,
+} from '../services/firebase/progressService';
+import { getAssignmentsByClassroom } from '../services/firebase/classroomService';
+import type { AssignmentRecord, StudentProgressRecord } from '../firebase/types';
 
 export const Dashboard: React.FC = () => {
   const { user } = useAuthStore();
@@ -34,12 +41,50 @@ export const Dashboard: React.FC = () => {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
 
+  // Live Firestore State
+  const [liveProgress, setLiveProgress] = useState<StudentProgressRecord | null>(null);
+  const [streakDays, setStreakDays] = useState(5);
+  const [assignments, setAssignments] = useState<AssignmentRecord[]>([]);
+  const [continueTitle, setContinueTitle] = useState('Animals in Hindi & Santhali');
+  const [continueSubtitle, setContinueSubtitle] = useState('12 of 16 Words Mastered');
+  const [continueProgressPercent, setContinueProgressPercent] = useState(75);
+
   const dailyWord = contentEngineService.getDailyWord();
   const dailyFact = contentEngineService.getDailyFact();
-  const assignments = classroomService.getAssignments('JH-DUMKA-01');
 
   const studentUser = user && user.role === 'student' ? user : null;
-  const currentXp = studentUser?.xp || (user && user.role === 'teacher' ? user.xp : 1240);
+  const currentXp = liveProgress?.totalXp || studentUser?.xp || (user && user.role === 'teacher' ? user.xp : 1240);
+  const currentStars = liveProgress?.starsCount || studentUser?.stars || 18;
+
+  useEffect(() => {
+    const userId = user?.id || 's1';
+    const classroomCode = (user && 'classroomCode' in user && user.classroomCode) ? user.classroomCode : 'JH-DUMKA-01';
+
+    // 1. Fetch live student progress from Firestore
+    getStudentProgress(userId).then((prog) => {
+      if (prog) setLiveProgress(prog);
+    }).catch(console.warn);
+
+    // 2. Fetch live streak from Firestore
+    getUserStreak(userId).then((st) => {
+      if (st) setStreakDays(st.currentStreakDays);
+    }).catch(console.warn);
+
+    // 3. Fetch live assignments from Firestore
+    getAssignmentsByClassroom(classroomCode).then((asgs) => {
+      if (asgs && asgs.length > 0) setAssignments(asgs);
+    }).catch(console.warn);
+
+    // 4. Fetch recent story progress for Continue Learning
+    getStoryHistory(userId).then((history) => {
+      if (history && history.length > 0) {
+        const recent = history[0];
+        setContinueTitle(recent.storyTitle);
+        setContinueSubtitle(`${recent.pagesRead} of ${recent.totalPages} Pages Read`);
+        setContinueProgressPercent(Math.min(100, Math.round((recent.pagesRead / recent.totalPages) * 100)));
+      }
+    }).catch(console.warn);
+  }, [user]);
 
   const showToast = (message: string, type: ToastType = 'success') => {
     setToast({ message, type });
@@ -226,14 +271,40 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
+      {/* DISTRICT ADMIN OVERSIGHT BANNER (WHEN LOGGED IN AS DISTRICT ADMIN) */}
+      {user?.role === 'district_admin' && (
+        <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-3">
+            <span className="p-2 rounded-xl bg-purple-100 text-purple-800">
+              <ShieldCheck size={18} />
+            </span>
+            <div>
+              <span className="font-extrabold text-purple-950 block text-sm">
+                District Administrator Oversight • {user.district || 'Dumka'}
+              </span>
+              <p className="text-purple-800 font-medium text-[11px]">
+                Active monitoring for 248 MTB-MLE Primary Schools • FLN Target Rate: 85%
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => showToast('District Analytics report generated for Dumka.', 'info')}
+            className="px-3 py-1.5 rounded-xl bg-purple-700 text-white font-bold hover:bg-purple-800 cursor-pointer self-start sm:self-auto"
+          >
+            Export District FLN Report
+          </button>
+        </div>
+      )}
+
       {/* SECTION 2: CONTINUE LEARNING CARD */}
       <LearningCard
-        title="Animals in Hindi & Santhali"
+        title={continueTitle}
         hindiTitle="वन्य एवं घरेलू पशु (गाय, बकरी, हाथी, बाघ)"
         santhaliTitle="ᱵᱤᱨ ᱟᱨ ᱚᱲᱟᱜ ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ (Bir ar orag jib jiyali)"
         duration="12 mins"
-        progressPercent={75}
-        wordsMastered="12 of 16 Words Mastered"
+        progressPercent={continueProgressPercent}
+        wordsMastered={continueSubtitle}
         targetLink="/flashcards"
       />
 
@@ -307,13 +378,19 @@ export const Dashboard: React.FC = () => {
       </div>
 
       {/* SECTION 4: NIPUN BHARAT PROGRESS CARD */}
-      <ProgressCard />
+      <ProgressCard
+        vocabularyMastered={liveProgress?.masteredWordsCount || 28}
+        readingCards={liveProgress?.storiesCompletedCount || 8}
+      />
 
       {/* SECTION 4B: FOREST JOURNEY MAP VIEW */}
       <JourneyMapView currentXp={currentXp} />
 
       {/* SECTION 5: DAILY REWARDS SECTION */}
-      <DailyRewardsSection />
+      <DailyRewardsSection
+        starsCount={currentStars}
+        streakDays={streakDays}
+      />
 
       {/* SECTION 6: TEACHER QUICK ACTIONS */}
       <TeacherQuickActions />
